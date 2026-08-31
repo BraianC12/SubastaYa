@@ -1,10 +1,14 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Brian\\Desktop\\SubastaYa\\",
+  "WorkspaceRootPath": "C:\\ProyectoDeSoftware-TP\\SubastaYa\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Brian\\Desktop\\SubastaYa\\Infraestructure\\Migrations\\20260830003246_InitDB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Infraestructure\\Migrations\\20260830003246_InitDB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{02BE25B9-B93A-578A-87F6-79E0D89B1565}|SubastaYa\\SubastaYa.csproj|c:\\proyectodesoftware-tp\\subastaya\\subastaya\\controllers\\subastascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02BE25B9-B93A-578A-87F6-79E0D89B1565}|SubastaYa\\SubastaYa.csproj|solutionrelative:subastaya\\controllers\\subastascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABA3F542-59E7-CDD3-52A7-C71F658301AE}|Infraestructure\\Infraestructure.csproj|c:\\proyectodesoftware-tp\\subastaya\\infraestructure\\data\\subastadbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ABA3F542-59E7-CDD3-52A7-C71F658301AE}|Infraestructure\\Infraestructure.csproj|solutionrelative:infraestructure\\data\\subastadbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,14 +31,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "20260830003246_InitDB.cs",
-              "DocumentMoniker": "C:\\Users\\Brian\\Desktop\\SubastaYa\\Infraestructure\\Migrations\\20260830003246_InitDB.cs",
-              "RelativeDocumentMoniker": "Infraestructure\\Migrations\\20260830003246_InitDB.cs",
-              "ToolTip": "C:\\Users\\Brian\\Desktop\\SubastaYa\\Infraestructure\\Migrations\\20260830003246_InitDB.cs",
-              "RelativeToolTip": "Infraestructure\\Migrations\\20260830003246_InitDB.cs",
-              "ViewState": "AgIAALsAAAAAAAAAAAAgwMsAAAATAAAAAAAAAA==",
+              "Title": "SubastasController.cs",
+              "DocumentMoniker": "C:\\ProyectoDeSoftware-TP\\SubastaYa\\SubastaYa\\Controllers\\SubastasController.cs",
+              "RelativeDocumentMoniker": "SubastaYa\\Controllers\\SubastasController.cs",
+              "ToolTip": "C:\\ProyectoDeSoftware-TP\\SubastaYa\\SubastaYa\\Controllers\\SubastasController.cs",
+              "RelativeToolTip": "SubastaYa\\Controllers\\SubastasController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-30T00:32:46.578Z",
+              "WhenOpened": "2026-08-30T22:56:13.794Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SubastaDbContext.cs",
+              "DocumentMoniker": "C:\\ProyectoDeSoftware-TP\\SubastaYa\\Infraestructure\\Data\\SubastaDbContext.cs",
+              "RelativeDocumentMoniker": "Infraestructure\\Data\\SubastaDbContext.cs",
+              "ToolTip": "C:\\ProyectoDeSoftware-TP\\SubastaYa\\Infraestructure\\Data\\SubastaDbContext.cs",
+              "RelativeToolTip": "Infraestructure\\Data\\SubastaDbContext.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-30T21:17:52.348Z",
               "EditorCaption": ""
             }
           ]
