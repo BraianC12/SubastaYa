@@ -36,3 +36,5 @@ C:\ProyectoDeSoftware-TP\SubastaYa\Infraestructure\obj\Debug\net8.0\refint\Infra
 C:\ProyectoDeSoftware-TP\SubastaYa\Infraestructure\obj\Debug\net8.0\Infraestructure.pdb
 C:\ProyectoDeSoftware-TP\SubastaYa\Infraestructure\obj\Debug\net8.0\Infraestructure.genruntimeconfig.cache
 C:\ProyectoDeSoftware-TP\SubastaYa\Infraestructure\obj\Debug\net8.0\ref\Infraestructure.dll
+C:\Users\Brian\Desktop\SubastaYa\Infraestructure\bin\Debug\net8.0\Application.dll
+C:\Users\Brian\Desktop\SubastaYa\Infraestructure\bin\Debug\net8.0\Application.pdb

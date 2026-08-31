@@ -1,13 +1,33 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\ProyectoDeSoftware-TP\\SubastaYa\\",
+  "WorkspaceRootPath": "C:\\Users\\Brian\\Desktop\\SubastaYa\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{02BE25B9-B93A-578A-87F6-79E0D89B1565}|SubastaYa\\SubastaYa.csproj|c:\\proyectodesoftware-tp\\subastaya\\subastaya\\controllers\\subastascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{02BE25B9-B93A-578A-87F6-79E0D89B1565}|SubastaYa\\SubastaYa.csproj|solutionrelative:subastaya\\controllers\\subastascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{02BE25B9-B93A-578A-87F6-79E0D89B1565}|SubastaYa\\SubastaYa.csproj|c:\\users\\brian\\desktop\\subastaya\\subastaya\\controllers\\walletcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02BE25B9-B93A-578A-87F6-79E0D89B1565}|SubastaYa\\SubastaYa.csproj|solutionrelative:subastaya\\controllers\\walletcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ABA3F542-59E7-CDD3-52A7-C71F658301AE}|Infraestructure\\Infraestructure.csproj|c:\\proyectodesoftware-tp\\subastaya\\infraestructure\\data\\subastadbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{02BE25B9-B93A-578A-87F6-79E0D89B1565}|SubastaYa\\SubastaYa.csproj|c:\\users\\brian\\desktop\\subastaya\\subastaya\\controllers\\subastayacontrollers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02BE25B9-B93A-578A-87F6-79E0D89B1565}|SubastaYa\\SubastaYa.csproj|solutionrelative:subastaya\\controllers\\subastayacontrollers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02BE25B9-B93A-578A-87F6-79E0D89B1565}|SubastaYa\\SubastaYa.csproj|c:\\users\\brian\\desktop\\subastaya\\subastaya\\dtos\\walletbalancedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02BE25B9-B93A-578A-87F6-79E0D89B1565}|SubastaYa\\SubastaYa.csproj|solutionrelative:subastaya\\dtos\\walletbalancedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02BE25B9-B93A-578A-87F6-79E0D89B1565}|SubastaYa\\SubastaYa.csproj|c:\\users\\brian\\desktop\\subastaya\\subastaya\\dtos\\createauctiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02BE25B9-B93A-578A-87F6-79E0D89B1565}|SubastaYa\\SubastaYa.csproj|solutionrelative:subastaya\\dtos\\createauctiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02BE25B9-B93A-578A-87F6-79E0D89B1565}|SubastaYa\\SubastaYa.csproj|c:\\users\\brian\\desktop\\subastaya\\subastaya\\dtos\\auctiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02BE25B9-B93A-578A-87F6-79E0D89B1565}|SubastaYa\\SubastaYa.csproj|solutionrelative:subastaya\\dtos\\auctiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02BE25B9-B93A-578A-87F6-79E0D89B1565}|SubastaYa\\SubastaYa.csproj|c:\\users\\brian\\desktop\\subastaya\\subastaya\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{02BE25B9-B93A-578A-87F6-79E0D89B1565}|SubastaYa\\SubastaYa.csproj|solutionrelative:subastaya\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ABA3F542-59E7-CDD3-52A7-C71F658301AE}|Infraestructure\\Infraestructure.csproj|c:\\users\\brian\\desktop\\subastaya\\infraestructure\\data\\subastadbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ABA3F542-59E7-CDD3-52A7-C71F658301AE}|Infraestructure\\Infraestructure.csproj|solutionrelative:infraestructure\\data\\subastadbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -31,28 +51,92 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "SubastasController.cs",
-              "DocumentMoniker": "C:\\ProyectoDeSoftware-TP\\SubastaYa\\SubastaYa\\Controllers\\SubastasController.cs",
-              "RelativeDocumentMoniker": "SubastaYa\\Controllers\\SubastasController.cs",
-              "ToolTip": "C:\\ProyectoDeSoftware-TP\\SubastaYa\\SubastaYa\\Controllers\\SubastasController.cs",
-              "RelativeToolTip": "SubastaYa\\Controllers\\SubastasController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAgAAAAAAAAAA==",
+              "Title": "WalletController.cs",
+              "DocumentMoniker": "C:\\Users\\Brian\\Desktop\\SubastaYa\\SubastaYa\\Controllers\\WalletController.cs",
+              "RelativeDocumentMoniker": "SubastaYa\\Controllers\\WalletController.cs",
+              "ToolTip": "C:\\Users\\Brian\\Desktop\\SubastaYa\\SubastaYa\\Controllers\\WalletController.cs",
+              "RelativeToolTip": "SubastaYa\\Controllers\\WalletController.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAIwA4AAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-30T22:56:13.794Z",
+              "WhenOpened": "2026-08-31T22:20:10.2Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "WalletBalanceDto.cs",
+              "DocumentMoniker": "C:\\Users\\Brian\\Desktop\\SubastaYa\\SubastaYa\\DTOs\\WalletBalanceDto.cs",
+              "RelativeDocumentMoniker": "SubastaYa\\DTOs\\WalletBalanceDto.cs",
+              "ToolTip": "C:\\Users\\Brian\\Desktop\\SubastaYa\\SubastaYa\\DTOs\\WalletBalanceDto.cs",
+              "RelativeToolTip": "SubastaYa\\DTOs\\WalletBalanceDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-31T22:16:49.939Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CreateAuctionDto.cs",
+              "DocumentMoniker": "C:\\Users\\Brian\\Desktop\\SubastaYa\\SubastaYa\\DTOs\\CreateAuctionDto.cs",
+              "RelativeDocumentMoniker": "SubastaYa\\DTOs\\CreateAuctionDto.cs",
+              "ToolTip": "C:\\Users\\Brian\\Desktop\\SubastaYa\\SubastaYa\\DTOs\\CreateAuctionDto.cs",
+              "RelativeToolTip": "SubastaYa\\DTOs\\CreateAuctionDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-31T21:48:41.489Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "SubastaYaControllers.cs",
+              "DocumentMoniker": "C:\\Users\\Brian\\Desktop\\SubastaYa\\SubastaYa\\Controllers\\SubastaYaControllers.cs",
+              "RelativeDocumentMoniker": "SubastaYa\\Controllers\\SubastaYaControllers.cs",
+              "ToolTip": "C:\\Users\\Brian\\Desktop\\SubastaYa\\SubastaYa\\Controllers\\SubastaYaControllers.cs",
+              "RelativeToolTip": "SubastaYa\\Controllers\\SubastaYaControllers.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAuwEcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-31T21:31:00.171Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AuctionDto.cs",
+              "DocumentMoniker": "C:\\Users\\Brian\\Desktop\\SubastaYa\\SubastaYa\\DTOs\\AuctionDto.cs",
+              "RelativeDocumentMoniker": "SubastaYa\\DTOs\\AuctionDto.cs",
+              "ToolTip": "C:\\Users\\Brian\\Desktop\\SubastaYa\\SubastaYa\\DTOs\\AuctionDto.cs",
+              "RelativeToolTip": "SubastaYa\\DTOs\\AuctionDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-31T21:27:57.859Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Brian\\Desktop\\SubastaYa\\SubastaYa\\appsettings.json",
+              "RelativeDocumentMoniker": "SubastaYa\\appsettings.json",
+              "ToolTip": "C:\\Users\\Brian\\Desktop\\SubastaYa\\SubastaYa\\appsettings.json",
+              "RelativeToolTip": "SubastaYa\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAACiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-08-31T01:01:12.086Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "SubastaDbContext.cs",
-              "DocumentMoniker": "C:\\ProyectoDeSoftware-TP\\SubastaYa\\Infraestructure\\Data\\SubastaDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Brian\\Desktop\\SubastaYa\\Infraestructure\\Data\\SubastaDbContext.cs",
               "RelativeDocumentMoniker": "Infraestructure\\Data\\SubastaDbContext.cs",
-              "ToolTip": "C:\\ProyectoDeSoftware-TP\\SubastaYa\\Infraestructure\\Data\\SubastaDbContext.cs",
+              "ToolTip": "C:\\Users\\Brian\\Desktop\\SubastaYa\\Infraestructure\\Data\\SubastaDbContext.cs",
               "RelativeToolTip": "Infraestructure\\Data\\SubastaDbContext.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-30T21:17:52.348Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-30T21:17:52.348Z"
             }
           ]
         },

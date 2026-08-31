@@ -27,3 +27,6 @@ C:\ProyectoDeSoftware-TP\SubastaYa\Application\obj\Debug\net8.0\Application.dll
 C:\ProyectoDeSoftware-TP\SubastaYa\Application\obj\Debug\net8.0\refint\Application.dll
 C:\ProyectoDeSoftware-TP\SubastaYa\Application\obj\Debug\net8.0\Application.pdb
 C:\ProyectoDeSoftware-TP\SubastaYa\Application\obj\Debug\net8.0\ref\Application.dll
+C:\Users\Brian\Desktop\SubastaYa\Application\bin\Debug\net8.0\Domain.dll
+C:\Users\Brian\Desktop\SubastaYa\Application\bin\Debug\net8.0\Domain.pdb
+C:\Users\Brian\Desktop\SubastaYa\Application\obj\Debug\net8.0\Application.csproj.AssemblyReference.cache

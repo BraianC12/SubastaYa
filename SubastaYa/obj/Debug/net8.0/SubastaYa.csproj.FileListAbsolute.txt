@@ -435,3 +435,5 @@ C:\ProyectoDeSoftware-TP\SubastaYa\SubastaYa\obj\Debug\net8.0\refint\SubastaYa.d
 C:\ProyectoDeSoftware-TP\SubastaYa\SubastaYa\obj\Debug\net8.0\SubastaYa.pdb
 C:\ProyectoDeSoftware-TP\SubastaYa\SubastaYa\obj\Debug\net8.0\SubastaYa.genruntimeconfig.cache
 C:\ProyectoDeSoftware-TP\SubastaYa\SubastaYa\obj\Debug\net8.0\ref\SubastaYa.dll
+C:\Users\Brian\Desktop\SubastaYa\SubastaYa\bin\Debug\net8.0\Application.dll
+C:\Users\Brian\Desktop\SubastaYa\SubastaYa\bin\Debug\net8.0\Application.pdb
