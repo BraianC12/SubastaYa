@@ -2,7 +2,7 @@
 using Infraestructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SubastaYa.DTOs;
+using Application.DTOs;
 
 namespace SubastaYa.Controllers
 {

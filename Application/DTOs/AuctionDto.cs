@@ -1,4 +1,4 @@
-﻿namespace SubastaYa.DTOs
+﻿namespace Application.DTOs
 {
     public class AuctionDto
     {
