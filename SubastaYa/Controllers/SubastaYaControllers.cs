@@ -1,8 +1,8 @@
 ﻿using Domain;
-using Infraestructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Application.DTOs;
+using Infraestructure.Persistence;
 
 namespace SubastaYa.Controllers
 {

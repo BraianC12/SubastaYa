@@ -1,4 +1,4 @@
-using Infraestructure.Data;
+using Infraestructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
