@@ -11,10 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\Billeteras\Commands\" />
-    <Folder Include="UseCases\Billeteras\Handlers\" />
-    <Folder Include="UseCases\Subastas\Commands\" />
-    <Folder Include="UseCases\Subastas\Handlers\" />
+    <PackageReference Include="MediatR" Version="14.2.0" />
   </ItemGroup>
 
 </Project>

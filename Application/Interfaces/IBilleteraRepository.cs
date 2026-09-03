@@ -1,5 +1,4 @@
 ﻿using Domain;
-using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {

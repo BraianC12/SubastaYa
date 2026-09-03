@@ -1,70 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Application.DTOs;
-using Domain;
-using Infraestructure.Persistence;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using Application.UseCases.Billeteras.Commands;
 
 namespace SubastaYa.Controllers
 {
-    [Route("api/wallet")]
+    [Route("api/wallets")]
     [ApiController]
     public class WalletController : ControllerBase
     {
-        private readonly SubastaDbContext _context;
+        private readonly IMediator _mediator;
 
-        public WalletController(SubastaDbContext context)
+        public WalletController(IMediator mediator)
         {
-            _context = context;
+            _mediator = mediator;
         }
 
-        [HttpGet("balance")]
-        public async Task<ActionResult<WalletBalanceDto>> GetBalance([FromQuery] int usuarioID)
-        {
-            var billetera = await _context.Billeteras
-                .FirstOrDefaultAsync(b => b.Usuario_Id == usuarioID);
-
-            if (billetera == null)
-            {
-                return NotFound(new { mensaje = "Billetera no encontrada para este usuario" });
-            }
-
-            var balance = new WalletBalanceDto
-            {
-                Saldo_Total = billetera.Saldo_Total,
-                Saldo_Retenido = billetera.Saldo_Retenido,
-                Saldo_Disponible = billetera.Saldo_Total - billetera.Saldo_Retenido
-            };
-
-            return Ok(balance);
-
-        }
-
-        //Endpoint POST: /api/wallet/deposit
         [HttpPost("deposit")]
-        public async Task<IActionResult> Deposit([FromBody] DepositoDto dto)
+        public async Task<IActionResult> Deposit([FromBody] DepositCommand command)
         {
-            if (dto.Monto <= 0)
-            {
-                return BadRequest(new { mensaje = "El monto a depositar debe ser mayor a cero" });
-            }
+            decimal nuevoSaldo = await _mediator.Send(command);
 
-            var billetera = await _context.Billeteras
-                .FirstOrDefaultAsync(b => b.Usuario_Id == dto.Usuario_Id);
-
-            if (billetera == null)
-            {
-                return NotFound(new { mensaje = "Billetera no encontrada para el usuario" });
-            }
-
-            billetera.Saldo_Total += dto.Monto;
-
-            await _context.SaveChangesAsync();
-
-            // 6. Retornamos HTTP 200 OK confirmando la operación y mostrando cómo quedó la cuenta
             return Ok(new
             {
-                mensaje = "Depósito acreditado exitosamente.",
-                nuevoSaldoTotal = billetera.Saldo_Total
+                mensaje = "Depósito realizado con éxito",
+                saldoActualizado = nuevoSaldo
             });
         }
     }
