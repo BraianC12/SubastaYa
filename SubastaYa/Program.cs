@@ -1,4 +1,6 @@
 using Application.Interfaces;
+using Infraestructure.Data;
+using Infraestructure.Repositories;
 using Infraestructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +11,9 @@ builder.Services.AddDbContext<SubastaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
     );
 
+//Repositorios
+builder.Services.AddScoped<ISubastaRepository, SubastaRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 // Add services to the container.
