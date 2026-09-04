@@ -13,5 +13,8 @@ namespace Application.Interfaces
         Task<List<Subasta>> Listar();
         Task Agregar(Subasta entidad);
         void Eliminar(Subasta entidad);
+        Task AddAsync(Subasta subasta);
+        Task<Subasta> GetByIdAsync(int id);
     }
 }
+      

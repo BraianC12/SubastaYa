@@ -1,6 +1,7 @@
 using Application.Interfaces;
 using Infraestructure.Data;
 using Infraestructure.Repositories;
+using Infraestructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +23,24 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+
+
+
+builder.Services.AddScoped<ISubastaRepository, Infrastructure.Persistence.Repositories.SubastaRepository>();
+
+builder.Services.AddScoped<IUnitOfWork, Infrastructure.Persistence.UnitOfWork>();
+
+builder.Services.AddScoped<IBilleteraRepository, Infraestructure.Persistence.Repositories.BilleteraRepository>();
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Application.UseCases.Subastas.Commands.CreateSubastaCommand).Assembly));
+
+
 var app = builder.Build();
+
+app.UseMiddleware<SubastaYa.Middlewares.ExceptionMiddleware>();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

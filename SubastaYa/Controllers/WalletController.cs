@@ -1,20 +1,23 @@
-﻿using Infraestructure.Data;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Application.DTOs;
 using Domain;
 using Application.UsesCases.Billeteras.Handlers;
 using Infraestructure.Repositories;
+using System.Threading.Tasks;
+using Application.UseCases.Billeteras.Commands;
 
 namespace SubastaYa.Controllers
 {
-    [Route("api/wallet")]
+    [Route("api/wallets")]
     [ApiController]
     public class WalletController : ControllerBase
     {
         private readonly ListarBilleterasQueryHandler _listar;
+        private readonly IMediator _mediator;
 
-        public WalletController(SubastaDbContext context)
+        public WalletController(IMediator mediator)
         {
             _listar = new ListarBilleterasQueryHandler(new BilleteraRepository(context));
         }
@@ -25,6 +28,19 @@ namespace SubastaYa.Controllers
             var billeteras = await _listar.Handle();
 
             return Ok(billeteras);
+            _mediator = mediator;
+        }
+
+        [HttpPost("deposit")]
+        public async Task<IActionResult> Deposit([FromBody] DepositCommand command)
+        {
+            decimal nuevoSaldo = await _mediator.Send(command);
+
+            return Ok(new
+            {
+                mensaje = "Depósito realizado con éxito",
+                saldoActualizado = nuevoSaldo
+            });
         }
     }
 }

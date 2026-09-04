@@ -1,7 +1,7 @@
 ﻿using Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infraestructure.Data
+namespace Infraestructure.Persistence
 {
     public class SubastaDbContext : DbContext
     {

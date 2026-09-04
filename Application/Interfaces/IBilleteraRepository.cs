@@ -10,5 +10,7 @@ namespace Application.Interfaces
     public interface IBilleteraRepository
     {
         Task<List<Billetera>> Listar();
+        Task<Billetera> GetByUsuarioIdAsync(int usuarioId);
     }
 }
+       
