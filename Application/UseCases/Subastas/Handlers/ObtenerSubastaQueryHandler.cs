@@ -1,16 +1,15 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
-using Application.UsesCases.Subastas.Queries;
-using Domain;
+using Application.UseCases.Subastas.Queries;
+using MediatR;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.UsesCases.Handlers
+namespace Application.UseCases.Handlers
 {
-    public class ObtenerSubastaQueryHandler
+    public class ObtenerSubastaQueryHandler : IRequestHandler<ObtenerSubastaQuery, AuctionDetailDto>
     {
         private readonly ISubastaRepository _repository;
 
@@ -19,13 +18,13 @@ namespace Application.UsesCases.Handlers
             _repository = subastaRepository;
         }
 
-        public async Task<AuctionDetailDto> Handle(ObtenerSubastaQuery q)
+        public async Task<AuctionDetailDto> Handle(ObtenerSubastaQuery request, CancellationToken cancellationToken)
         {
-            var subasta = await _repository.Obtener(q.id);
+            var subasta = await _repository.Obtener(request.id);
 
             if (subasta == null)
             {
-                throw new Exception();
+                throw new Exception("Subasta no encontrada");
             }
 
             var subastaDto = new AuctionDetailDto

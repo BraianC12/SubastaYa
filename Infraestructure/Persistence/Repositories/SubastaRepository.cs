@@ -1,9 +1,8 @@
 ﻿using Application.Interfaces;
 using Domain;
 using Infraestructure.Persistence;
-using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
+
 
 namespace Infrastructure.Persistence.Repositories
 {
@@ -14,6 +13,18 @@ namespace Infrastructure.Persistence.Repositories
         public SubastaRepository(SubastaDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<List<Subasta>> Listar()
+        {
+            return await _context.Subastas.ToListAsync();
+        }
+
+        public async Task<Subasta> Obtener(int id)
+        {
+            return await _context.Subastas
+                .Include(s => s.Pujas)
+                .FirstOrDefaultAsync(s => s.Id == id);
         }
 
         public async Task AddAsync(Subasta subasta)

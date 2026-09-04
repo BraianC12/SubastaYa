@@ -1,8 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain;
-using Infraestructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace Infraestructure.Persistence.Repositories
 {
@@ -18,7 +16,15 @@ namespace Infraestructure.Persistence.Repositories
         public async Task<Billetera> GetByUsuarioIdAsync(int usuarioId)
         {
             return await _context.Billeteras
+                .Include(b => b.Transacciones)
                 .FirstOrDefaultAsync(b => b.Usuario_Id == usuarioId);
+        }
+
+        public async Task<List<Billetera>> Listar()
+        {
+            return await _context.Billeteras
+                .Include(b => b.Usuario)
+                .ToListAsync();
         }
     }
 }

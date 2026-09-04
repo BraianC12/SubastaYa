@@ -35,7 +35,7 @@ namespace Application.UseCases.Subastas.Handlers
             if (subasta.Estado.ToUpper() != "ACTIVA")
                 throw new DomainException("La subasta ya finalizó o no está activa.");
 
-            // vaalidaciones de la Billetera del nuevo comprador
+            // validaciones de la Billetera del nuevo comprador
             var billeteraComprador = await _billeteraRepository.GetByUsuarioIdAsync(request.Comprador_Id);
             if (billeteraComprador == null)
                 throw new DomainException("Billetera no encontrada.");
