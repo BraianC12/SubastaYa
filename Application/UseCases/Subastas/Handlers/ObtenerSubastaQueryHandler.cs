@@ -1,15 +1,10 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
 using Application.UseCases.Subastas.Queries;
-using MediatR;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Application.UseCases.Handlers
 {
-    public class ObtenerSubastaQueryHandler : IRequestHandler<ObtenerSubastaQuery, AuctionDetailDto>
+    public class ObtenerSubastaQueryHandler
     {
         private readonly ISubastaRepository _repository;
 
@@ -18,7 +13,7 @@ namespace Application.UseCases.Handlers
             _repository = subastaRepository;
         }
 
-        public async Task<AuctionDetailDto> Handle(ObtenerSubastaQuery request, CancellationToken cancellationToken)
+        public async Task<AuctionDetailDto> Handle(ObtenerSubastaQuery request)
         {
             var subasta = await _repository.Obtener(request.id);
 

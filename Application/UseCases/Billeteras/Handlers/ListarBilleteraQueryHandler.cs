@@ -2,11 +2,11 @@
 using Application.Interfaces;
 using Application.UseCases.Billeteras.Queries;
 using Domain.Exceptions;
-using MediatR;
+
 
 namespace Application.UseCases.Billeteras.Handlers
 {
-    public class ListarBilleteraQueryHandler : IRequestHandler<ListarBilleteraQuery, WalletBalanceDto>
+    public class ListarBilleteraQueryHandler
     {
         private readonly IBilleteraRepository _repository;
 
@@ -15,7 +15,7 @@ namespace Application.UseCases.Billeteras.Handlers
             _repository = billeteraRepository;
         }
 
-        public async Task<WalletBalanceDto> Handle(ListarBilleteraQuery request, CancellationToken cancellationToken)
+        public async Task<WalletBalanceDto> Handle(ListarBilleteraQuery request)
         {
             var billetera = await _repository.GetByUsuarioIdAsync(request.Usuario_Id);
 

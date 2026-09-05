@@ -2,11 +2,11 @@
 using Application.UseCases.Subastas.Commands;
 using Domain;
 using Domain.Exceptions;
-using MediatR;
+
 
 namespace Application.UseCases.Subastas.Handlers
 {
-    public class CreateBidCommandHandler : IRequestHandler<CreateBidCommand, int>
+    public class CreateBidCommandHandler
     {
         private readonly ISubastaRepository _subastaRepository;
         private readonly IBilleteraRepository _billeteraRepository;
@@ -22,7 +22,7 @@ namespace Application.UseCases.Subastas.Handlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<int> Handle(CreateBidCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateBidCommand request)
         {
             // Validaciones de la Subasta
             var subasta = await _subastaRepository.GetByIdAsync(request.Subasta_Id);
@@ -101,7 +101,7 @@ namespace Application.UseCases.Subastas.Handlers
             subasta.Pujas.Add(nuevaPuja);
 
             
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _unitOfWork.SaveChangesAsync();
 
             return nuevaPuja.Id;
         }

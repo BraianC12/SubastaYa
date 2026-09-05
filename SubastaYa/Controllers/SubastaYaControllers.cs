@@ -1,8 +1,11 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Application.DTOs;
 using Application.UseCases.Subastas.Commands;
 using Application.UseCases.Subastas.Queries;
+using Application.UseCases.Subastas.Handlers;
+using Application.UseCases.Handlers;
 
 namespace SubastaYa.Controllers
 {
@@ -10,41 +13,50 @@ namespace SubastaYa.Controllers
     [ApiController]
     public class SubastasController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        
+        private readonly ListarSubastasQueryHandler _listarHandler;
+        private readonly ObtenerSubastaQueryHandler _obtenerHandler;
+        private readonly CreateSubastaCommandHandler _createSubastaHandler;
+        private readonly CreateBidCommandHandler _createBidHandler;
 
-        public SubastasController(IMediator mediator)
+        public SubastasController(
+            ListarSubastasQueryHandler listarHandler, 
+            ObtenerSubastaQueryHandler obtenerHandler,
+            CreateSubastaCommandHandler createSubastaHandler,
+            CreateBidCommandHandler createBidHandler)
         {
-            _mediator = mediator;
+            _listarHandler = listarHandler;
+            _obtenerHandler = obtenerHandler;
+            _createSubastaHandler = createSubastaHandler;
+            _createBidHandler = createBidHandler;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AuctionDto>>> GetAllSubastas()
         {
-            // Usamos MediatR para la lectura
-            var subastas = await _mediator.Send(new ListarSubastasQuery());
+            var subastas = await _listarHandler.Handle(new ListarSubastasQuery());
             return Ok(subastas);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<AuctionDetailDto>> GetSubastaById(int id)
         {
-            // Usamos MediatR para la lectura
-            var subasta = await _mediator.Send(new ObtenerSubastaQuery(id));
-            return Ok(subasta);
+            var subastas = await _obtenerHandler.Handle(new ObtenerSubastaQuery(id));
+            return Ok(subastas);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSubasta([FromBody] CreateSubastaCommand command)
+        public async Task<IActionResult> CreateSubasta(CreateSubastaCommand command)
         {
-            int subastaId = await _mediator.Send(command);
+            int subastaId = await _createSubastaHandler.Handle(command);
             return StatusCode(201, new { mensaje = "Subasta creada exitosamente", id = subastaId });
         }
 
         [HttpPost("{id}/bids")]
-        public async Task<IActionResult> CreateBid(int id, [FromBody] CreateBidCommand command)
+        public async Task<IActionResult> CreateBid(int id, CreateBidCommand command)
         {
             command.Subasta_Id = id;
-            int pujaId = await _mediator.Send(command);
+            int pujaId = await _createBidHandler.Handle(command);
             return StatusCode(201, new { mensaje = "Puja creada exitosamente", id = pujaId });
         }
     }

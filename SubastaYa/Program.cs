@@ -4,6 +4,10 @@ using Infraestructure.Persistence.Repositories;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Application.UseCases.Billeteras.Handlers;
+using Application.UseCases.Subastas.Handlers;
+using Application.UseCases.Handlers;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +21,12 @@ builder.Services.AddScoped<ISubastaRepository, SubastaRepository>();
 builder.Services.AddScoped<IBilleteraRepository, BilleteraRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-//MediatR
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Application.UseCases.Subastas.Commands.CreateSubastaCommand).Assembly));
+builder.Services.AddScoped<DepositCommandHandler>();
+builder.Services.AddScoped<ListarBilleteraQueryHandler>();
+builder.Services.AddScoped<CreateSubastaCommandHandler>();
+builder.Services.AddScoped<CreateBidCommandHandler>();
+builder.Services.AddScoped<ListarSubastasQueryHandler>();
+builder.Services.AddScoped<ObtenerSubastaQueryHandler>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

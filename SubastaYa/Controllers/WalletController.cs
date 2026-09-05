@@ -1,9 +1,9 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using Application.DTOs;
 using Application.UseCases.Billeteras.Commands;
 using Application.UseCases.Billeteras.Queries;
-using Application.DTOs;
-
+using Application.UseCases.Billeteras.Handlers;
 
 namespace SubastaYa.Controllers
 {
@@ -11,30 +11,29 @@ namespace SubastaYa.Controllers
     [ApiController]
     public class WalletController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        private readonly ListarBilleteraQueryHandler _listarHandler;
+        private readonly DepositCommandHandler _depositHandler;
 
-        
-        public WalletController(IMediator mediator)
+        public WalletController(
+            ListarBilleteraQueryHandler listarHandler,
+            DepositCommandHandler depositHandler)
         {
-            _mediator = mediator;
+            _listarHandler = listarHandler;
+            _depositHandler = depositHandler;
         }
 
         [HttpGet("{usuarioId}/balance")]
         public async Task<ActionResult<WalletBalanceDto>> GetBalance(int usuarioId)
         {
-            
             var query = new ListarBilleteraQuery { Usuario_Id = usuarioId };
-            var resultado = await _mediator.Send(query);
-
+            var resultado = await _listarHandler.Handle(query);
             return Ok(resultado);
         }
 
         [HttpPost("deposit")]
-        public async Task<IActionResult> Deposit([FromBody] DepositCommand command)
+        public async Task<IActionResult> Deposit(DepositCommand command)
         {
-            
-            decimal nuevoSaldo = await _mediator.Send(command);
-
+            decimal nuevoSaldo = await _depositHandler.Handle(command);
             return Ok(new
             {
                 mensaje = "Depósito realizado con éxito",

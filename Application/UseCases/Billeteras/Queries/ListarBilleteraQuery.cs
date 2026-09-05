@@ -1,9 +1,6 @@
-﻿using Application.DTOs;
-using MediatR;
-
-namespace Application.UseCases.Billeteras.Queries
+﻿namespace Application.UseCases.Billeteras.Queries
 {
-    public class ListarBilleteraQuery : IRequest<WalletBalanceDto>
+    public class ListarBilleteraQuery
     {
         public int Usuario_Id { get; set; }
     }

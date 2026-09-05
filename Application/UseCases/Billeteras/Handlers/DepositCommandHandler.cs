@@ -1,13 +1,12 @@
-﻿
-using Application.Interfaces;
+﻿using Application.Interfaces;
 using Application.UseCases.Billeteras.Commands;
 using Domain;
 using Domain.Exceptions;
-using MediatR;
+
 
 namespace Application.UseCases.Billeteras.Handlers
 {
-    public class DepositCommandHandler : IRequestHandler<DepositCommand, decimal>
+    public class DepositCommandHandler
     {
         private readonly IBilleteraRepository _billeteraRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -18,7 +17,7 @@ namespace Application.UseCases.Billeteras.Handlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<decimal> Handle(DepositCommand request, CancellationToken cancellationToken)
+        public async Task<decimal> Handle(DepositCommand request)
         {
             //Valida que el monto sea positivo
             if (request.Monto <= 0)
@@ -42,7 +41,7 @@ namespace Application.UseCases.Billeteras.Handlers
                 Billetera_Id = billetera.Id
             });
            
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _unitOfWork.SaveChangesAsync();
 
             return billetera.Saldo_Total;
         }

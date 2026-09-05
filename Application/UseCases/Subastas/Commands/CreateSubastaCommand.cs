@@ -1,9 +1,7 @@
-﻿using MediatR;
-using System;
-
+﻿
 namespace Application.UseCases.Subastas.Commands
 {
-    public class CreateSubastaCommand : IRequest<int>
+    public class CreateSubastaCommand
     {
         public string Titulo { get; set; }
         public string Descripcion { get; set; }

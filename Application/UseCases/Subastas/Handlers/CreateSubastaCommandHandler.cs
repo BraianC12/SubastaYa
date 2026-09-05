@@ -1,13 +1,10 @@
 ﻿using Application.Interfaces;
 using Application.UseCases.Subastas.Commands;
 using Domain;
-using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Application.UseCases.Subastas.Handlers
 {
-    public class CreateSubastaCommandHandler : IRequestHandler<CreateSubastaCommand, int>
+    public class CreateSubastaCommandHandler
     {
         private readonly ISubastaRepository _subastaRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -18,7 +15,7 @@ namespace Application.UseCases.Subastas.Handlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<int> Handle(CreateSubastaCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateSubastaCommand request)
         {
             
             var subasta = new Subasta
@@ -39,7 +36,7 @@ namespace Application.UseCases.Subastas.Handlers
             await _subastaRepository.AddAsync(subasta);
 
             
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _unitOfWork.SaveChangesAsync();
 
           
             return subasta.Id;
