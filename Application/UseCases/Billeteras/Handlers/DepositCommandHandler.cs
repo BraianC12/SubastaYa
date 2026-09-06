@@ -6,7 +6,7 @@ using Domain.Exceptions;
 
 namespace Application.UseCases.Billeteras.Handlers
 {
-    public class DepositCommandHandler
+    public class DepositCommandHandler: IDepositCommandHandler
     {
         private readonly IBilleteraRepository _billeteraRepository;
         private readonly IUnitOfWork _unitOfWork;

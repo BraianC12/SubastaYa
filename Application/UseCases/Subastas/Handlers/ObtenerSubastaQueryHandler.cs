@@ -4,7 +4,7 @@ using Application.UseCases.Subastas.Queries;
 
 namespace Application.UseCases.Handlers
 {
-    public class ObtenerSubastaQueryHandler
+    public class ObtenerSubastaQueryHandler : IObtenerSubastaQueryHandler
     {
         private readonly ISubastaRepository _repository;
 

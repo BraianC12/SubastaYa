@@ -4,7 +4,7 @@ using Domain;
 
 namespace Application.UseCases.Subastas.Handlers
 {
-    public class CreateSubastaCommandHandler
+    public class CreateSubastaCommandHandler: ICreateSubastaCommandHandler
     {
         private readonly ISubastaRepository _subastaRepository;
         private readonly IUnitOfWork _unitOfWork;

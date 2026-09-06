@@ -6,6 +6,7 @@ using Application.UseCases.Subastas.Commands;
 using Application.UseCases.Subastas.Queries;
 using Application.UseCases.Subastas.Handlers;
 using Application.UseCases.Handlers;
+using Application.Interfaces;
 
 namespace SubastaYa.Controllers
 {
@@ -14,16 +15,16 @@ namespace SubastaYa.Controllers
     public class SubastasController : ControllerBase
     {
         
-        private readonly ListarSubastasQueryHandler _listarHandler;
-        private readonly ObtenerSubastaQueryHandler _obtenerHandler;
-        private readonly CreateSubastaCommandHandler _createSubastaHandler;
-        private readonly CreateBidCommandHandler _createBidHandler;
+        private readonly IListarSubastasQueryHandler _listarHandler;
+        private readonly IObtenerSubastaQueryHandler _obtenerHandler;
+        private readonly ICreateSubastaCommandHandler _createSubastaHandler;
+        private readonly ICreateBidCommandHandler _createBidHandler;
 
         public SubastasController(
-            ListarSubastasQueryHandler listarHandler, 
-            ObtenerSubastaQueryHandler obtenerHandler,
-            CreateSubastaCommandHandler createSubastaHandler,
-            CreateBidCommandHandler createBidHandler)
+            IListarSubastasQueryHandler listarHandler, 
+            IObtenerSubastaQueryHandler obtenerHandler,
+            ICreateSubastaCommandHandler createSubastaHandler,
+            ICreateBidCommandHandler createBidHandler)
         {
             _listarHandler = listarHandler;
             _obtenerHandler = obtenerHandler;

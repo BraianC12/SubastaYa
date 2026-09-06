@@ -6,7 +6,7 @@ using Domain.Exceptions;
 
 namespace Application.UseCases.Subastas.Handlers
 {
-    public class CreateBidCommandHandler
+    public class CreateBidCommandHandler: ICreateBidCommandHandler
     {
         private readonly ISubastaRepository _subastaRepository;
         private readonly IBilleteraRepository _billeteraRepository;

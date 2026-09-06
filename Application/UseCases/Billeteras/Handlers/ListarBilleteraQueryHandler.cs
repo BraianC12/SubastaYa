@@ -6,7 +6,7 @@ using Domain.Exceptions;
 
 namespace Application.UseCases.Billeteras.Handlers
 {
-    public class ListarBilleteraQueryHandler
+    public class ListarBilleteraQueryHandler: IListarBilleteraQueryHandler
     {
         private readonly IBilleteraRepository _repository;
 

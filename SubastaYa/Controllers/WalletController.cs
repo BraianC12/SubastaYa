@@ -4,6 +4,7 @@ using Application.DTOs;
 using Application.UseCases.Billeteras.Commands;
 using Application.UseCases.Billeteras.Queries;
 using Application.UseCases.Billeteras.Handlers;
+using Application.Interfaces;
 
 namespace SubastaYa.Controllers
 {
@@ -11,12 +12,12 @@ namespace SubastaYa.Controllers
     [ApiController]
     public class WalletController : ControllerBase
     {
-        private readonly ListarBilleteraQueryHandler _listarHandler;
-        private readonly DepositCommandHandler _depositHandler;
+        private readonly IListarBilleteraQueryHandler _listarHandler;
+        private readonly IDepositCommandHandler _depositHandler;
 
         public WalletController(
-            ListarBilleteraQueryHandler listarHandler,
-            DepositCommandHandler depositHandler)
+            IListarBilleteraQueryHandler listarHandler,
+            IDepositCommandHandler depositHandler)
         {
             _listarHandler = listarHandler;
             _depositHandler = depositHandler;

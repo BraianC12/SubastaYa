@@ -5,7 +5,7 @@ using Domain;
 
 namespace Application.UseCases.Handlers
 {
-    public class ListarSubastasQueryHandler
+    public class ListarSubastasQueryHandler: IListarSubastasQueryHandler
     {
         private readonly ISubastaRepository _repository;
 
