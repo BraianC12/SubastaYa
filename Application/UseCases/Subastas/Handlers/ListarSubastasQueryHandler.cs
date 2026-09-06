@@ -1,6 +1,7 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
 using Application.UseCases.Subastas.Queries;
+using Domain;
 
 namespace Application.UseCases.Handlers
 {
@@ -17,6 +18,21 @@ namespace Application.UseCases.Handlers
         {
             var subastas = await _repository.Listar();
 
+            if(subastas == null)
+            {
+                throw new Exception();
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.Estado))
+            {
+                subastas = subastas.Where(s => s.Estado == request.Estado).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.Categoria))
+            {
+                subastas = subastas.Where(s => s.Categoria.Nombre == request.Categoria).ToList();
+            }
+
             var subastasDto = subastas.Select(s => new AuctionDto
             {
                 Id = s.Id,
@@ -28,9 +44,34 @@ namespace Application.UseCases.Handlers
                 Fecha_Inicio = s.Fecha_Inicio,
                 Fecha_Fin = s.Fecha_Fin,
                 Estado = s.Estado,
-                Categoria_Id = s.Categoria_Id,
+                Categoria = s.Categoria.Nombre,
+                Puja_Actual = s.Pujas.OrderByDescending(p => p.Monto).Select(p => (decimal?)p.Monto).FirstOrDefault(),
                 Vendedor_Id = s.Vendedor_Id
             });
+
+            switch (request.OrdenarPorPrecio)
+            {
+                case "asc":
+                    subastasDto = subastasDto.OrderBy(s => s.Puja_Actual);
+                    break;
+                case "desc":
+                    subastasDto = subastasDto.OrderByDescending(s => s.Puja_Actual);
+                    break;
+                default:
+                    throw new Exception();
+            }
+
+            switch (request.OrdenarPorFecha)
+            {
+                case "asc":
+                    subastasDto = subastasDto.OrderBy(s => s.Fecha_Fin);
+                    break;
+                case "desc":
+                    subastasDto = subastasDto.OrderBy(s => s.Fecha_Inicio);
+                    break;
+                default:
+                    throw new Exception();
+            }
 
             return subastasDto;
         }

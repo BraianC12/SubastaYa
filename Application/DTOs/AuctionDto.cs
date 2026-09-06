@@ -11,7 +11,8 @@
         public DateTime Fecha_Inicio { get; set; }
         public DateTime Fecha_Fin { get; set; }
         public string Estado { get; set; }
-        public int Categoria_Id { get; set; }
+        public string Categoria { get; set; }
+        public decimal? Puja_Actual { get; set; }
         public int Vendedor_Id { get; set; }
     }
 }

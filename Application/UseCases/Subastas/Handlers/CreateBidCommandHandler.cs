@@ -86,9 +86,7 @@ namespace Application.UseCases.Subastas.Handlers
             var tiempoRestante = subasta.Fecha_Fin - DateTime.UtcNow;
             if (tiempoRestante <= TimeSpan.FromMinutes(1))
             {
-                subasta.Fecha_Fin = subasta.Fecha_Fin.AddMinutes(2);
-
-                
+                subasta.Fecha_Fin = subasta.Fecha_Fin.AddMinutes(2);        
             }
 
             //Crear la nueva puja

@@ -17,7 +17,7 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<List<Subasta>> Listar()
         {
-            return await _context.Subastas.ToListAsync();
+            return await _context.Subastas.Include(s => s.Categoria).Include(s => s.Pujas).ToListAsync();
         }
 
         public async Task<Subasta> Obtener(int id)

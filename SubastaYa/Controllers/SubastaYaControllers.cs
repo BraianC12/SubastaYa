@@ -32,9 +32,9 @@ namespace SubastaYa.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AuctionDto>>> GetAllSubastas()
+        public async Task<ActionResult<IEnumerable<AuctionDto>>> GetAllSubastas([FromQuery]ListarSubastasQuery query)
         {
-            var subastas = await _listarHandler.Handle(new ListarSubastasQuery());
+            var subastas = await _listarHandler.Handle(query);
             return Ok(subastas);
         }
 
