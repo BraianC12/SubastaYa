@@ -13,6 +13,8 @@ namespace Application.Interfaces
         Task<List<Subasta>> Listar();
         Task AddAsync(Subasta subasta);
         Task<Subasta> GetByIdAsync(int id);
+
+        Task<List<Subasta>> ObtenerVencidasActivasAsync();
     }
 }
       

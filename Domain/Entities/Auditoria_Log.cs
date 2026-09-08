@@ -16,7 +16,7 @@ namespace Domain
 
         public string Accion { get; set; }
 
-        public string Detalle_Json { get; set; }
+        public string Detalle { get; set; }
 
         public DateTime Fecha { get; set; }
 

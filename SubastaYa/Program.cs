@@ -18,6 +18,10 @@ builder.Services.AddDbContext<SubastaDbContext>(options =>
 builder.Services.AddScoped<ISubastaRepository, SubastaRepository>();
 builder.Services.AddScoped<IBilleteraRepository, BilleteraRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IAuditorialLogRepository, AuditoriaLogRepository>();
+builder.Services.AddScoped<ITransaccionLedgerRepository, TransaccionLedgerRepository>();
+builder.Services.AddScoped<IAdjudicarSubastasCommandHandler, AdjudicarSubastasCommandHandler>();
+
 
 //handlers por Interfaz (Arquitectura Limpia)
 builder.Services.AddScoped<IDepositCommandHandler, DepositCommandHandler>();
@@ -26,6 +30,7 @@ builder.Services.AddScoped<ICreateSubastaCommandHandler, CreateSubastaCommandHan
 builder.Services.AddScoped<ICreateBidCommandHandler, CreateBidCommandHandler>();
 builder.Services.AddScoped<IListarSubastasQueryHandler, ListarSubastasQueryHandler>();
 builder.Services.AddScoped<IObtenerSubastaQueryHandler, ObtenerSubastaQueryHandler>();
+builder.Services.AddHostedService<SubastaYa.Workers.AdjudicacionWorker>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

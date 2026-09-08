@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Infraestructure.Persistence.Migrations
+namespace Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(SubastaDbContext))]
-    [Migration("20260903165824_InitialCreate")]
+    [Migration("20260908195842_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -37,7 +37,7 @@ namespace Infraestructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Detalle_Json")
+                    b.Property<string>("Detalle")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

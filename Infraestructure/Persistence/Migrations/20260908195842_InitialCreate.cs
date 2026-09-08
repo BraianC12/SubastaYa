@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace Infraestructure.Persistence.Migrations
+namespace Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -51,7 +51,7 @@ namespace Infraestructure.Persistence.Migrations
                     Entidad = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Entidad_Id = table.Column<int>(type: "int", nullable: false),
                     Accion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Detalle_Json = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Detalle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Usuario_Id = table.Column<int>(type: "int", nullable: true)
                 },

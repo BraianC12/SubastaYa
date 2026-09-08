@@ -39,5 +39,13 @@ namespace Infrastructure.Persistence.Repositories
                 .Include(s => s.Transacciones)
                 .FirstOrDefaultAsync(s => s.Id == id);
         }
+
+        public async Task<List<Subasta>> ObtenerVencidasActivasAsync()
+        {
+            return await _context.Subastas
+                .Include(s => s.Pujas)
+                .Where(s => s.Estado == "ACTIVA" && s.Fecha_Fin <= DateTime.Now)
+                .ToListAsync();
+        }
     }
 }
