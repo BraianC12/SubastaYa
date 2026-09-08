@@ -27,18 +27,18 @@ namespace Application.UseCases.Subastas.Handlers
             // Validaciones de la Subasta
             var subasta = await _subastaRepository.GetByIdAsync(request.Subasta_Id);
             if (subasta == null)
-                throw new DomainException("Subasta no encontrada.");
+                throw new NotFoundException("Subasta no encontrada.");
 
             if (subasta.Vendedor_Id == request.Comprador_Id)
                 throw new DomainException("El vendedor no puede pujar en su propia subasta.");
 
             if (subasta.Estado.ToUpper() != "ACTIVA")
-                throw new DomainException("La subasta ya finalizó o no está activa.");
+                throw new ConflictException("La subasta ya finalizó o no está activa.");
 
             // validaciones de la Billetera del nuevo comprador
             var billeteraComprador = await _billeteraRepository.GetByUsuarioIdAsync(request.Comprador_Id);
             if (billeteraComprador == null)
-                throw new DomainException("Billetera no encontrada.");
+                throw new NotFoundException("Billetera no encontrada.");
 
             if (billeteraComprador.Saldo_Disponible < request.Monto)
                 throw new DomainException("El saldo disponible es menor al monto seleccionado.");
@@ -54,6 +54,7 @@ namespace Application.UseCases.Subastas.Handlers
             // retiene el dinero del nuevo comprador
             billeteraComprador.Saldo_Disponible -= request.Monto;
             billeteraComprador.Saldo_Retenido += request.Monto;
+            billeteraComprador.Version++;
 
             subasta.Transacciones.Add(new Transaccion_Ledger
             {
@@ -71,6 +72,7 @@ namespace Application.UseCases.Subastas.Handlers
                 {
                     billeteraAnterior.Saldo_Retenido -= pujaActual.Monto;
                     billeteraAnterior.Saldo_Disponible += pujaActual.Monto;
+                    billeteraAnterior.Version++;
 
                     subasta.Transacciones.Add(new Transaccion_Ledger
                     {
@@ -97,8 +99,8 @@ namespace Application.UseCases.Subastas.Handlers
                 Comprador_Id = request.Comprador_Id
             };
             subasta.Pujas.Add(nuevaPuja);
-
-            
+            subasta.Version++;
+ 
             await _unitOfWork.SaveChangesAsync();
 
             return nuevaPuja.Id;

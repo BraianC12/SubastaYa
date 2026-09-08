@@ -22,7 +22,17 @@ namespace SubastaYa.Middlewares
             catch (DomainException ex)
             {
                 ctx.Response.StatusCode = StatusCodes.Status400BadRequest;
-                await ctx.Response.WriteAsJsonAsync(new { mensaje = ex.Message });
+                await ctx.Response.WriteAsJsonAsync(new { message = ex.Message });
+            }
+            catch (NotFoundException ex)
+            {
+                ctx.Response.StatusCode = StatusCodes.Status404NotFound;
+                await ctx.Response.WriteAsJsonAsync(new { message = ex.Message });
+            }
+            catch (ConflictException ex)
+            {
+                ctx.Response.StatusCode = StatusCodes.Status409Conflict;
+                await ctx.Response.WriteAsJsonAsync(new { message = ex.Message });
             }
             catch (Exception ex)
             {

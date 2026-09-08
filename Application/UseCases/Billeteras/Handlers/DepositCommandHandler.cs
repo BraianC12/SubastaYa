@@ -26,11 +26,12 @@ namespace Application.UseCases.Billeteras.Handlers
             //buscar la billetera del usuario
             var billetera = await _billeteraRepository.GetByUsuarioIdAsync(request.Usuario_Id);
             if (billetera == null)
-                throw new DomainException("Billetera no encontrada para el usuario especificado.");
+                throw new NotFoundException("Billetera no encontrada para el usuario especificado.");
 
             //actualiza los datos
             billetera.Saldo_Total += request.Monto;
             billetera.Saldo_Disponible += request.Monto;
+            billetera.Version++;
 
            
             billetera.Transacciones.Add(new Transaccion_Ledger

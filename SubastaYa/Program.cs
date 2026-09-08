@@ -2,6 +2,7 @@ using Application.Interfaces;
 using Application.UseCases.Billeteras.Handlers;
 using Application.UseCases.Handlers;
 using Application.UseCases.Subastas.Handlers;
+using Application.UseCases.Usuarios.Handlers;
 using Infraestructure.Persistence;
 using Infraestructure.Persistence.Repositories;
 using Infrastructure.Persistence;
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<SubastaDbContext>(options =>
 //repositorios y UnitOfWork
 builder.Services.AddScoped<ISubastaRepository, SubastaRepository>();
 builder.Services.AddScoped<IBilleteraRepository, BilleteraRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuditorialLogRepository, AuditoriaLogRepository>();
 builder.Services.AddScoped<ITransaccionLedgerRepository, TransaccionLedgerRepository>();
@@ -30,6 +32,7 @@ builder.Services.AddScoped<ICreateSubastaCommandHandler, CreateSubastaCommandHan
 builder.Services.AddScoped<ICreateBidCommandHandler, CreateBidCommandHandler>();
 builder.Services.AddScoped<IListarSubastasQueryHandler, ListarSubastasQueryHandler>();
 builder.Services.AddScoped<IObtenerSubastaQueryHandler, ObtenerSubastaQueryHandler>();
+builder.Services.AddScoped<IGetUserQueryHandler, GetUserQueryHandler>();
 builder.Services.AddHostedService<SubastaYa.Workers.AdjudicacionWorker>();
 
 builder.Services.AddControllers();

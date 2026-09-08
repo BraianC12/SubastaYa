@@ -20,7 +20,7 @@ namespace Application.UseCases.Billeteras.Handlers
             var billetera = await _repository.GetByUsuarioIdAsync(request.Usuario_Id);
 
             if (billetera == null)
-                throw new DomainException("Billetera no encontrada.");
+                throw new NotFoundException("Billetera no encontrada.");
 
             return new WalletBalanceDto
             {

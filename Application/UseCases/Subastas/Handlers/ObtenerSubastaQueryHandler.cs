@@ -1,6 +1,7 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
 using Application.UseCases.Subastas.Queries;
+using Domain.Exceptions;
 
 namespace Application.UseCases.Handlers
 {
@@ -19,7 +20,7 @@ namespace Application.UseCases.Handlers
 
             if (subasta == null)
             {
-                throw new Exception("Subasta no encontrada");
+                throw new NotFoundException("Subasta no encontrada");
             }
 
             var subastaDto = new AuctionDetailDto

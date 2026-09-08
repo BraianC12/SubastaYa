@@ -49,28 +49,19 @@ namespace Application.UseCases.Handlers
                 Vendedor_Id = s.Vendedor_Id
             });
 
-            switch (request.OrdenarPorPrecio)
+            if (request.Ordenar.HasValue)
             {
-                case "asc":
-                    subastasDto = subastasDto.OrderBy(s => s.Puja_Actual);
-                    break;
-                case "desc":
-                    subastasDto = subastasDto.OrderByDescending(s => s.Puja_Actual);
-                    break;
-                default:
-                    throw new Exception();
-            }
-
-            switch (request.OrdenarPorFecha)
-            {
-                case "asc":
-                    subastasDto = subastasDto.OrderBy(s => s.Fecha_Fin);
-                    break;
-                case "desc":
-                    subastasDto = subastasDto.OrderBy(s => s.Fecha_Inicio);
-                    break;
-                default:
-                    throw new Exception();
+                switch (request.Ordenar.Value)
+                {
+                    case CriterioOrden.Fecha:
+                        subastasDto = subastasDto.OrderBy(s => s.Fecha_Fin);
+                        break;
+                    case CriterioOrden.Precio:
+                        subastasDto = subastasDto.OrderByDescending(s => s.Puja_Actual);
+                        break;
+                    default:
+                        throw new Exception();
+                }
             }
 
             return subastasDto;

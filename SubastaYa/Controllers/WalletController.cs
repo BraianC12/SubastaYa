@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using Application.DTOs;
-using Application.UseCases.Billeteras.Commands;
-using Application.UseCases.Billeteras.Queries;
-using Application.UseCases.Billeteras.Handlers;
+﻿using Application.DTOs;
 using Application.Interfaces;
+using Application.UseCases.Billeteras.Commands;
+using Application.UseCases.Billeteras.Handlers;
+using Application.UseCases.Billeteras.Queries;
+using Domain;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace SubastaYa.Controllers
 {
@@ -35,11 +36,7 @@ namespace SubastaYa.Controllers
         public async Task<IActionResult> Deposit(DepositCommand command)
         {
             decimal nuevoSaldo = await _depositHandler.Handle(command);
-            return Ok(new
-            {
-                mensaje = "Depósito realizado con éxito",
-                saldoActualizado = nuevoSaldo
-            });
+            return StatusCode(201, new { mensaje = "Depósito realizado con éxito", saldoActualizado = nuevoSaldo });
         }
     }
 }
