@@ -8,12 +8,17 @@ using Infraestructure.Persistence.Repositories;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
+using SubastaYa.Hubs;
+using SubastaYa.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //contexto de Base de Datos
 builder.Services.AddDbContext<SubastaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddSignalR();
+
 
 //repositorios y UnitOfWork
 builder.Services.AddScoped<ISubastaRepository, SubastaRepository>();
@@ -23,7 +28,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuditorialLogRepository, AuditoriaLogRepository>();
 builder.Services.AddScoped<ITransaccionLedgerRepository, TransaccionLedgerRepository>();
 builder.Services.AddScoped<IAdjudicarSubastasCommandHandler, AdjudicarSubastasCommandHandler>();
-
+builder.Services.AddScoped<INotificadorSubastaService, NotificadorSubastaService>();
 
 //handlers por Interfaz (Arquitectura Limpia)
 builder.Services.AddScoped<IDepositCommandHandler, DepositCommandHandler>();
@@ -50,6 +55,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapHub<SubastaHub>("/subastaHub");
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
