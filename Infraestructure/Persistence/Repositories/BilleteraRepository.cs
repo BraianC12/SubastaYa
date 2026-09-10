@@ -26,5 +26,10 @@ namespace Infraestructure.Persistence.Repositories
                 .Include(b => b.Usuario)
                 .ToListAsync();
         }
+
+        public async Task Add(Billetera wallet)
+        {
+            await _context.Billeteras.AddAsync(wallet);
+        }
     }
 }

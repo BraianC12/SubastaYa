@@ -31,7 +31,6 @@ namespace Application.UseCases.Billeteras.Handlers
             //actualiza los datos
             billetera.Saldo_Total += request.Monto;
             billetera.Saldo_Disponible += request.Monto;
-            billetera.Version++;
 
            
             billetera.Transacciones.Add(new Transaccion_Ledger

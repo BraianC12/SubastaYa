@@ -33,6 +33,7 @@ builder.Services.AddScoped<ICreateBidCommandHandler, CreateBidCommandHandler>();
 builder.Services.AddScoped<IListarSubastasQueryHandler, ListarSubastasQueryHandler>();
 builder.Services.AddScoped<IObtenerSubastaQueryHandler, ObtenerSubastaQueryHandler>();
 builder.Services.AddScoped<IGetUserQueryHandler, GetUserQueryHandler>();
+builder.Services.AddScoped<ICreateUserCommandHandler, CreateUserCommandHandler>();
 builder.Services.AddHostedService<SubastaYa.Workers.AdjudicacionWorker>();
 
 builder.Services.AddControllers();

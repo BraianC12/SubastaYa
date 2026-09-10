@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Application.UseCases.Subastas.Commands;
 using Domain;
+using Domain.Exceptions;
 
 namespace Application.UseCases.Subastas.Handlers
 {
@@ -17,7 +18,21 @@ namespace Application.UseCases.Subastas.Handlers
 
         public async Task<int> Handle(CreateSubastaCommand request)
         {
-            
+            if (request.Fecha_Inicio > request.Fecha_Fin)
+            {
+                throw new DomainException("La fecha de inicio no puede ser posterior a la fecha de finalizacion");
+            }
+
+            if(request.Precio_Base < (decimal)0.01)
+            {
+                throw new DomainException("El precio debe ser mayor a 0");
+            }
+
+            if(request.Incremento_Minimo < (decimal)0.01)
+            {
+                throw new DomainException("El incremento minimo debe ser mayor a 0");
+            }
+
             var subasta = new Subasta
             {
                 Titulo = request.Titulo,

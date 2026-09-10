@@ -11,6 +11,7 @@ namespace Application.Interfaces
     {
         Task<List<Billetera>> Listar();
         Task<Billetera> GetByUsuarioIdAsync(int usuarioId);
+        Task Add(Billetera wallet);
     }
 }
        

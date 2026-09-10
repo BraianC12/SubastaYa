@@ -32,5 +32,10 @@ namespace Infrastructure.Persistence.Repositories
 
             return user;
         }
+
+        public async Task Add(Usuario usuario)
+        {
+            await _context.Usuarios.AddAsync(usuario);
+        }
     }
 }

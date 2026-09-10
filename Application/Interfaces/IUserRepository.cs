@@ -11,5 +11,6 @@ namespace Application.Interfaces
     {
         Task<List<Usuario>> Listar();
         Task<Usuario> GetUser(string email);
+        Task Add(Usuario user);
     }
 }

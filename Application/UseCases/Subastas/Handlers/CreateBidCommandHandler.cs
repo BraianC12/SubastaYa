@@ -10,15 +10,18 @@ namespace Application.UseCases.Subastas.Handlers
     {
         private readonly ISubastaRepository _subastaRepository;
         private readonly IBilleteraRepository _billeteraRepository;
+        private readonly IAuditorialLogRepository _auditoriaRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         public CreateBidCommandHandler(
             ISubastaRepository subastaRepository,
             IBilleteraRepository billeteraRepository,
+            IAuditorialLogRepository auditoriaRepository,
             IUnitOfWork unitOfWork)
         {
             _subastaRepository = subastaRepository;
             _billeteraRepository = billeteraRepository;
+            _auditoriaRepository = auditoriaRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -54,7 +57,6 @@ namespace Application.UseCases.Subastas.Handlers
             // retiene el dinero del nuevo comprador
             billeteraComprador.Saldo_Disponible -= request.Monto;
             billeteraComprador.Saldo_Retenido += request.Monto;
-            billeteraComprador.Version++;
 
             subasta.Transacciones.Add(new Transaccion_Ledger
             {
@@ -72,7 +74,6 @@ namespace Application.UseCases.Subastas.Handlers
                 {
                     billeteraAnterior.Saldo_Retenido -= pujaActual.Monto;
                     billeteraAnterior.Saldo_Disponible += pujaActual.Monto;
-                    billeteraAnterior.Version++;
 
                     subasta.Transacciones.Add(new Transaccion_Ledger
                     {
@@ -88,7 +89,19 @@ namespace Application.UseCases.Subastas.Handlers
             var tiempoRestante = subasta.Fecha_Fin - DateTime.UtcNow;
             if (tiempoRestante <= TimeSpan.FromMinutes(1))
             {
-                subasta.Fecha_Fin = subasta.Fecha_Fin.AddMinutes(2);        
+                subasta.Fecha_Fin = subasta.Fecha_Fin.AddMinutes(2);
+
+                var logExtension = new Auditoria_Log
+                {
+                    Entidad = "Subasta",
+                    Entidad_Id = subasta.Id,
+                    Accion = "EXTENSION DE TIEMPO",
+                    Detalle = "El tiempo de la subasta se extendio 2 minutos por la regla Anti-Sniping.",
+                    Fecha = DateTime.UtcNow,
+                    Usuario_Id = null
+                };
+
+                await _auditoriaRepository.AddAsync(logExtension);
             }
 
             //Crear la nueva puja
@@ -99,9 +112,31 @@ namespace Application.UseCases.Subastas.Handlers
                 Comprador_Id = request.Comprador_Id
             };
             subasta.Pujas.Add(nuevaPuja);
-            subasta.Version++;
- 
-            await _unitOfWork.SaveChangesAsync();
+
+            try
+            {
+                await _unitOfWork.SaveChangesAsync();
+            }
+            catch (ConflictException)
+            {
+                _unitOfWork.Clear();
+
+                var logConcurrencia = new Auditoria_Log
+                {
+                    Entidad = "Subasta",
+                    Entidad_Id = subasta.Id,
+                    Accion = "PUJA_RECHAZADA_CONCURRENCIA",
+                    Detalle = "Intento de puja rechazada por colisión de concurrencia.",
+                    Fecha = DateTime.UtcNow,
+                    Usuario_Id = request.Comprador_Id
+                };
+
+                await _auditoriaRepository.AddAsync(logConcurrencia);
+
+                await _unitOfWork.SaveChangesAsync();
+
+                throw new ConflictException("Otro usuario realizó una puja simultáneamente. Intente pujar con el nuevo valor.");
+            }
 
             return nuevaPuja.Id;
         }

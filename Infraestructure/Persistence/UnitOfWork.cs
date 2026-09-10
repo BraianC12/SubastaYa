@@ -27,5 +27,10 @@ namespace Infrastructure.Persistence
                 throw new ConflictException("Conflicto de concurrencia: el recurso fue modificado por otra transacción simultánea. Por favor, recargue e intente nuevamente.");
             }
         }
+
+        public void Clear()
+        {
+            _context.ChangeTracker.Clear();
+        }
     }
 }

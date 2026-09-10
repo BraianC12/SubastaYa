@@ -15,6 +15,23 @@ namespace Infraestructure.Persistence
         public DbSet<Transaccion_Ledger> Transacciones_Ledger { get; set; }
         public DbSet<Auditoria_Log> Auditorias_Log { get; set; }
 
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                if (entry.State == EntityState.Modified)
+                {
+                    var version = entry.Properties.FirstOrDefault(p => p.Metadata.Name == "Version");
+                    if (version != null && version.CurrentValue is int currentVersion)
+                    {
+                        version.CurrentValue = currentVersion + 1;
+                    }
+                }
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
