@@ -1,7 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Application.UseCases.Subastas.Handlers
 {
@@ -13,13 +12,16 @@ namespace Application.UseCases.Subastas.Handlers
         private readonly IAuditorialLogRepository _auditoriaRepository;
         private readonly ITransaccionLedgerRepository _transaccionRepository;
 
-        public AdjudicarSubastasCommandHandler(ISubastaRepository subastaRepository, IBilleteraRepository billeteraRepository, IUnitOfWork unitOfWork, IAuditorialLogRepository auditoriaRepository, ITransaccionLedgerRepository transaccionRepository)
+        private readonly INotificadorSubastaService _notificador;
+
+        public AdjudicarSubastasCommandHandler(ISubastaRepository subastaRepository, IBilleteraRepository billeteraRepository, IUnitOfWork unitOfWork, IAuditorialLogRepository auditoriaRepository, ITransaccionLedgerRepository transaccionRepository, INotificadorSubastaService notificador)
         {
             _subastaRepository = subastaRepository;
             _billeteraRepository = billeteraRepository;
             _unitOfWork = unitOfWork;
             _auditoriaRepository = auditoriaRepository;
             _transaccionRepository = transaccionRepository;
+            _notificador = notificador;
         }
 
         public async Task Handle()
@@ -89,6 +91,7 @@ namespace Application.UseCases.Subastas.Handlers
                         Usuario_Id = null
                     };
                     await _auditoriaRepository.AddAsync(logVenta);
+                    await _notificador.NotificarSubastaFinalizadaAsync(subasta.Id, "La subasta ha finalizado");
                 }
             }
             await _unitOfWork.SaveChangesAsync();
