@@ -50,6 +50,17 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
 
 // Middlewares
@@ -62,6 +73,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapHub<SubastaHub>("/subastaHub");
+
+
+app.UseCors("AllowReactApp");
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

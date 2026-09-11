@@ -80,6 +80,7 @@ body {
   width: 100%;
   box-sizing: border-box;
   background-color: #f8fafc;
+  color: #0f172a;
   transition: all 0.2s ease;
 }
 
