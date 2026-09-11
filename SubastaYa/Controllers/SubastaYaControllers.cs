@@ -49,16 +49,16 @@ namespace SubastaYa.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateSubasta(CreateSubastaCommand command)
         {
-            int subastaId = await _createSubastaHandler.Handle(command);
-            return StatusCode(201, new { mensaje = "Subasta creada exitosamente", id = subastaId });
+            var result = await _createSubastaHandler.Handle(command);
+            return StatusCode(201, new { mensaje = "Subasta creada exitosamente", result });
         }
 
         [HttpPost("{id}/bids")]
         public async Task<IActionResult> CreateBid(int id, CreateBidCommand command)
         {
             command.Subasta_Id = id;
-            int pujaId = await _createBidHandler.Handle(command);
-            return StatusCode(201, new { mensaje = "Puja creada exitosamente", id = pujaId });
+            var result = await _createBidHandler.Handle(command);
+            return StatusCode(201, new { mensaje = "Puja creada exitosamente", result });
         }
     }
 }

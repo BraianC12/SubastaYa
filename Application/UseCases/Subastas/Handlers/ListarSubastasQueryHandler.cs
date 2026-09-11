@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using Application.UseCases.Subastas.Queries;
 using Domain;
+using Domain.Exceptions;
 
 namespace Application.UseCases.Handlers
 {
@@ -20,7 +21,7 @@ namespace Application.UseCases.Handlers
 
             if(subastas == null)
             {
-                throw new Exception();
+                throw new NotFoundException("Actualmente no hay subastas disponibles");
             }
 
             if (!string.IsNullOrWhiteSpace(request.Estado))

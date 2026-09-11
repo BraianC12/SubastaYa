@@ -1,9 +1,10 @@
-﻿using Application.UseCases.Subastas.Commands;
+﻿using Application.DTOs;
+using Application.UseCases.Subastas.Commands;
 
 namespace Application.Interfaces
 {
     public interface ICreateSubastaCommandHandler
     {
-        Task<int> Handle(CreateSubastaCommand request);
+        Task<CreateAuctionDto> Handle(CreateSubastaCommand request);
     }
 }

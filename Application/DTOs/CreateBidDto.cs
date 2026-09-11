@@ -9,9 +9,10 @@ namespace Application.DTOs
 {
     public class CreateBidDto
     {
+        public int PujaId { get; set; }
+        public int SubastaId { get; set; }
         public decimal Monto { get; set; }
-
-        public int Comprador_Id { get; set; }
-
+        public DateTime Fecha { get; set; }
+        public decimal SaldoDisponibleRestante { get; set; }
     }
 }

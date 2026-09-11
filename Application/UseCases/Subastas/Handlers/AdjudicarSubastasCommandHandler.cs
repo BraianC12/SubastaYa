@@ -11,7 +11,6 @@ namespace Application.UseCases.Subastas.Handlers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuditorialLogRepository _auditoriaRepository;
         private readonly ITransaccionLedgerRepository _transaccionRepository;
-
         private readonly INotificadorSubastaService _notificador;
 
         public AdjudicarSubastasCommandHandler(ISubastaRepository subastaRepository, IBilleteraRepository billeteraRepository, IUnitOfWork unitOfWork, IAuditorialLogRepository auditoriaRepository, ITransaccionLedgerRepository transaccionRepository, INotificadorSubastaService notificador)
@@ -44,7 +43,7 @@ namespace Application.UseCases.Subastas.Handlers
                         Accion = "PASO_A_DESIERTA",
                         Detalle = "La subasta vencio sin recibir ninguna puja",
                         Fecha = DateTime.UtcNow,
-                        Usuario_Id = null
+                        Usuario_Id = subasta.Vendedor_Id
                     };
                     await _auditoriaRepository.AddAsync(logDesierta);
                 }
@@ -62,24 +61,23 @@ namespace Application.UseCases.Subastas.Handlers
                     {
                         //debitar al comprador
                         billeteraComprador.Saldo_Total -= pujaGanadora.Monto;
+                        billeteraComprador.Saldo_Retenido -= pujaGanadora.Monto;
 
                         //acreditar al vendedor
                         billeteraVendedor.Saldo_Total += pujaGanadora.Monto;
                         billeteraVendedor.Saldo_Disponible += pujaGanadora.Monto;
+
+                        var transaccion = new Transaccion_Ledger
+                        {
+                            Tipo = "VENTA",
+                            Monto = pujaGanadora.Monto,
+                            Fecha = DateTime.UtcNow,
+                            Subasta_Id = subasta.Id,
+                            Billetera_Id = billeteraComprador.Id
+                        };
+
+                        await _transaccionRepository.AddAsync(transaccion);
                     }
-
-
-                    var transaccion = new Transaccion_Ledger
-                    {
-                        Tipo = "VENTA",
-                        Monto = pujaGanadora.Monto,
-                        Fecha = DateTime.UtcNow,
-                        Subasta_Id = subasta.Id,
-                        Billetera_Id = billeteraComprador.Id
-                    };
-
-                    await _transaccionRepository.AddAsync(transaccion);
-
                     
                     var logVenta = new Auditoria_Log
                     {

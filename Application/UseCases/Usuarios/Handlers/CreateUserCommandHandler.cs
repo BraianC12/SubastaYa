@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.DTOs;
+using Application.Interfaces;
 using Application.UseCases.Usuarios.Commands;
 using Domain;
 using System;
@@ -22,7 +23,7 @@ namespace Application.UseCases.Usuarios.Handlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<int> Handle(CreateUserCommand request)
+        public async Task<CreateUserDto> Handle(CreateUserCommand request)
         {
             var user = new Usuario
             {
@@ -39,7 +40,14 @@ namespace Application.UseCases.Usuarios.Handlers
 
             await _unitOfWork.SaveChangesAsync();
 
-            return user.Id;
+            return new CreateUserDto
+            {
+                Id = user.Id,
+                Nombre = user.Nombre,
+                Email = user.Email,
+                BilleteraId = wallet.Id,
+                FechaRegistro = user.Fecha_Registro
+            };
         }
     }
 }

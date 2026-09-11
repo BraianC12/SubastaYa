@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace Application.UseCases.Subastas.Commands
 {
     public class CreateSubastaCommand

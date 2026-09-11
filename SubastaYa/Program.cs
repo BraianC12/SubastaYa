@@ -10,6 +10,7 @@ using Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using SubastaYa.Hubs;
 using SubastaYa.Services;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,7 +42,11 @@ builder.Services.AddScoped<IGetUserQueryHandler, GetUserQueryHandler>();
 builder.Services.AddScoped<ICreateUserCommandHandler, CreateUserCommandHandler>();
 builder.Services.AddHostedService<SubastaYa.Workers.AdjudicacionWorker>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

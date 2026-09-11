@@ -1,4 +1,5 @@
-﻿using Application.UseCases.Usuarios.Commands;
+﻿using Application.DTOs;
+using Application.UseCases.Usuarios.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Application.Interfaces
 {
     public interface ICreateUserCommandHandler
     {
-        Task<int> Handle(CreateUserCommand request);
+        Task<CreateUserDto> Handle(CreateUserCommand request);
     }
 }

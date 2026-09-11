@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.DTOs;
+using Application.Interfaces;
 using Application.UseCases.Subastas.Commands;
 using Domain;
 using Domain.Exceptions;
@@ -11,21 +12,24 @@ namespace Application.UseCases.Subastas.Handlers
         private readonly ISubastaRepository _subastaRepository;
         private readonly IBilleteraRepository _billeteraRepository;
         private readonly IAuditorialLogRepository _auditoriaRepository;
+        private ITransaccionLedgerRepository _transaccionLedgerRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         public CreateBidCommandHandler(
             ISubastaRepository subastaRepository,
             IBilleteraRepository billeteraRepository,
             IAuditorialLogRepository auditoriaRepository,
+            ITransaccionLedgerRepository transaccionLedgerRepository,
             IUnitOfWork unitOfWork)
         {
             _subastaRepository = subastaRepository;
             _billeteraRepository = billeteraRepository;
             _auditoriaRepository = auditoriaRepository;
+            _transaccionLedgerRepository = transaccionLedgerRepository;
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<int> Handle(CreateBidCommand request)
+        public async Task<CreateBidDto> Handle(CreateBidCommand request)
         {
             // Validaciones de la Subasta
             var subasta = await _subastaRepository.GetByIdAsync(request.Subasta_Id);
@@ -58,14 +62,16 @@ namespace Application.UseCases.Subastas.Handlers
             billeteraComprador.Saldo_Disponible -= request.Monto;
             billeteraComprador.Saldo_Retenido += request.Monto;
 
-            subasta.Transacciones.Add(new Transaccion_Ledger
+            var transaccionRetencion = new Transaccion_Ledger
             {
                 Tipo = "RETENCION",
                 Monto = request.Monto,
                 Fecha = DateTime.UtcNow,
+                Subasta_Id = subasta.Id,
                 Billetera_Id = billeteraComprador.Id
-            });
+            };
 
+            await _transaccionLedgerRepository.AddAsync(transaccionRetencion);
             
             if (pujaActual != null)
             {
@@ -75,13 +81,16 @@ namespace Application.UseCases.Subastas.Handlers
                     billeteraAnterior.Saldo_Retenido -= pujaActual.Monto;
                     billeteraAnterior.Saldo_Disponible += pujaActual.Monto;
 
-                    subasta.Transacciones.Add(new Transaccion_Ledger
+                    var transaccionLiberacion = new Transaccion_Ledger
                     {
                         Tipo = "LIBERACION",
                         Monto = pujaActual.Monto,
                         Fecha = DateTime.UtcNow,
+                        Subasta_Id = subasta.Id,
                         Billetera_Id = billeteraAnterior.Id
-                    });
+                    };
+
+                    await _transaccionLedgerRepository.AddAsync(transaccionLiberacion);
                 }
             }
 
@@ -98,7 +107,7 @@ namespace Application.UseCases.Subastas.Handlers
                     Accion = "EXTENSION DE TIEMPO",
                     Detalle = "El tiempo de la subasta se extendio 2 minutos por la regla Anti-Sniping.",
                     Fecha = DateTime.UtcNow,
-                    Usuario_Id = null
+                    Usuario_Id = request.Comprador_Id
                 };
 
                 await _auditoriaRepository.AddAsync(logExtension);
@@ -138,7 +147,14 @@ namespace Application.UseCases.Subastas.Handlers
                 throw new ConflictException("Otro usuario realizó una puja simultáneamente. Intente pujar con el nuevo valor.");
             }
 
-            return nuevaPuja.Id;
+            return new CreateBidDto
+            {
+                PujaId = nuevaPuja.Id,
+                SubastaId = subasta.Id,
+                Monto = nuevaPuja.Monto,
+                Fecha = nuevaPuja.Fecha_Puja,
+                SaldoDisponibleRestante = billeteraComprador.Saldo_Disponible
+            };
         }
     }
 }

@@ -35,8 +35,8 @@ namespace SubastaYa.Controllers
         [HttpPost("deposit")]
         public async Task<IActionResult> Deposit(DepositCommand command)
         {
-            decimal nuevoSaldo = await _depositHandler.Handle(command);
-            return StatusCode(201, new { mensaje = "Depósito realizado con éxito", saldoActualizado = nuevoSaldo });
+            var resultado = await _depositHandler.Handle(command);
+            return StatusCode(201, new { mensaje = "Depósito realizado con éxito", resultado });
         }
     }
 }

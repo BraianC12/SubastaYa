@@ -24,9 +24,9 @@ namespace SubastaYa.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserCommand request)
         {
-            int userId = await _commandHandler.Handle(request);
+            var result = await _commandHandler.Handle(request);
 
-            return StatusCode(201, new { mensaje = "Usuario creada exitosamente", id = userId });
+            return StatusCode(201, new { mensaje = "Usuario creada exitosamente", result });
         }
 
         [HttpGet]

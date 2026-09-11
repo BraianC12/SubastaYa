@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace Application.UseCases.Billeteras.Commands
 {
     public class DepositCommand

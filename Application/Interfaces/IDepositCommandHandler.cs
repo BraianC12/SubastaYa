@@ -1,9 +1,10 @@
-﻿using Application.UseCases.Billeteras.Commands;
+﻿using Application.DTOs;
+using Application.UseCases.Billeteras.Commands;
 
 namespace Application.Interfaces
 {
     public interface IDepositCommandHandler
     {
-        Task<decimal> Handle(DepositCommand request);
+        Task<DepositoDto> Handle(DepositCommand request);
     }
 }

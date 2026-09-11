@@ -2,7 +2,10 @@
 {
     public class DepositoDto
     {
-        public int Usuario_Id { get; set; }
-        public decimal Monto { get; set; }
+        public int TransaccionId { get; set; }
+        public decimal MontoDepositado { get; set; }
+        public decimal SaldoTotal { get; set; }
+        public decimal SaldoDisponible { get; set; }
+        public DateTime Fecha { get; set; }
     }
 }

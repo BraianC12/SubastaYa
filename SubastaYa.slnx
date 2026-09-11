@@ -1,4 +1,5 @@
 <Solution>
+  <Folder Name="/Frontend/" />
   <Project Path="Application/Application.csproj" />
   <Project Path="Domain/Domain.csproj" />
   <Project Path="Infraestructure/Infrastructure.csproj" />

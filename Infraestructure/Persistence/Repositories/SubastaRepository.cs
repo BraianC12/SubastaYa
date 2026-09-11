@@ -44,7 +44,7 @@ namespace Infrastructure.Persistence.Repositories
         {
             return await _context.Subastas
                 .Include(s => s.Pujas)
-                .Where(s => s.Estado == "ACTIVA" && s.Fecha_Fin <= DateTime.Now)
+                .Where(s => s.Estado == "ACTIVA" && s.Fecha_Fin <= DateTime.UtcNow)
                 .ToListAsync();
         }
     }
