@@ -103,7 +103,7 @@ namespace Infrastructure.Persistence.Migrations
                     Fecha_Inicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Fecha_Fin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Version = table.Column<int>(type: "int", nullable: false),
+                    Version = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     Vendedor_Id = table.Column<int>(type: "int", nullable: false),
                     Categoria_Id = table.Column<int>(type: "int", nullable: false)
                 },
@@ -216,14 +216,14 @@ namespace Infrastructure.Persistence.Migrations
 
             migrationBuilder.InsertData(
                 table: "Subastas",
-                columns: new[] { "Id", "Categoria_Id", "Descripcion", "Estado", "Fecha_Fin", "Fecha_Inicio", "Incremento_Minimo", "Precio_Base", "Titulo", "Url_Imagen", "Vendedor_Id", "Version" },
+                columns: new[] { "Id", "Categoria_Id", "Descripcion", "Estado", "Fecha_Fin", "Fecha_Inicio", "Incremento_Minimo", "Precio_Base", "Titulo", "Url_Imagen", "Vendedor_Id" },
                 values: new object[,]
                 {
-                    { 1, 1, "Activa Estandar", "ACTIVA", new DateTime(2026, 10, 1, 12, 25, 0, 0, DateTimeKind.Utc), new DateTime(2026, 10, 1, 11, 0, 0, 0, DateTimeKind.Utc), 500m, 10000m, "MacBook Pro", "macbook.jpg", 1, 1 },
-                    { 2, 2, "Activa Crítica", "ACTIVA", new DateTime(2026, 10, 1, 12, 1, 0, 0, DateTimeKind.Utc), new DateTime(2026, 10, 1, 10, 0, 0, 0, DateTimeKind.Utc), 100m, 5000m, "Reloj Antiguo", "reloj.jpg", 1, 1 },
-                    { 3, 3, "Próxima", "PROGRAMADA", new DateTime(2026, 10, 3, 12, 0, 0, 0, DateTimeKind.Utc), new DateTime(2026, 10, 2, 12, 0, 0, 0, DateTimeKind.Utc), 1000m, 20000m, "Campera Cuero", "campera.jpg", 1, 1 },
-                    { 4, 4, "Vencida con ganador", "ACTIVA", new DateTime(2026, 9, 30, 12, 0, 0, 0, DateTimeKind.Utc), new DateTime(2026, 9, 26, 12, 0, 0, 0, DateTimeKind.Utc), 5000m, 100000m, "Moto Honda", "moto.jpg", 1, 1 },
-                    { 5, 1, "Vencida desierta", "ACTIVA", new DateTime(2026, 9, 29, 12, 0, 0, 0, DateTimeKind.Utc), new DateTime(2026, 9, 28, 12, 0, 0, 0, DateTimeKind.Utc), 1000m, 30000m, "Monitor 4K", "monitor.jpg", 1, 1 }
+                    { 1, 1, "Activa Estandar", "ACTIVA", new DateTime(2026, 10, 1, 12, 25, 0, 0, DateTimeKind.Utc), new DateTime(2026, 10, 1, 11, 0, 0, 0, DateTimeKind.Utc), 500m, 10000m, "MacBook Pro", "macbook.jpg", 1 },
+                    { 2, 2, "Activa Crítica", "ACTIVA", new DateTime(2026, 10, 1, 12, 1, 0, 0, DateTimeKind.Utc), new DateTime(2026, 10, 1, 10, 0, 0, 0, DateTimeKind.Utc), 100m, 5000m, "Reloj Antiguo", "reloj.jpg", 1 },
+                    { 3, 3, "Próxima", "PROGRAMADA", new DateTime(2026, 10, 3, 12, 0, 0, 0, DateTimeKind.Utc), new DateTime(2026, 10, 2, 12, 0, 0, 0, DateTimeKind.Utc), 1000m, 20000m, "Campera Cuero", "campera.jpg", 1 },
+                    { 4, 4, "Vencida con ganador", "ACTIVA", new DateTime(2026, 9, 30, 12, 0, 0, 0, DateTimeKind.Utc), new DateTime(2026, 9, 26, 12, 0, 0, 0, DateTimeKind.Utc), 5000m, 100000m, "Moto Honda", "moto.jpg", 1 },
+                    { 5, 1, "Vencida desierta", "ACTIVA", new DateTime(2026, 9, 29, 12, 0, 0, 0, DateTimeKind.Utc), new DateTime(2026, 9, 28, 12, 0, 0, 0, DateTimeKind.Utc), 1000m, 30000m, "Monitor 4K", "monitor.jpg", 1 }
                 });
 
             migrationBuilder.InsertData(

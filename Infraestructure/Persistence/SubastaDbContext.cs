@@ -154,11 +154,11 @@ namespace Infraestructure.Persistence
 
             // 4. Subastas
             modelBuilder.Entity<Subasta>().HasData(
-                new Subasta { Id = 1, Titulo = "MacBook Pro", Descripcion = "Activa Estandar", Url_Imagen = "macbook.jpg", Categoria_Id = 1, Vendedor_Id = 1, Precio_Base = 10000, Incremento_Minimo = 500, Fecha_Inicio = fechaBase.AddHours(-1), Fecha_Fin = fechaBase.AddMinutes(25), Estado = "ACTIVA", Version = 1 },
-                new Subasta { Id = 2, Titulo = "Reloj Antiguo", Descripcion = "Activa Crítica", Url_Imagen = "reloj.jpg", Categoria_Id = 2, Vendedor_Id = 1, Precio_Base = 5000, Incremento_Minimo = 100, Fecha_Inicio = fechaBase.AddHours(-2), Fecha_Fin = fechaBase.AddMinutes(1), Estado = "ACTIVA", Version = 1 },
-                new Subasta { Id = 3, Titulo = "Campera Cuero", Descripcion = "Próxima", Url_Imagen = "campera.jpg", Categoria_Id = 3, Vendedor_Id = 1, Precio_Base = 20000, Incremento_Minimo = 1000, Fecha_Inicio = fechaBase.AddHours(24), Fecha_Fin = fechaBase.AddHours(48), Estado = "PROGRAMADA", Version = 1 },
-                new Subasta { Id = 4, Titulo = "Moto Honda", Descripcion = "Vencida con ganador", Url_Imagen = "moto.jpg", Categoria_Id = 4, Vendedor_Id = 1, Precio_Base = 100000, Incremento_Minimo = 5000, Fecha_Inicio = fechaBase.AddDays(-5), Fecha_Fin = fechaBase.AddDays(-1), Estado = "ACTIVA", Version = 1 },
-                new Subasta { Id = 5, Titulo = "Monitor 4K", Descripcion = "Vencida desierta", Url_Imagen = "monitor.jpg", Categoria_Id = 1, Vendedor_Id = 1, Precio_Base = 30000, Incremento_Minimo = 1000, Fecha_Inicio = fechaBase.AddDays(-3), Fecha_Fin = fechaBase.AddDays(-2), Estado = "ACTIVA", Version = 1 }
+                new Subasta { Id = 1, Titulo = "MacBook Pro", Descripcion = "Activa Estandar", Url_Imagen = "macbook.jpg", Categoria_Id = 1, Vendedor_Id = 1, Precio_Base = 10000, Incremento_Minimo = 500, Fecha_Inicio = fechaBase.AddHours(-1), Fecha_Fin = fechaBase.AddMinutes(25), Estado = "ACTIVA"},
+                new Subasta { Id = 2, Titulo = "Reloj Antiguo", Descripcion = "Activa Crítica", Url_Imagen = "reloj.jpg", Categoria_Id = 2, Vendedor_Id = 1, Precio_Base = 5000, Incremento_Minimo = 100, Fecha_Inicio = fechaBase.AddHours(-2), Fecha_Fin = fechaBase.AddMinutes(1), Estado = "ACTIVA"},
+                new Subasta { Id = 3, Titulo = "Campera Cuero", Descripcion = "Próxima", Url_Imagen = "campera.jpg", Categoria_Id = 3, Vendedor_Id = 1, Precio_Base = 20000, Incremento_Minimo = 1000, Fecha_Inicio = fechaBase.AddHours(24), Fecha_Fin = fechaBase.AddHours(48), Estado = "PROGRAMADA"},
+                new Subasta { Id = 4, Titulo = "Moto Honda", Descripcion = "Vencida con ganador", Url_Imagen = "moto.jpg", Categoria_Id = 4, Vendedor_Id = 1, Precio_Base = 100000, Incremento_Minimo = 5000, Fecha_Inicio = fechaBase.AddDays(-5), Fecha_Fin = fechaBase.AddDays(-1), Estado = "ACTIVA"},
+                new Subasta { Id = 5, Titulo = "Monitor 4K", Descripcion = "Vencida desierta", Url_Imagen = "monitor.jpg", Categoria_Id = 1, Vendedor_Id = 1, Precio_Base = 30000, Incremento_Minimo = 1000, Fecha_Inicio = fechaBase.AddDays(-3), Fecha_Fin = fechaBase.AddDays(-2), Estado = "ACTIVA"}
             );
             
 

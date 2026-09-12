@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Domain
 {
@@ -28,8 +24,8 @@ namespace Domain
         public string Estado { get; set; }
 
 
-       
-        public int Version { get; set; }
+        [Timestamp]
+        public byte[] Version { get; set; }
 
      
         public int Vendedor_Id { get; set; }

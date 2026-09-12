@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(SubastaDbContext))]
-    [Migration("20260908195842_InitialCreate")]
+    [Migration("20260912033121_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -267,9 +267,11 @@ namespace Infrastructure.Persistence.Migrations
                     b.Property<int>("Vendedor_Id")
                         .HasColumnType("int");
 
-                    b.Property<int>("Version")
+                    b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
-                        .HasColumnType("int");
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.HasKey("Id");
 
@@ -292,8 +294,7 @@ namespace Infrastructure.Persistence.Migrations
                             Precio_Base = 10000m,
                             Titulo = "MacBook Pro",
                             Url_Imagen = "macbook.jpg",
-                            Vendedor_Id = 1,
-                            Version = 1
+                            Vendedor_Id = 1
                         },
                         new
                         {
@@ -307,8 +308,7 @@ namespace Infrastructure.Persistence.Migrations
                             Precio_Base = 5000m,
                             Titulo = "Reloj Antiguo",
                             Url_Imagen = "reloj.jpg",
-                            Vendedor_Id = 1,
-                            Version = 1
+                            Vendedor_Id = 1
                         },
                         new
                         {
@@ -322,8 +322,7 @@ namespace Infrastructure.Persistence.Migrations
                             Precio_Base = 20000m,
                             Titulo = "Campera Cuero",
                             Url_Imagen = "campera.jpg",
-                            Vendedor_Id = 1,
-                            Version = 1
+                            Vendedor_Id = 1
                         },
                         new
                         {
@@ -337,8 +336,7 @@ namespace Infrastructure.Persistence.Migrations
                             Precio_Base = 100000m,
                             Titulo = "Moto Honda",
                             Url_Imagen = "moto.jpg",
-                            Vendedor_Id = 1,
-                            Version = 1
+                            Vendedor_Id = 1
                         },
                         new
                         {
@@ -352,8 +350,7 @@ namespace Infrastructure.Persistence.Migrations
                             Precio_Base = 30000m,
                             Titulo = "Monitor 4K",
                             Url_Imagen = "monitor.jpg",
-                            Vendedor_Id = 1,
-                            Version = 1
+                            Vendedor_Id = 1
                         });
                 });
 
