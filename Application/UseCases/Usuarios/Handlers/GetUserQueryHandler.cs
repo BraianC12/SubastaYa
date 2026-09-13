@@ -28,7 +28,7 @@ namespace Application.UseCases.Usuarios.Handlers
                 throw new NotFoundException("Usuario no encontrado");
             }
 
-            if(user.Password_Hash != request.Password)
+            if(!BCrypt.Net.BCrypt.Verify(request.Password, user.Password_Hash))
             {
                 throw new DomainException("Contraseña incorrecta");
             }

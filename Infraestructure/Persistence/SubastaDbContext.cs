@@ -15,23 +15,6 @@ namespace Infraestructure.Persistence
         public DbSet<Transaccion_Ledger> Transacciones_Ledger { get; set; }
         public DbSet<Auditoria_Log> Auditorias_Log { get; set; }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            foreach (var entry in ChangeTracker.Entries())
-            {
-                if (entry.State == EntityState.Modified)
-                {
-                    var version = entry.Properties.FirstOrDefault(p => p.Metadata.Name == "Version");
-                    if (version != null && version.CurrentValue is int currentVersion)
-                    {
-                        version.CurrentValue = currentVersion + 1;
-                    }
-                }
-            }
-
-            return base.SaveChangesAsync(cancellationToken);
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -110,11 +93,11 @@ namespace Infraestructure.Persistence
             //optimistic lockinh
             modelBuilder.Entity<Billetera>()
                 .Property(b => b.Version)
-                .IsConcurrencyToken();
+                .IsRowVersion();
 
             modelBuilder.Entity<Subasta>()
                 .Property(s => s.Version)
-                .IsConcurrencyToken();
+                .IsRowVersion();
 
             //configuración de tipo decimales
             modelBuilder.Entity<Subasta>().Property(s => s.Precio_Base).HasColumnType("decimal(18,2)");
@@ -128,28 +111,29 @@ namespace Infraestructure.Persistence
 
             /*Datos semillas*/
             DateTime fechaBase = new DateTime(2026, 10, 1, 12, 0, 0, DateTimeKind.Utc);
+            string hash = "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK"; // Hash de "123456"
 
             modelBuilder.Entity<Usuario>().HasData(
-                new Usuario { Id = 1, Email = "vendedor@test.com", Nombre = "Vendedor", Password_Hash = "hash1", Fecha_Registro = fechaBase },
-                new Usuario { Id = 2, Email = "comprador1@test.com", Nombre = "Comprador Lider", Password_Hash = "hash2", Fecha_Registro = fechaBase },
-                new Usuario { Id = 3, Email = "comprador2@test.com", Nombre = "Comprador Habilitado", Password_Hash = "hash3", Fecha_Registro = fechaBase },
-                new Usuario { Id = 4, Email = "sinfondos@test.com", Nombre = "Usuario Sin Fondos", Password_Hash = "hash4", Fecha_Registro = fechaBase }
+                new Usuario { Id = 1, Email = "vendedor@test.com", Nombre = "Vendedor", Password_Hash = hash, Fecha_Registro = fechaBase },
+                new Usuario { Id = 2, Email = "comprador1@test.com", Nombre = "Comprador Lider", Password_Hash = hash, Fecha_Registro = fechaBase },
+                new Usuario { Id = 3, Email = "comprador2@test.com", Nombre = "Comprador Habilitado", Password_Hash = hash, Fecha_Registro = fechaBase },
+                new Usuario { Id = 4, Email = "sinfondos@test.com", Nombre = "Usuario Sin Fondos", Password_Hash = hash, Fecha_Registro = fechaBase }
             );
 
             // 2. Billeteras
             modelBuilder.Entity<Billetera>().HasData(
-                new Billetera { Id = 1, Usuario_Id = 1, Saldo_Total = 0, Saldo_Retenido = 0, Saldo_Disponible = 0, Version = 1 },
-                new Billetera { Id = 2, Usuario_Id = 2, Saldo_Total = 150000, Saldo_Retenido = 45000, Saldo_Disponible = 105000, Version = 1 },
-                new Billetera { Id = 3, Usuario_Id = 3, Saldo_Total = 200000, Saldo_Retenido = 0, Saldo_Disponible = 200000, Version = 1 },
-                new Billetera { Id = 4, Usuario_Id = 4, Saldo_Total = 500, Saldo_Retenido = 0, Saldo_Disponible = 500, Version = 1 }
+                new Billetera { Id = 1, Usuario_Id = 1, Saldo_Total = 0, Saldo_Retenido = 0, Saldo_Disponible = 0},
+                new Billetera { Id = 2, Usuario_Id = 2, Saldo_Total = 150000, Saldo_Retenido = 45000, Saldo_Disponible = 105000},
+                new Billetera { Id = 3, Usuario_Id = 3, Saldo_Total = 200000, Saldo_Retenido = 0, Saldo_Disponible = 200000},
+                new Billetera { Id = 4, Usuario_Id = 4, Saldo_Total = 500, Saldo_Retenido = 0, Saldo_Disponible = 500}
             );
 
             // 3. Categorías
             modelBuilder.Entity<Categoria>().HasData(
-                new Categoria { Id = 1, Nombre = "Tecnología"},
+                new Categoria { Id = 1, Nombre = "Tecnologia"},
                 new Categoria { Id = 2, Nombre = "Coleccionables"},
                 new Categoria { Id = 3, Nombre = "Indumentaria"},
-                new Categoria { Id = 4, Nombre = "Vehículos"}
+                new Categoria { Id = 4, Nombre = "Vehiculos"}
             );
 
             // 4. Subastas

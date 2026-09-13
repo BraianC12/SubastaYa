@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 //url que recibe las pujas
-string apiUrl = "https://localhost:7117/api/auctions/6/bids";
+string apiUrl = "https://localhost:7117/api/auctions/5/bids";
 
 //configuracion de ataque
 int usuariosSimultaneos = 1000;
@@ -22,9 +22,9 @@ for (int i = 1; i <= usuariosSimultaneos; i++)
 {
     // Simulamos que distintos usuarios (ID 1 al 10) intentan pujar $2000 a la Subasta 1
     string jsonPayload = $@"{{
-        ""subasta_Id"": 6,
+        ""subasta_Id"": 5,
         ""comprador_Id"": 2,
-        ""monto"": 50060.00
+        ""monto"": 52060.00
     }}";
 
     var contenido = new StringContent(jsonPayload, Encoding.UTF8, "application/json");

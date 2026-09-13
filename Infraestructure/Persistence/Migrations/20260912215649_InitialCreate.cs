@@ -75,7 +75,7 @@ namespace Infrastructure.Persistence.Migrations
                     Saldo_Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Saldo_Retenido = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Saldo_Disponible = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Version = table.Column<int>(type: "int", nullable: false),
+                    Version = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     Usuario_Id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -186,10 +186,10 @@ namespace Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "Nombre" },
                 values: new object[,]
                 {
-                    { 1, "Tecnología" },
+                    { 1, "Tecnologia" },
                     { 2, "Coleccionables" },
                     { 3, "Indumentaria" },
-                    { 4, "Vehículos" }
+                    { 4, "Vehiculos" }
                 });
 
             migrationBuilder.InsertData(
@@ -197,21 +197,21 @@ namespace Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "Email", "Fecha_Registro", "Nombre", "Password_Hash" },
                 values: new object[,]
                 {
-                    { 1, "vendedor@test.com", new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc), "Vendedor", "hash1" },
-                    { 2, "comprador1@test.com", new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc), "Comprador Lider", "hash2" },
-                    { 3, "comprador2@test.com", new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc), "Comprador Habilitado", "hash3" },
-                    { 4, "sinfondos@test.com", new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc), "Usuario Sin Fondos", "hash4" }
+                    { 1, "vendedor@test.com", new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc), "Vendedor", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
+                    { 2, "comprador1@test.com", new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc), "Comprador Lider", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
+                    { 3, "comprador2@test.com", new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc), "Comprador Habilitado", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
+                    { 4, "sinfondos@test.com", new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc), "Usuario Sin Fondos", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Billeteras",
-                columns: new[] { "Id", "Saldo_Disponible", "Saldo_Retenido", "Saldo_Total", "Usuario_Id", "Version" },
+                columns: new[] { "Id", "Saldo_Disponible", "Saldo_Retenido", "Saldo_Total", "Usuario_Id" },
                 values: new object[,]
                 {
-                    { 1, 0m, 0m, 0m, 1, 1 },
-                    { 2, 105000m, 45000m, 150000m, 2, 1 },
-                    { 3, 200000m, 0m, 200000m, 3, 1 },
-                    { 4, 500m, 0m, 500m, 4, 1 }
+                    { 1, 0m, 0m, 0m, 1 },
+                    { 2, 105000m, 45000m, 150000m, 2 },
+                    { 3, 200000m, 0m, 200000m, 3 },
+                    { 4, 500m, 0m, 500m, 4 }
                 });
 
             migrationBuilder.InsertData(

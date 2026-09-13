@@ -19,22 +19,43 @@ namespace Application.UseCases.Handlers
         {
             var subastas = await _repository.Listar();
 
-            if(subastas == null)
+            if(subastas == null || !subastas.Any())
             {
                 throw new NotFoundException("Actualmente no hay subastas disponibles");
             }
 
+            var query = subastas.AsEnumerable();
+
             if (!string.IsNullOrWhiteSpace(request.Estado))
             {
-                subastas = subastas.Where(s => s.Estado == request.Estado).ToList();
+                query = query.Where(s => s.Estado == request.Estado);
             }
 
             if (!string.IsNullOrWhiteSpace(request.Categoria))
             {
-                subastas = subastas.Where(s => s.Categoria.Nombre == request.Categoria).ToList();
+                query = query.Where(s => s.Categoria.Nombre == request.Categoria);
             }
 
-            var subastasDto = subastas.Select(s => new AuctionDto
+            if (request.Ordenar.HasValue)
+            {
+                switch (request.Ordenar.Value)
+                {
+                    case CriterioOrden.Fecha:
+                        query = query.OrderBy(s => s.Fecha_Fin);
+                        break;
+                    case CriterioOrden.Precio:
+                        query = query.OrderByDescending(s => s.Pujas != null && s.Pujas.Any() ? s.Pujas.Max(p => p.Monto) : s.Precio_Base);
+                        break;
+                    default:
+                        throw new Exception();
+                }
+            }
+
+            int pagina = request.Pagina < 1 ? 1 : request.Pagina;
+
+            query = query.Skip((pagina - 1) * 2).Take(2).ToList(); 
+
+            var subastasDto = query.Select(s => new AuctionDto
             {
                 Id = s.Id,
                 Titulo = s.Titulo,
@@ -46,24 +67,9 @@ namespace Application.UseCases.Handlers
                 Fecha_Fin = s.Fecha_Fin,
                 Estado = s.Estado,
                 Categoria = s.Categoria.Nombre,
-                Puja_Actual = s.Pujas.OrderByDescending(p => p.Monto).Select(p => (decimal?)p.Monto).FirstOrDefault(),
+                Puja_Actual = s.Pujas != null && s.Pujas.Any() ? s.Pujas.Max(p => p.Monto) : s.Precio_Base,
                 Vendedor_Id = s.Vendedor_Id
             });
-
-            if (request.Ordenar.HasValue)
-            {
-                switch (request.Ordenar.Value)
-                {
-                    case CriterioOrden.Fecha:
-                        subastasDto = subastasDto.OrderBy(s => s.Fecha_Fin);
-                        break;
-                    case CriterioOrden.Precio:
-                        subastasDto = subastasDto.OrderByDescending(s => s.Puja_Actual);
-                        break;
-                    default:
-                        throw new Exception();
-                }
-            }
 
             return subastasDto;
         }

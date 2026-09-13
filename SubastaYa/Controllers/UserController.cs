@@ -30,8 +30,8 @@ namespace SubastaYa.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<UserDto>> Login([FromQuery]GetUserQuery query)
-        {
+        public async Task<ActionResult<UserDto>> Login([FromQuery] GetUserQuery query)
+        { 
             var user = await _queryHandler.Handle(query);
 
             return Ok(user);

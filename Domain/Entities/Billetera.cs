@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,8 @@ namespace Domain
 
         public decimal Saldo_Disponible { get; set; } = 0;
 
-        public int Version { get; set; } = 1;
+        [Timestamp]
+        public byte[] Version { get; set; }
    
         public int Usuario_Id { get; set; }
         public Usuario Usuario { get; set; }

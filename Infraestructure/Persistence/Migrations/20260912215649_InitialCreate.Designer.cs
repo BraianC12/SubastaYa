@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(SubastaDbContext))]
-    [Migration("20260912033121_InitialCreate")]
+    [Migration("20260912215649_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -81,9 +81,11 @@ namespace Infrastructure.Persistence.Migrations
                     b.Property<int>("Usuario_Id")
                         .HasColumnType("int");
 
-                    b.Property<int>("Version")
+                    b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
-                        .HasColumnType("int");
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.HasKey("Id");
 
@@ -99,8 +101,7 @@ namespace Infrastructure.Persistence.Migrations
                             Saldo_Disponible = 0m,
                             Saldo_Retenido = 0m,
                             Saldo_Total = 0m,
-                            Usuario_Id = 1,
-                            Version = 1
+                            Usuario_Id = 1
                         },
                         new
                         {
@@ -108,8 +109,7 @@ namespace Infrastructure.Persistence.Migrations
                             Saldo_Disponible = 105000m,
                             Saldo_Retenido = 45000m,
                             Saldo_Total = 150000m,
-                            Usuario_Id = 2,
-                            Version = 1
+                            Usuario_Id = 2
                         },
                         new
                         {
@@ -117,8 +117,7 @@ namespace Infrastructure.Persistence.Migrations
                             Saldo_Disponible = 200000m,
                             Saldo_Retenido = 0m,
                             Saldo_Total = 200000m,
-                            Usuario_Id = 3,
-                            Version = 1
+                            Usuario_Id = 3
                         },
                         new
                         {
@@ -126,8 +125,7 @@ namespace Infrastructure.Persistence.Migrations
                             Saldo_Disponible = 500m,
                             Saldo_Retenido = 0m,
                             Saldo_Total = 500m,
-                            Usuario_Id = 4,
-                            Version = 1
+                            Usuario_Id = 4
                         });
                 });
 
@@ -151,7 +149,7 @@ namespace Infrastructure.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Nombre = "Tecnología"
+                            Nombre = "Tecnologia"
                         },
                         new
                         {
@@ -166,7 +164,7 @@ namespace Infrastructure.Persistence.Migrations
                         new
                         {
                             Id = 4,
-                            Nombre = "Vehículos"
+                            Nombre = "Vehiculos"
                         });
                 });
 
@@ -465,7 +463,7 @@ namespace Infrastructure.Persistence.Migrations
                             Email = "vendedor@test.com",
                             Fecha_Registro = new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Vendedor",
-                            Password_Hash = "hash1"
+                            Password_Hash = "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK"
                         },
                         new
                         {
@@ -473,7 +471,7 @@ namespace Infrastructure.Persistence.Migrations
                             Email = "comprador1@test.com",
                             Fecha_Registro = new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Comprador Lider",
-                            Password_Hash = "hash2"
+                            Password_Hash = "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK"
                         },
                         new
                         {
@@ -481,7 +479,7 @@ namespace Infrastructure.Persistence.Migrations
                             Email = "comprador2@test.com",
                             Fecha_Registro = new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Comprador Habilitado",
-                            Password_Hash = "hash3"
+                            Password_Hash = "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK"
                         },
                         new
                         {
@@ -489,7 +487,7 @@ namespace Infrastructure.Persistence.Migrations
                             Email = "sinfondos@test.com",
                             Fecha_Registro = new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Usuario Sin Fondos",
-                            Password_Hash = "hash4"
+                            Password_Hash = "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK"
                         });
                 });
 

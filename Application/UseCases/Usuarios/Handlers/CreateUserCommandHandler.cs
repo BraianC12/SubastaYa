@@ -1,6 +1,7 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
 using Application.UseCases.Usuarios.Commands;
+using BCrypt.Net;
 using Domain;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace Application.UseCases.Usuarios.Handlers
             {
                 Email = request.Email,
                 Nombre = request.Nombre,
-                Password_Hash = request.Password,
+                Password_Hash = BCrypt.Net.BCrypt.HashPassword(request.Password),
                 Fecha_Registro = DateTime.UtcNow
             };
 
