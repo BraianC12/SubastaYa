@@ -35,6 +35,9 @@ export default function Login() {
     })
     if(response.ok){
       const data = await response.json();
+
+      localStorage.setItem("usuario", JSON.stringify(data));
+
       alert("!Inicio de sesion exitoso!");
       navigate('/index');
     }

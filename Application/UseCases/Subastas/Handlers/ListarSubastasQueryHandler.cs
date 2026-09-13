@@ -53,7 +53,7 @@ namespace Application.UseCases.Handlers
 
             int pagina = request.Pagina < 1 ? 1 : request.Pagina;
 
-            query = query.Skip((pagina - 1) * 2).Take(2).ToList(); 
+            query = query.Skip((pagina - 1) * 2).Take(3).ToList(); 
 
             var subastasDto = query.Select(s => new AuctionDto
             {

@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Index from './pages/Index';
+import AuctionDetail from './pages/AuctionDetail';
+import CreateAuction from './pages/CreateAuction';
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/index" element={<Index />} />
+        <Route path="/subasta/:id" element={<AuctionDetail />} />
+        <Route path="/crear-subasta" element={<CreateAuction />} />
       </Routes>
     </BrowserRouter>
   );
