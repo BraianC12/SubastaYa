@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(SubastaDbContext))]
-    [Migration("20260914234227_InitialCreate")]
+    [Migration("20260915173839_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -201,7 +201,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 1,
                             Comprador_Id = 3,
-                            Fecha_Puja = new DateTime(2026, 10, 1, 11, 30, 0, 0, DateTimeKind.Utc),
+                            Fecha_Puja = new DateTime(2026, 9, 15, 13, 20, 0, 0, DateTimeKind.Utc),
                             Monto = 25000m,
                             Subasta_Id = 1
                         },
@@ -209,7 +209,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 2,
                             Comprador_Id = 2,
-                            Fecha_Puja = new DateTime(2026, 10, 1, 11, 50, 0, 0, DateTimeKind.Utc),
+                            Fecha_Puja = new DateTime(2026, 9, 15, 13, 50, 0, 0, DateTimeKind.Utc),
                             Monto = 45000m,
                             Subasta_Id = 1
                         },
@@ -217,7 +217,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 3,
                             Comprador_Id = 3,
-                            Fecha_Puja = new DateTime(2026, 9, 29, 12, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha_Puja = new DateTime(2026, 9, 13, 14, 0, 0, 0, DateTimeKind.Utc),
                             Monto = 120000m,
                             Subasta_Id = 4
                         });
@@ -286,8 +286,8 @@ namespace Infrastructure.Persistence.Migrations
                             Categoria_Id = 1,
                             Descripcion = "Activa Estandar",
                             Estado = "ACTIVA",
-                            Fecha_Fin = new DateTime(2026, 10, 1, 12, 25, 0, 0, DateTimeKind.Utc),
-                            Fecha_Inicio = new DateTime(2026, 10, 1, 11, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha_Fin = new DateTime(2026, 9, 15, 14, 25, 0, 0, DateTimeKind.Utc),
+                            Fecha_Inicio = new DateTime(2026, 9, 15, 13, 0, 0, 0, DateTimeKind.Utc),
                             Incremento_Minimo = 500m,
                             Precio_Base = 10000m,
                             Titulo = "MacBook Pro",
@@ -300,8 +300,8 @@ namespace Infrastructure.Persistence.Migrations
                             Categoria_Id = 2,
                             Descripcion = "Activa Crítica",
                             Estado = "ACTIVA",
-                            Fecha_Fin = new DateTime(2026, 10, 1, 12, 1, 0, 0, DateTimeKind.Utc),
-                            Fecha_Inicio = new DateTime(2026, 10, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha_Fin = new DateTime(2026, 9, 15, 14, 1, 0, 0, DateTimeKind.Utc),
+                            Fecha_Inicio = new DateTime(2026, 9, 15, 12, 0, 0, 0, DateTimeKind.Utc),
                             Incremento_Minimo = 100m,
                             Precio_Base = 5000m,
                             Titulo = "Reloj Antiguo",
@@ -314,8 +314,8 @@ namespace Infrastructure.Persistence.Migrations
                             Categoria_Id = 3,
                             Descripcion = "Próxima",
                             Estado = "PROGRAMADA",
-                            Fecha_Fin = new DateTime(2026, 10, 3, 12, 0, 0, 0, DateTimeKind.Utc),
-                            Fecha_Inicio = new DateTime(2026, 10, 2, 12, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha_Fin = new DateTime(2026, 9, 17, 14, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha_Inicio = new DateTime(2026, 9, 16, 14, 0, 0, 0, DateTimeKind.Utc),
                             Incremento_Minimo = 1000m,
                             Precio_Base = 20000m,
                             Titulo = "Campera Cuero",
@@ -328,8 +328,8 @@ namespace Infrastructure.Persistence.Migrations
                             Categoria_Id = 4,
                             Descripcion = "Vencida con ganador",
                             Estado = "FINALIZADA",
-                            Fecha_Fin = new DateTime(2026, 9, 30, 12, 0, 0, 0, DateTimeKind.Utc),
-                            Fecha_Inicio = new DateTime(2026, 9, 26, 12, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha_Fin = new DateTime(2026, 9, 14, 14, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha_Inicio = new DateTime(2026, 9, 10, 14, 0, 0, 0, DateTimeKind.Utc),
                             Incremento_Minimo = 5000m,
                             Precio_Base = 100000m,
                             Titulo = "Moto Honda",
@@ -342,12 +342,40 @@ namespace Infrastructure.Persistence.Migrations
                             Categoria_Id = 1,
                             Descripcion = "Vencida desierta",
                             Estado = "DESIERTA",
-                            Fecha_Fin = new DateTime(2026, 9, 29, 12, 0, 0, 0, DateTimeKind.Utc),
-                            Fecha_Inicio = new DateTime(2026, 9, 28, 12, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha_Fin = new DateTime(2026, 9, 13, 14, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha_Inicio = new DateTime(2026, 9, 11, 14, 0, 0, 0, DateTimeKind.Utc),
                             Incremento_Minimo = 1000m,
                             Precio_Base = 30000m,
                             Titulo = "Monitor 4K",
                             Url_Imagen = "monitor.jpg",
+                            Vendedor_Id = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Categoria_Id = 1,
+                            Descripcion = "Vence el Sábado para probar pujas",
+                            Estado = "ACTIVA",
+                            Fecha_Fin = new DateTime(2026, 9, 19, 14, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha_Inicio = new DateTime(2026, 9, 15, 14, 0, 0, 0, DateTimeKind.Utc),
+                            Incremento_Minimo = 2000m,
+                            Precio_Base = 80000m,
+                            Titulo = "Smart TV Samsung 55'",
+                            Url_Imagen = "tv.jpg",
+                            Vendedor_Id = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Categoria_Id = 1,
+                            Descripcion = "Vence el Domingo para probar pujas",
+                            Estado = "ACTIVA",
+                            Fecha_Fin = new DateTime(2026, 9, 20, 14, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha_Inicio = new DateTime(2026, 9, 15, 14, 0, 0, 0, DateTimeKind.Utc),
+                            Incremento_Minimo = 3000m,
+                            Precio_Base = 120000m,
+                            Titulo = "PlayStation 5",
+                            Url_Imagen = "ps5.jpg",
                             Vendedor_Id = 1
                         });
                 });
@@ -389,7 +417,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 1,
                             Billetera_Id = 2,
-                            Fecha = new DateTime(2026, 9, 21, 12, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha = new DateTime(2026, 9, 10, 14, 0, 0, 0, DateTimeKind.Utc),
                             Monto = 150000m,
                             Tipo = "DEPOSITO"
                         },
@@ -397,7 +425,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 2,
                             Billetera_Id = 3,
-                            Fecha = new DateTime(2026, 9, 21, 12, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha = new DateTime(2026, 9, 10, 14, 0, 0, 0, DateTimeKind.Utc),
                             Monto = 200000m,
                             Tipo = "DEPOSITO"
                         },
@@ -405,7 +433,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 3,
                             Billetera_Id = 4,
-                            Fecha = new DateTime(2026, 9, 21, 12, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha = new DateTime(2026, 9, 10, 14, 0, 0, 0, DateTimeKind.Utc),
                             Monto = 500m,
                             Tipo = "DEPOSITO"
                         },
@@ -413,7 +441,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 4,
                             Billetera_Id = 2,
-                            Fecha = new DateTime(2026, 10, 1, 11, 50, 0, 0, DateTimeKind.Utc),
+                            Fecha = new DateTime(2026, 9, 15, 13, 50, 0, 0, DateTimeKind.Utc),
                             Monto = 45000m,
                             Subasta_Id = 1,
                             Tipo = "RETENCION"
@@ -422,7 +450,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 5,
                             Billetera_Id = 3,
-                            Fecha = new DateTime(2026, 9, 29, 12, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha = new DateTime(2026, 9, 14, 14, 0, 0, 0, DateTimeKind.Utc),
                             Monto = 120000m,
                             Subasta_Id = 4,
                             Tipo = "DEBITO"
@@ -461,7 +489,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 1,
                             Email = "vendedor@test.com",
-                            Fecha_Registro = new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha_Registro = new DateTime(2026, 8, 16, 14, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Vendedor",
                             Password_Hash = "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK"
                         },
@@ -469,7 +497,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 2,
                             Email = "comprador1@test.com",
-                            Fecha_Registro = new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha_Registro = new DateTime(2026, 8, 26, 14, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Comprador Lider",
                             Password_Hash = "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK"
                         },
@@ -477,7 +505,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 3,
                             Email = "comprador2@test.com",
-                            Fecha_Registro = new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha_Registro = new DateTime(2026, 8, 31, 14, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Comprador Habilitado",
                             Password_Hash = "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK"
                         },
@@ -485,7 +513,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 4,
                             Email = "sinfondos@test.com",
-                            Fecha_Registro = new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            Fecha_Registro = new DateTime(2026, 9, 5, 14, 0, 0, 0, DateTimeKind.Utc),
                             Nombre = "Usuario Sin Fondos",
                             Password_Hash = "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK"
                         });

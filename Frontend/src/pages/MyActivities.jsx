@@ -122,7 +122,7 @@ export default function MyActivities() {
   };
 
   return (
-    <div className="activities-page-container">
+    <div className="dashboard-container">
       <Navbar billetera={billetera} />
 
       <main className="activities-wrapper">
@@ -164,7 +164,6 @@ export default function MyActivities() {
           </div>
         ) : (
           <>
-            {/* MIS PUJAS */}
             {tabActiva === 'pujas' && (
               <section>
                 {/* BARRA DE FILTROS */}

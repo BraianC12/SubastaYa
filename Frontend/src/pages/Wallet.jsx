@@ -186,7 +186,7 @@ export default function Wallet() {
     : 0;
 
   return (
-    <div className="wallet-page-container">
+    <div className="dashboard-container">
       <Navbar billetera={billetera} usuario={usuario} />
 
       <div className="wallet-wrapper">

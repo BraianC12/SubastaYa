@@ -61,8 +61,8 @@ export default function CreateAuction() {
           url_Imagen: form.url_Imagen,
           vendedor_Id: usuario.id,
           categoria_Id: parseInt(form.categoria_Id),
-          fecha_Inicio: form.fecha_Inicio ? new Date(form.fecha_Inicio).toISOString() : new Date().toISOString(),
-          fecha_Fin: form.fecha_Fin ? new Date(form.fecha_Fin).toISOString() : new Date(Date.now() + 86400000).toISOString()
+          fecha_Inicio: form.fecha_Inicio ? form.fecha_Inicio + ":00" : new Date().toISOString(),
+          fecha_Fin: form.fecha_Fin ? form.fecha_Fin + ":00" : new Date(Date.now() + 86400000).toISOString()
         })
       });
 

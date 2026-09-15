@@ -42,6 +42,11 @@ namespace Application.UseCases.Subastas.Handlers
             if (subasta.Estado.ToUpper() != "ACTIVA")
                 throw new ConflictException("La subasta ya finalizó o no está activa.");
 
+            if (DateTime.Now < subasta.Fecha_Inicio)
+            {
+                throw new ConflictException("La subasta aún no ha comenzado. No se pueden realizar pujas.");
+            }
+
             // validaciones de la Billetera del nuevo comprador
             var billeteraComprador = await _billeteraRepository.GetByUsuarioIdAsync(request.Comprador_Id);
             if (billeteraComprador == null)
@@ -66,7 +71,7 @@ namespace Application.UseCases.Subastas.Handlers
             {
                 Tipo = "RETENCION",
                 Monto = request.Monto,
-                Fecha = DateTime.UtcNow,
+                Fecha = DateTime.Now,
                 Subasta_Id = subasta.Id,
                 Billetera_Id = billeteraComprador.Id
             };
@@ -85,7 +90,7 @@ namespace Application.UseCases.Subastas.Handlers
                     {
                         Tipo = "LIBERACION",
                         Monto = pujaActual.Monto,
-                        Fecha = DateTime.UtcNow,
+                        Fecha = DateTime.Now,
                         Subasta_Id = subasta.Id,
                         Billetera_Id = billeteraAnterior.Id
                     };

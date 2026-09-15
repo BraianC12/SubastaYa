@@ -11,7 +11,6 @@ export default function AuctionCard({ subasta }) {
           src={subasta.url_Imagen}
           alt={subasta.titulo}
           className="card-image"
-          //plan de contigencia: si la URL falla o esta vacía.
           onError={(e) => { e.target.style.display = 'none'; }}
         />
       </div>

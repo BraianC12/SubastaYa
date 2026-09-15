@@ -6,7 +6,10 @@
   padding: 16px 24px;
   border-radius: 16px;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-  margin-bottom: 24px;
+  margin: 0 auto 24px auto; /* Centrado automático */
+  max-width: 1100px; /* Ancho máximo estricto unificado */
+  width: 100%;       /* Ocupa todo el ancho disponible hasta llegar al max-width */
+  box-sizing: border-box;
   border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
@@ -17,7 +20,6 @@
   letter-spacing: -0.5px;
 }
 
-/* Buscador con lupa */
 .navbar-search {
   position: relative;
   flex-grow: 1;
@@ -43,7 +45,6 @@
   gap: 16px;
 }
 
-/* Boton de billetera con ícono */
 .wallet-info {
   display: flex;
   align-items: center;
@@ -73,7 +74,6 @@
   font-size: 14px;
 }
 
-/* Botón publicar con palabras separadas */
 .publish-btn {
   display: flex;
   align-items: center;
@@ -93,7 +93,6 @@
   color: #ffffff;
 }
 
-/* Botón de perfil simple */
 .profile-icon-btn {
   background: #f1f5f9;
   border: 1px solid #cbd5e1;
@@ -112,7 +111,6 @@
   background: #e2e8f0;
 }
 
-/*Boton para cerrar sesion*/
 .logout-btn {
   background: #fef2f2;
   border: 1px solid #fecaca;
