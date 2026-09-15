@@ -15,13 +15,16 @@ namespace SubastaYa.Controllers
     {
         private readonly IListarBilleteraQueryHandler _listarHandler;
         private readonly IDepositCommandHandler _depositHandler;
+        private readonly IListarTransaccionesQueryHandler _transaccionesHandler;
 
         public WalletController(
             IListarBilleteraQueryHandler listarHandler,
-            IDepositCommandHandler depositHandler)
+            IDepositCommandHandler depositHandler,
+            IListarTransaccionesQueryHandler transaccionesHandler)
         {
             _listarHandler = listarHandler;
             _depositHandler = depositHandler;
+            _transaccionesHandler = transaccionesHandler;
         }
 
         [HttpGet("{usuarioId}/balance")]
@@ -37,6 +40,14 @@ namespace SubastaYa.Controllers
         {
             var resultado = await _depositHandler.Handle(command);
             return StatusCode(201, new { mensaje = "Depósito realizado con éxito", resultado });
+        }
+
+        [HttpGet("{id}/transactions")]
+        public async Task<ActionResult<IEnumerable<TransaccionLedgerDto>>> GetTransactions(int id)
+        {
+            var query = new ListarTransaccionesQuery { Id  = id };
+            var result = await _transaccionesHandler.Handle(query);
+            return Ok(result);
         }
     }
 }

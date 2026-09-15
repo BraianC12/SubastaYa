@@ -67,16 +67,27 @@ namespace Application.UseCases.Subastas.Handlers
                         billeteraVendedor.Saldo_Total += pujaGanadora.Monto;
                         billeteraVendedor.Saldo_Disponible += pujaGanadora.Monto;
 
-                        var transaccion = new Transaccion_Ledger
+                        var transaccionDebito = new Transaccion_Ledger
                         {
-                            Tipo = "VENTA",
+                            Tipo = "DEBITO",
                             Monto = pujaGanadora.Monto,
                             Fecha = DateTime.UtcNow,
                             Subasta_Id = subasta.Id,
                             Billetera_Id = billeteraComprador.Id
                         };
 
-                        await _transaccionRepository.AddAsync(transaccion);
+                        await _transaccionRepository.AddAsync(transaccionDebito);
+
+                        var transaccionDeposito = new Transaccion_Ledger
+                        {
+                            Tipo = "DEPOSITO",
+                            Monto = pujaGanadora.Monto,
+                            Fecha = DateTime.UtcNow,
+                            Subasta_Id = subasta.Id,
+                            Billetera_Id = billeteraVendedor.Id
+                        };
+
+                        await _transaccionRepository.AddAsync(transaccionDeposito);
                     }
                     
                     var logVenta = new Auditoria_Log

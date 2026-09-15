@@ -10,5 +10,6 @@ namespace Application.Interfaces
     public interface ITransaccionLedgerRepository
     {
         Task AddAsync(Transaccion_Ledger transaccion);
+        Task<IEnumerable<Transaccion_Ledger>> GetByBilleteraIdAsync(int billeteraId);
     }
 }

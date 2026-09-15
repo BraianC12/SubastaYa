@@ -67,7 +67,7 @@ namespace Application.UseCases.Handlers
                 Fecha_Fin = s.Fecha_Fin,
                 Estado = s.Estado,
                 Categoria = s.Categoria.Nombre,
-                Puja_Actual = s.Pujas != null && s.Pujas.Any() ? s.Pujas.Max(p => p.Monto) : s.Precio_Base,
+                Puja_Actual = s.Pujas != null && s.Pujas.Any() ? s.Pujas.Max(p => p.Monto) : null,
                 Vendedor_Id = s.Vendedor_Id
             });
 

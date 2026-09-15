@@ -1,4 +1,4 @@
-﻿using Application.Interfaces;
+using Application.Interfaces;
 using Domain;
 using Infraestructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +38,18 @@ namespace Infrastructure.Persistence.Repositories
                 .Include(s => s.Pujas)
                 .Include(s => s.Transacciones)
                 .FirstOrDefaultAsync(s => s.Id == id);
+        }
+
+        public async Task<List<Subasta>> GetByBuyerIdAsync(int compradorId)
+        {
+            return await _context.Subastas.Include(s => s.Categoria).Include(s => s.Pujas).ThenInclude(p => p.Comprador)
+                .Where(s => s.Pujas.Any(p => p.Comprador_Id == compradorId)).ToListAsync();
+        }
+
+        public async Task<List<Subasta>> GetBySellerIdAsync(int vendedorId)
+        {
+            return await _context.Subastas.Include(s => s.Pujas).ThenInclude(p => p.Comprador).Include(s => s.Categoria)
+                .Where(s => s.Vendedor_Id == vendedorId).ToListAsync();
         }
 
         public async Task<List<Subasta>> ObtenerVencidasActivasAsync()

@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.DTOs;
+using Application.Interfaces;
+using Application.UseCases.Billeteras.Queries;
+using Application.UseCases.Handlers;
+using Application.UseCases.Subastas.Commands;
+using Application.UseCases.Subastas.Handlers;
+using Application.UseCases.Subastas.Queries;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Application.DTOs;
-using Application.UseCases.Subastas.Commands;
-using Application.UseCases.Subastas.Queries;
-using Application.UseCases.Subastas.Handlers;
-using Application.UseCases.Handlers;
-using Application.Interfaces;
 
 namespace SubastaYa.Controllers
 {
@@ -19,17 +20,23 @@ namespace SubastaYa.Controllers
         private readonly IObtenerSubastaQueryHandler _obtenerHandler;
         private readonly ICreateSubastaCommandHandler _createSubastaHandler;
         private readonly ICreateBidCommandHandler _createBidHandler;
+        private readonly IGetUserAuctionsQueryHandler _getUserAuctionsHandler;
+        private readonly IGetBuyerBidsQueryHandler _getBuyerBidsHandler;
 
         public SubastasController(
             IListarSubastasQueryHandler listarHandler, 
             IObtenerSubastaQueryHandler obtenerHandler,
             ICreateSubastaCommandHandler createSubastaHandler,
-            ICreateBidCommandHandler createBidHandler)
+            ICreateBidCommandHandler createBidHandler,
+            IGetUserAuctionsQueryHandler getUserAuctionsHandler,
+            IGetBuyerBidsQueryHandler getBuyerBidsHandler)
         {
             _listarHandler = listarHandler;
             _obtenerHandler = obtenerHandler;
             _createSubastaHandler = createSubastaHandler;
             _createBidHandler = createBidHandler;
+            _getUserAuctionsHandler = getUserAuctionsHandler;
+            _getBuyerBidsHandler = getBuyerBidsHandler;
         }
 
         [HttpGet]
@@ -59,6 +66,22 @@ namespace SubastaYa.Controllers
             command.Subasta_Id = id;
             var result = await _createBidHandler.Handle(command);
             return StatusCode(201, new { mensaje = "Puja creada exitosamente", result });
+        }
+
+        [HttpGet("{vendedorId}/seller")]
+        public async Task<ActionResult<List<SellerAuctionDto>>> GetSellerAuctions(int vendedorId)
+        {
+            var query = new GetUserAuctionsQuery { Id = vendedorId };
+            var result = await _getUserAuctionsHandler.Handle(query);
+            return Ok(result);
+        }
+
+        [HttpGet("{compradorId}/buyer")]
+        public async Task<ActionResult<List<MyBidAuctionDto>>> GetBuyerBids(int compradorId)
+        {
+            var query = new GetBuyerBidsQuery { Id = compradorId };
+            var result = await _getBuyerBidsHandler.Handle(query);
+            return Ok(result);
         }
     }
 }

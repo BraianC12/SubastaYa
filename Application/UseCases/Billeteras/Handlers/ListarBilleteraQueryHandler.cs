@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+using Application.DTOs;
 using Application.Interfaces;
 using Application.UseCases.Billeteras.Queries;
 using Domain.Exceptions;
@@ -24,6 +24,7 @@ namespace Application.UseCases.Billeteras.Handlers
 
             return new WalletBalanceDto
             {
+                Id = billetera.Id,
                 Usuario_Id = billetera.Usuario_Id,
                 Saldo_Total = billetera.Saldo_Total,
                 Saldo_Retenido = billetera.Saldo_Retenido,

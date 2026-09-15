@@ -23,10 +23,10 @@ export default function Navbar({ billetera }) {
 
       <div className="navbar-actions">
         {billetera && (
-          <div className="wallet-info">
+          <button className="wallet-info" onClick={() => navigate('/billetera')} title="Ir a mi Billetera">
             <span className="wallet-icon">💳</span>
             <span className="wallet-balance">${billetera.saldo_Disponible.toLocaleString('es-AR')}</span>
-          </div>
+          </button>
         )}
 
         <button className="app-btn-outline publish-btn" onClick={() => navigate('/crear-subasta')}>

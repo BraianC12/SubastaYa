@@ -1,6 +1,7 @@
-﻿using Application.Interfaces;
+using Application.Interfaces;
 using Domain;
 using Infraestructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,12 @@ namespace Infrastructure.Persistence.Repositories
         public async Task AddAsync(Transaccion_Ledger transaccion)
         {
             await _context.Set<Transaccion_Ledger>().AddAsync(transaccion);
+        }
+
+        public async Task<IEnumerable<Transaccion_Ledger>> GetByBilleteraIdAsync(int billeteraId)
+        {
+            return await _context.Transacciones_Ledger.Include(t => t.Subasta).
+                Where(t => t.Billetera_Id == billeteraId).OrderByDescending(t => t.Fecha).ToListAsync();
         }
     }
 }

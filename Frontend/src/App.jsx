@@ -4,6 +4,8 @@ import Login from './pages/Login';
 import Index from './pages/Index';
 import AuctionDetail from './pages/AuctionDetail';
 import CreateAuction from './pages/CreateAuction';
+import Wallet from './pages/Wallet';
+import MyActivities from './pages/MyActivities';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Route path="/index" element={<Index />} />
         <Route path="/subasta/:id" element={<AuctionDetail />} />
         <Route path="/crear-subasta" element={<CreateAuction />} />
+        <Route path="/billetera" element={<Wallet />} />
+        <Route path="/perfil" element={<MyActivities />} />
       </Routes>
     </BrowserRouter>
   );

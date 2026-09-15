@@ -40,6 +40,9 @@ builder.Services.AddScoped<IListarSubastasQueryHandler, ListarSubastasQueryHandl
 builder.Services.AddScoped<IObtenerSubastaQueryHandler, ObtenerSubastaQueryHandler>();
 builder.Services.AddScoped<IGetUserQueryHandler, GetUserQueryHandler>();
 builder.Services.AddScoped<ICreateUserCommandHandler, CreateUserCommandHandler>();
+builder.Services.AddScoped<IListarTransaccionesQueryHandler, ListarTransaccionesQueryHandler>();
+builder.Services.AddScoped<IGetUserAuctionsQueryHandler, GetUserAuctionsQueryHandler>();
+builder.Services.AddScoped<IGetBuyerBidsQueryHandler, GetBuyerBidsQueryHandler>();
 builder.Services.AddHostedService<SubastaYa.Workers.AdjudicacionWorker>();
 
 builder.Services.AddControllers()
@@ -54,7 +57,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        policy.WithOrigins("http://localhost:5174")
+        policy.WithOrigins("http://localhost:5173")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();

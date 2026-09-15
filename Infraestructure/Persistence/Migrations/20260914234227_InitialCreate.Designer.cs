@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(SubastaDbContext))]
-    [Migration("20260913004541_InitialCreate")]
+    [Migration("20260914234227_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -327,7 +327,7 @@ namespace Infrastructure.Persistence.Migrations
                             Id = 4,
                             Categoria_Id = 4,
                             Descripcion = "Vencida con ganador",
-                            Estado = "ACTIVA",
+                            Estado = "FINALIZADA",
                             Fecha_Fin = new DateTime(2026, 9, 30, 12, 0, 0, 0, DateTimeKind.Utc),
                             Fecha_Inicio = new DateTime(2026, 9, 26, 12, 0, 0, 0, DateTimeKind.Utc),
                             Incremento_Minimo = 5000m,
@@ -341,7 +341,7 @@ namespace Infrastructure.Persistence.Migrations
                             Id = 5,
                             Categoria_Id = 1,
                             Descripcion = "Vencida desierta",
-                            Estado = "ACTIVA",
+                            Estado = "DESIERTA",
                             Fecha_Fin = new DateTime(2026, 9, 29, 12, 0, 0, 0, DateTimeKind.Utc),
                             Fecha_Inicio = new DateTime(2026, 9, 28, 12, 0, 0, 0, DateTimeKind.Utc),
                             Incremento_Minimo = 1000m,
@@ -425,7 +425,7 @@ namespace Infrastructure.Persistence.Migrations
                             Fecha = new DateTime(2026, 9, 29, 12, 0, 0, 0, DateTimeKind.Utc),
                             Monto = 120000m,
                             Subasta_Id = 4,
-                            Tipo = "RETENCION"
+                            Tipo = "DEBITO"
                         });
                 });
 
