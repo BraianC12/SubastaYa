@@ -15,9 +15,8 @@ namespace Application.Interfaces
         Task<Subasta> GetByIdAsync(int id);
         Task<List<Subasta>> GetByBuyerIdAsync(int compradorId);
         Task<List<Subasta>> GetBySellerIdAsync(int vendedorId);
-
-
         Task<List<Subasta>> ObtenerVencidasActivasAsync();
+        Task<List<Subasta>> GetByEstadoAsync(string estado);
     }
 }
       

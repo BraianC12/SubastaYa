@@ -118,6 +118,7 @@ export default function MyActivities() {
       year: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
+      hour12: false,
     });
   };
 
@@ -370,10 +371,12 @@ export default function MyActivities() {
                 ) : (
                   <div className="activities-list">
                     {publicacionesFiltradas.map((item) => {
-                      const estaActiva = item.estado === 'ACTIVA';
-                      const estaAdjudicada = item.estado === 'FINALIZADA' && item.ganadorId;
-                      const estaProgramada = item.estado === 'PROGRAMADA';
-                      const estaDesierta = item.estado === 'DESIERTA' || (item.estado === 'FINALIZADA' && !item.ganadorId);
+                        const estado = item.estado?.toUpperCase();
+
+                        const estaProgramada = estado === 'PROGRAMADA';
+                        const estaActiva = estado === 'ACTIVA';
+                        const estaAdjudicada = estado === 'FINALIZADA' && item.ganadorId;
+                        const estaDesierta = estado === 'DESIERTA' || (estado === 'FINALIZADA' && !item.ganadorId);
 
                       return (
                         <article key={item.id} className="activity-card">

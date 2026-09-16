@@ -59,5 +59,13 @@ namespace Infrastructure.Persistence.Repositories
                 .Where(s => s.Estado == "ACTIVA" && s.Fecha_Fin <= DateTime.UtcNow)
                 .ToListAsync();
         }
+
+        public async Task<List<Subasta>> GetByEstadoAsync(string estado)
+        {
+            return await _context.Subastas
+                .Include(s => s.Pujas)
+                .Where(s => s.Estado == estado)
+                .ToListAsync();
+        }
     }
 }

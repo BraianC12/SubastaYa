@@ -1,8 +1,47 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/AuctionCard.css';
 
 export default function AuctionCard({ subasta }) {
   const navigate = useNavigate();
+  const [tiempoRestante, setTiempoRestante] = useState('');
+
+  useEffect(() => {
+    if (!subasta || !subasta.fecha_Fin) return;
+
+    const actualizarContador = () => {
+      const ahora = new Date().getTime();
+      const fechaFin = new Date(subasta.fecha_Fin).getTime();
+      const diferencia = fechaFin - ahora;
+
+      if (diferencia <= 0) {
+        setTiempoRestante("Finalizada");
+        return;
+      }
+      
+      const totalSegundos = Math.floor(diferencia / 1000);
+      const totalMinutos = Math.floor(totalSegundos / 60);
+      const totalHoras = Math.floor(totalMinutos / 60);
+      const dias = Math.floor(totalHoras / 24);
+
+      const horas = totalHoras % 24;
+      const minutos = totalMinutos % 60;
+      const segundos = totalSegundos % 60;
+
+      if (dias > 0) {
+        setTiempoRestante(`${dias}d ${horas}h ${minutos}m ${segundos}s`);
+      } else if (horas > 0) {
+        setTiempoRestante(`${horas}h ${minutos}m ${segundos}s`);
+      } else {
+        setTiempoRestante(`${minutos}m ${segundos}s`);
+      }
+    };
+
+    actualizarContador();
+    const intervaloId = setInterval(actualizarContador, 1000);
+
+    return () => clearInterval(intervaloId);
+  }, [subasta]);
 
   return (
     <div className="auction-card" onClick={() => navigate(`/subasta/${subasta.id}`)}>
@@ -17,11 +56,12 @@ export default function AuctionCard({ subasta }) {
       <div className="card-content">
         <h3 className="card-title">{subasta.titulo}</h3>
         <span className="card-category">{subasta.categoria}</span>
+        
         <div className="card-footer">
           <span className="card-price">
             ${subasta.puja_Actual?.toLocaleString('es-AR') || subasta.precio_Base.toLocaleString('es-AR')}
           </span>
-          <span className="card-time">⏳ Termina pronto</span>
+          <span className="card-time">⏳ Tiempo: {tiempoRestante || "Calculando..."}</span>
         </div>
       </div>
     </div>

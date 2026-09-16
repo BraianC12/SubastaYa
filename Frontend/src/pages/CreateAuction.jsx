@@ -23,6 +23,17 @@ export default function CreateAuction() {
     fecha_Fin: ''
   });
 
+const obtenerFechaMinima = () => {
+    const ahora = new Date();
+    const anio = ahora.getFullYear();
+    const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+    const dia = String(ahora.getDate()).padStart(2, '0');
+    const hora = String(ahora.getHours()).padStart(2, '0');
+    const minuto = String(ahora.getMinutes()).padStart(2, '0');
+    return `${anio}-${mes}-${dia}T${hora}:${minuto}`;
+  };
+
+
   useEffect(() => {
     const userStorage = localStorage.getItem("usuario");
     if (!userStorage) {
@@ -185,6 +196,7 @@ export default function CreateAuction() {
                 value={form.fecha_Inicio} 
                 onChange={handleChange} 
                 className="app-input" 
+                min={obtenerFechaMinima()}
                 required 
               />
             </div>
@@ -197,6 +209,7 @@ export default function CreateAuction() {
                 value={form.fecha_Fin} 
                 onChange={handleChange} 
                 className="app-input" 
+                min={form.fecha_Inicio || obtenerFechaMinima()}
                 required 
               />
             </div>

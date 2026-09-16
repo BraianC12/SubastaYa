@@ -17,6 +17,7 @@ export default function AuctionDetail() {
   const [mensajeFeedback, setMensajeFeedback] = useState({ texto: '', tipo: '' });
   const [tiempoRestante, setTiempoRestante] = useState('');
 
+  //Carga inicial de datos al entrar a la sala
   useEffect(() => {
     const userStorage = localStorage.getItem("usuario");
     if (!userStorage) {
@@ -57,6 +58,33 @@ export default function AuctionDetail() {
   }, [id, navigate]);
 
   useEffect(() => {
+    const verificarActualizaciones = async () => {
+      try {
+        const res = await fetch(`${appsettings.apiUrl}auctions/${id}`);
+        if (res.ok) {
+          const dataActualizada = await res.json();
+          setSubasta(prev => {
+            if (!prev) return dataActualizada;
+            if (
+              dataActualizada.estado !== prev.estado || 
+              dataActualizada.puja_Actual !== prev.puja_Actual
+            ) {
+              return dataActualizada;
+            }
+            return prev;
+          });
+        }
+      } catch (err) {
+        console.error("Error al sincronizar en vivo:", err);
+      }
+    };
+
+    const intervaloSync = setInterval(verificarActualizaciones, 5000);
+    return () => clearInterval(intervaloSync);
+  }, [id]);
+
+  //Cronómetro original de cierre
+  useEffect(() => {
     if (!subasta || !subasta.fecha_Fin) return;
 
     const actualizarContador = () => {
@@ -92,6 +120,20 @@ export default function AuctionDetail() {
 
     return () => clearInterval(intervaloId);
   }, [subasta]);
+
+  //fecha de 24hs
+  const formatearFecha = (fechaStr) => {
+    if (!fechaStr) return '';
+    const fecha = new Date(fechaStr);
+    return fecha.toLocaleString('es-AR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    });
+  };
 
   const realizarPuja = async (e) => {
     e.preventDefault();
@@ -130,7 +172,6 @@ export default function AuctionDetail() {
   if (loading) return <div className="loading-spinner">Cargando sala de subasta...</div>;
   if (!subasta) return <div className="error-container">Subasta no encontrada.</div>;
 
-  
   const esProgramada = subasta.estado === 'PROGRAMADA' || new Date(subasta.fecha_Inicio) > new Date();
 
   return (
@@ -160,7 +201,6 @@ export default function AuctionDetail() {
           <h2>Sala de Puja en Vivo</h2>
           
           {esProgramada ? (
-            /* Aviso visual cuando la subasta está programada/bloqueada */
             <div style={{ textAlign: 'center', padding: '30px 10px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0', marginTop: '16px' }}>
               <div style={{ fontSize: '36px', marginBottom: '10px' }}>⏰</div>
               <h3 style={{ color: '#6b21a8', marginBottom: '8px', fontSize: '18px' }}>Subasta Programada</h3>
@@ -171,11 +211,10 @@ export default function AuctionDetail() {
                 Inicio de puja:
               </span>
               <strong style={{ display: 'block', marginTop: '4px', fontSize: '15px', color: '#0f172a' }}>
-                {new Date(subasta.fecha_Inicio).toLocaleString('es-AR')}
+                {formatearFecha(subasta.fecha_Inicio)}
               </strong>
             </div>
           ) : (
-            /* Consola de pujas normal si ya está activa */
             <>
               <div className="current-bid-box">
                 <span className="label-current">Oferta Actual más alta</span>

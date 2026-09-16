@@ -34,7 +34,7 @@ namespace Application.UseCases.Subastas.Handlers
                 throw new DomainException("El incremento minimo debe ser mayor a 0");
             }
 
-            string estadoInicial = request.Fecha_Inicio > DateTime.UtcNow ? "PROGRAMADA" : "ACTIVA";
+            string estadoInicial = request.Fecha_Inicio > DateTime.Now ? "PROGRAMADA" : "ACTIVA";
 
             var subasta = new Subasta
             {
