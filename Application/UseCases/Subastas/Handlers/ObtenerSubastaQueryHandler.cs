@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+using Application.DTOs;
 using Application.Interfaces;
 using Application.UseCases.Subastas.Queries;
 using Domain.Exceptions;
@@ -36,7 +36,9 @@ namespace Application.UseCases.Handlers
                 Estado = subasta.Estado,
                 Categoria_Id = subasta.Categoria_Id,
                 Vendedor_Id = subasta.Vendedor_Id,
-                Puja_Actual = subasta.Pujas.OrderByDescending(p => p.Monto).Select(p => (decimal?)p.Monto).FirstOrDefault()
+                Puja_Actual = subasta.Pujas != null && subasta.Pujas.Any()
+                    ? subasta.Pujas.OrderByDescending(p => p.Monto).Select(p => (decimal?)p.Monto).FirstOrDefault()
+                    : null
             };
 
             return subastaDto;

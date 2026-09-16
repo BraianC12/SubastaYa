@@ -111,7 +111,7 @@ namespace Application.UseCases.Subastas.Handlers
                     Entidad_Id = subasta.Id,
                     Accion = "EXTENSION DE TIEMPO",
                     Detalle = "El tiempo de la subasta se extendio 2 minutos por la regla Anti-Sniping.",
-                    Fecha = DateTime.UtcNow,
+                    Fecha = DateTime.Now,
                     Usuario_Id = request.Comprador_Id
                 };
 
@@ -122,7 +122,7 @@ namespace Application.UseCases.Subastas.Handlers
             var nuevaPuja = new Puja
             {
                 Monto = request.Monto,
-                Fecha_Puja = DateTime.UtcNow,
+                Fecha_Puja = DateTime.Now,
                 Comprador_Id = request.Comprador_Id
             };
             subasta.Pujas.Add(nuevaPuja);
@@ -141,7 +141,7 @@ namespace Application.UseCases.Subastas.Handlers
                     Entidad_Id = subasta.Id,
                     Accion = "PUJA_RECHAZADA_CONCURRENCIA",
                     Detalle = "Intento de puja rechazada por colisión de concurrencia.",
-                    Fecha = DateTime.UtcNow,
+                    Fecha = DateTime.Now,
                     Usuario_Id = request.Comprador_Id
                 };
 
