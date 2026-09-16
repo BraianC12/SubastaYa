@@ -1,4 +1,3 @@
-﻿
 namespace Application.UseCases.Subastas.Queries
 {
     public enum CriterioOrden
@@ -12,6 +11,7 @@ namespace Application.UseCases.Subastas.Queries
         public string? Estado { get; set; }
         public string? Categoria { get; set; }
         public int Pagina { get; set; }
+        public string? Busqueda { get; set; }
 
         public CriterioOrden? Ordenar { get; set; }
 

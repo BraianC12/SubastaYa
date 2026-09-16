@@ -11,45 +11,61 @@ const InitialUser = {
 
 
 export default function Register() {
-
   const navigate = useNavigate();
 
   const [user, setUser] = useState(InitialUser);
+  const [cargando, setCargando] = useState(false);
+  const [mensajeFeedback, setMensajeFeedback] = useState({ texto: '', tipo: '' });
 
   const inputChangeValue = (e) => {
     const inputName = e.target.name;
     const inputValue = e.target.value;
 
-    setUser({...user, [inputName]: inputValue})
+    setUser({...user, [inputName]: inputValue});
+    if (mensajeFeedback.texto) setMensajeFeedback({ texto: '', tipo: '' });
   };
   
   const registrar = async (e) => {
-    
     e.preventDefault();
+    setCargando(true);
+    setMensajeFeedback({ texto: '', tipo: '' });
 
     try{
       const response = await fetch(`${appsettings.apiUrl}users`,{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body: JSON.stringify(user)
-    })
-    if(response.ok){
-      const data = await response.json();
-      alert("¡Registro exitoso! Iniciá sesión para continuar.");
-      navigate('/login');
-    }
-    else{
-      const errorData = await response.json().catch(() => null);
-      alert(errorData?.message || errorData?.mensaje || "Ocurrió un error al registrarte");
-    }
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body: JSON.stringify(user)
+      });
+
+      if(response.ok){
+        setMensajeFeedback({
+          texto: "¡Registro exitoso! Redirigiendo al inicio de sesión...",
+          tipo: 'success'
+        });
+        setTimeout(() => {
+          navigate('/login');
+        }, 1500);
+      }
+      else{
+        const errorData = await response.json().catch(() => null);
+        setMensajeFeedback({
+          texto: errorData?.message || errorData?.mensaje || "Ocurrió un error al registrarte.",
+          tipo: 'error'
+        });
+      }
     }
     catch(error){
       console.error("Error de conexión:", error);
-      alert("No se pudo conectar con el servidor. ¿Está el backend encendido?");
+      setMensajeFeedback({
+        texto: "No se pudo conectar con el servidor. ¿Está el backend encendido?",
+        tipo: 'error'
+      });
+    } finally {
+      setCargando(false);
     }
-  }
+  };
 
   return (
     <div className="auth-container">
@@ -61,23 +77,31 @@ export default function Register() {
         <h2 className="auth-title">Crear Cuenta</h2>
         <p className="auth-subtitle">Completá tus datos para registrarte gratis</p>
         
+        {mensajeFeedback.texto && (
+          <div className={`auth-alert ${mensajeFeedback.tipo}`}>
+            {mensajeFeedback.tipo === 'error' ? '⚠️' : '✅'} {mensajeFeedback.texto}
+          </div>
+        )}
+
         <form className="auth-form" onSubmit={registrar}>
           <div className="input-group">
             <label className="input-label">Nombre completo</label>
-            <input type="text" name="nombre" onChange={inputChangeValue} value={user.nombre} placeholder="Ej: Braian Carranza" className="app-input" />
+            <input type="text" name="nombre" onChange={inputChangeValue} value={user.nombre} placeholder="Ej: Braian Carranza" className="app-input" required />
           </div>
 
           <div className="input-group">
             <label className="input-label">Correo electrónico</label>
-            <input type="email" name="email" onChange={inputChangeValue} value={user.email} placeholder="tu@email.com" className="app-input" />
+            <input type="email" name="email" onChange={inputChangeValue} value={user.email} placeholder="tu@email.com" className="app-input" required />
           </div>
 
           <div className="input-group">
             <label className="input-label">Contraseña</label>
-            <input type="password" name="password" onChange={inputChangeValue} value={user.password} placeholder="Mínimo 6 caracteres" className="app-input" />
+            <input type="password" name="password" onChange={inputChangeValue} value={user.password} placeholder="Mínimo 6 caracteres" className="app-input" required />
           </div>
 
-          <button type="submit" className="app-btn">Registrarme</button>
+          <button type="submit" className="app-btn" disabled={cargando}>
+            {cargando ? 'Registrando...' : 'Registrarme'}
+          </button>
         </form>
 
         <p className="auth-footer">

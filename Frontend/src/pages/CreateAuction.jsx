@@ -18,7 +18,7 @@ export default function CreateAuction() {
     precio_Base: '',
     incremento_Minimo: '',
     url_Imagen: '',
-    categoria_Id: '1', 
+    categoria_Id: '1',
     fecha_Inicio: '',
     fecha_Fin: ''
   });
@@ -56,9 +56,9 @@ const obtenerFechaMinima = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loading) return;
-    
+
     setMensajeFeedback({ texto: '', tipo: '' });
-    setLoading(true); 
+    setLoading(true);
 
     try {
       const response = await fetch(`${appsettings.apiUrl}auctions`, {
@@ -81,10 +81,10 @@ const obtenerFechaMinima = () => {
 
       if (response.ok) {
         setMensajeFeedback({ texto: "Subasta creada con éxito, Redirigiendo...", tipo: "success" });
-        setTimeout(() => navigate('/index'), 1500); 
+        setTimeout(() => navigate('/index'), 1500);
       } else {
         setMensajeFeedback({ texto: data.message || data.mensaje || "Error al crear la subasta.", tipo: "error" });
-        setLoading(false); 
+        setLoading(false);
       }
     } catch (error) {
       console.error("[CODE-ERROR] - Falló la creación de subasta:", error);
@@ -108,62 +108,62 @@ const obtenerFechaMinima = () => {
         <p className="create-subtitle">Completá los datos del producto que querés poner en juego.</p>
 
         <form onSubmit={handleSubmit} className="create-form">
-            {/*Titulo*/}
+          {/*Titulo*/}
           <div className="input-group">
             <label className="input-label">Título del producto</label>
-            <input 
-              type="text" 
-              name="titulo" 
-              value={form.titulo} 
-              onChange={handleChange} 
-              placeholder="Ej. MacBook Pro M2" 
-              className="app-input" 
-              required 
+            <input
+              type="text"
+              name="titulo"
+              value={form.titulo}
+              onChange={handleChange}
+              placeholder="Ej. MacBook Pro M2"
+              className="app-input"
+              required
             />
           </div>
 
-            {/*Descrición*/}
+          {/*Descrición*/}
           <div className="input-group">
             <label className="input-label">Descripción</label>
-            <textarea 
-              name="descripcion" 
-              value={form.descripcion} 
-              onChange={handleChange} 
-              placeholder="Detallá el estado, uso y accesorios..." 
-              className="app-input app-textarea" 
+            <textarea
+              name="descripcion"
+              value={form.descripcion}
+              onChange={handleChange}
+              placeholder="Detallá el estado, uso y accesorios..."
+              className="app-input app-textarea"
               rows="3"
-              required 
+              required
             />
           </div>
 
-            {/*Precio Base*/}
+          {/*Precio Base*/}
           <div className="form-row">
             <div className="input-group">
               <label className="input-label">Precio Base ($)</label>
-              <input 
-                type="number" 
+              <input
+                type="number"
                 step="any"
-                name="precio_Base" 
-                value={form.precio_Base} 
-                onChange={handleChange} 
-                placeholder="10000" 
-                className="app-input" 
-                required 
+                name="precio_Base"
+                value={form.precio_Base}
+                onChange={handleChange}
+                placeholder="10000"
+                className="app-input"
+                required
               />
             </div>
 
             {/*Incremento */}
             <div className="input-group">
               <label className="input-label">Incremento Mínimo ($)</label>
-              <input 
-                type="number" 
+              <input
+                type="number"
                 step="any"
-                name="incremento_Minimo" 
-                value={form.incremento_Minimo} 
-                onChange={handleChange} 
-                placeholder="500" 
-                className="app-input" 
-                required 
+                name="incremento_Minimo"
+                value={form.incremento_Minimo}
+                onChange={handleChange}
+                placeholder="500"
+                className="app-input"
+                required
               />
             </div>
           </div>
@@ -171,22 +171,22 @@ const obtenerFechaMinima = () => {
           {/*Categoria*/}
           <div className="input-group">
             <label className="input-label">Categoría</label>
-            <select 
-              name="categoria_Id" 
-              value={form.categoria_Id} 
-              onChange={handleChange} 
+            <select
+              name="categoria_Id"
+              value={form.categoria_Id}
+              onChange={handleChange}
               className="app-input"
             >
               <option value="1">Tecnologia</option>
               <option value="2">Coleccionables</option>
               <option value="3">Indumentaria</option>
               <option value="4">Vehículos</option>
-              
-              
+
+
             </select>
           </div>
 
-         {/*Fecha y hora*/}
+          {/*Fecha y hora*/}
           <div className="form-row">
             <div className="input-group">
               <label className="input-label">Fecha y Hora de Inicio</label>
@@ -215,24 +215,24 @@ const obtenerFechaMinima = () => {
             </div>
           </div>
 
-            {/*URL de la imagen*/}
+          {/*URL de la imagen*/}
           <div className="input-group">
             <label className="input-label">URL de la Imagen</label>
-            <input 
-              type="url" 
-              name="url_Imagen" 
-              value={form.url_Imagen} 
-              onChange={handleChange} 
-              placeholder="https://images.unsplash.com/..." 
-              className="app-input" 
-              required 
+            <input
+              type="url"
+              name="url_Imagen"
+              value={form.url_Imagen}
+              onChange={handleChange}
+              placeholder="https://images.unsplash.com/..."
+              className="app-input"
+              required
             />
           </div>
 
-          
+
           <button type="submit" className="app-btn" style={{ width: '100%', marginTop: '10px' }}>
-             Crear Subasta
-           </button>
+            Crear Subasta
+          </button>
         </form>
 
         {mensajeFeedback.texto && (

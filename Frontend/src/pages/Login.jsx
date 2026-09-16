@@ -3,26 +3,29 @@ import '../styles/components.css';
 import {appsettings } from "../settings/appsettings";
 import { useState } from 'react';
 
-const InitialUser = {
-  email: "",
-  password: ""
-}
+const InitialUser = { email: "", password: "" }
 
 export default function Login() {
   
   const navigate = useNavigate();
 
   const [user, setUser] = useState(InitialUser);
+  const [cargando, setCargando] = useState(false);
+  const [mensajeFeedback, setMensajeFeedback] = useState({ texto: '', tipo: '' });
   
   const inputChangeValue = (e) => {
     const inputName = e.target.name;
     const inputValue = e.target.value;
     
     setUser({...user, [inputName]: inputValue})
+
+    if (mensajeFeedback.texto) setMensajeFeedback({ texto: '', tipo: '' });
   };
 
   const login = async (e) => {
     e.preventDefault();
+    setCargando(true);
+    setMensajeFeedback({ texto: '', tipo: '' });
 
     try{
       const params = new URLSearchParams({
@@ -37,20 +40,26 @@ export default function Login() {
       const data = await response.json();
 
       localStorage.setItem("usuario", JSON.stringify(data));
-
-      alert("!Inicio de sesion exitoso!");
       navigate('/index');
     }
     else{
       const errorData = await response.json().catch(() => null);
-      alert(errorData?.message || errorData?.mensaje || "Credenciales incorrectas");
+      setMensajeFeedback({
+        texto: errorData?.message || errorData?.mensaje || "Email o contraseña incorrectos.",
+        tipo: 'error'
+      });
     }
     }
     catch(error){
       console.error("Error de conexión:", error);
-      alert("No se pudo conectar con el servidor. ¿Está el backend encendido?");
+      setMensajeFeedback({
+        texto: "No se pudo conectar con el servidor. ¿Está el backend encendido?",
+        tipo: 'error'
+      });
+    } finally {
+      setCargando(false);
     }
-    }
+  }
 
   return (
     <div className="auth-container">
@@ -61,6 +70,12 @@ export default function Login() {
 
         <h2 className="auth-title">Iniciar Sesión</h2>
         <p className="auth-subtitle">Ingresá a tu cuenta para continuar</p>
+
+        {mensajeFeedback.texto && (
+          <div className={`auth-alert ${mensajeFeedback.tipo}`}>
+            {mensajeFeedback.tipo === 'error' ? '⚠️' : '✅'} {mensajeFeedback.texto}
+          </div>
+        )}
         
         <form className="auth-form" onSubmit={login}>
           <div className="input-group">
@@ -73,7 +88,7 @@ export default function Login() {
             <input type="password" name="password" onChange={inputChangeValue} value={user.password} placeholder="Tu contraseña" className="app-input" />
           </div>
 
-          <button type="submit" className="app-btn">Ingresar</button>
+          <button type="submit" className="app-btn" disabled={cargando}> {cargando ? 'Ingresando...' : 'Ingresar'}</button>
         </form>
 
         <p className="auth-footer">

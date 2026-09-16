@@ -163,13 +163,7 @@ export default function Wallet() {
   const formatearFecha = (fechaStr) => {
     if (!fechaStr) return '-';
     const d = new Date(fechaStr);
-    return d.toLocaleString('es-AR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
+    return d.toLocaleString('es-AR', {hour12: false});
   };
 
   const movimientosFiltrados = movimientos.filter((m) => {

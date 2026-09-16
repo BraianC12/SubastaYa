@@ -109,10 +109,7 @@ namespace Infraestructure.Persistence
             modelBuilder.Entity<Transaccion_Ledger>().Property(t => t.Monto).HasColumnType("decimal(18,2)");
 
 
-            /* ==========================================================
-                           DATOS SEMILLAS (Anclados al 15/09/2026)
-                           ========================================================== */
-            DateTime fechaBase = new DateTime(2026, 9, 15, 14, 0, 0, DateTimeKind.Utc);
+            DateTime fechaBase = new DateTime(2026, 10, 1, 12, 0, 0, DateTimeKind.Utc);
             string hash = "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK"; // Hash de "123456"
 
             // 1. Usuarios

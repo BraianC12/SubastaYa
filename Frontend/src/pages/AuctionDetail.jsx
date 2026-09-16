@@ -96,7 +96,7 @@ export default function AuctionDetail() {
         setTiempoRestante("Subasta finalizada");
         return;
       }
-      
+
       const totalSegundos = Math.floor(diferencia / 1000);
       const totalMinutos = Math.floor(totalSegundos / 60);
       const totalHoras = Math.floor(totalMinutos / 60);
@@ -153,9 +153,9 @@ export default function AuctionDetail() {
 
       if (response.ok) {
         setMensajeFeedback({ texto: "¡Puja realizada con éxito! Tu saldo ha sido retenido como garantía.", tipo: "success" });
-        
+
         setSubasta(prev => ({ ...prev, puja_Actual: parseFloat(montoPuja) }));
-        
+
         const resWallet = await fetch(`${appsettings.apiUrl}wallets/${usuario.id}/balance`);
         if (resWallet.ok) setBilletera(await resWallet.json());
 
@@ -178,78 +178,82 @@ export default function AuctionDetail() {
     <div data-sys-render="auto" className="dashboard-container">
       <Navbar billetera={billetera} usuario={usuario} />
 
-      <div className="auction-nav-bar">
-        <button className="back-link-btn" onClick={() => navigate('/index')}>
-          ← Volver al catálogo principal
-        </button>
-      </div>
-
-      <div className="auction-detail-grid">
-        <div className="auction-info-card">
-          <div className="detail-image-container">
-            <img src={subasta.url_Imagen} alt={subasta.titulo} className="detail-img" />
-          </div>
-          <h1 className="detail-title">{subasta.titulo}</h1>
-          <p className="detail-description">{subasta.descripcion}</p>
-          <div className="detail-rules">
-            <span>Precio Base: ${subasta.precio_Base?.toLocaleString('es-AR')}</span>
-            <span>Incremento Mínimo: ${subasta.incremento_Minimo?.toLocaleString('es-AR')}</span>
-          </div>
+      <div className="auction-detail-wrapper">
+        <div className="auction-nav-bar">
+          <button className="back-link-btn" onClick={() => navigate('/index')}>
+            ← Volver al catálogo principal
+          </button>
         </div>
 
-        <div className="bidding-console-card">
-          <h2>Sala de Puja en Vivo</h2>
-          
-          {esProgramada ? (
-            <div style={{ textAlign: 'center', padding: '30px 10px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0', marginTop: '16px' }}>
-              <div style={{ fontSize: '36px', marginBottom: '10px' }}>⏰</div>
-              <h3 style={{ color: '#6b21a8', marginBottom: '8px', fontSize: '18px' }}>Subasta Programada</h3>
-              <p style={{ color: '#64748b', fontSize: '14px', marginBottom: '12px' }}>
-                Este producto todavía no se encuentra habilitado para recibir ofertas.
-              </p>
-              <span style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#334155' }}>
-                Inicio de puja:
-              </span>
-              <strong style={{ display: 'block', marginTop: '4px', fontSize: '15px', color: '#0f172a' }}>
-                {formatearFecha(subasta.fecha_Inicio)}
-              </strong>
+        <div className="auction-detail-grid">
+          <div className="auction-info-card">
+            <div className="detail-image-container">
+              <img src={subasta.url_Imagen} alt={subasta.titulo} className="detail-img" />
             </div>
-          ) : (
-            <>
-              <div className="current-bid-box">
-                <span className="label-current">Oferta Actual más alta</span>
-                <span className="value-current">${subasta.puja_Actual?.toLocaleString('es-AR') || subasta.precio_Base?.toLocaleString('es-AR')}</span>
-              </div>
-
-              <div className="timer-box">
-                <span className="timer-title">⏳ Tiempo restante</span>
-                <span className="timer-countdown text-danger">{tiempoRestante || "Calculando..."}</span>
-              </div>
-
-              <form onSubmit={realizarPuja} className="bidding-form">
-                <label className="input-label">Tu oferta en pesos ($)</label>
-                <input 
-                  type="number" 
-                  step={subasta.incremento_Minimo}
-                  min={(subasta.puja_Actual || subasta.precio_Base) + subasta.incremento_Minimo}
-                  value={montoPuja} 
-                  onChange={(e) => setMontoPuja(e.target.value)}
-                  className="app-input"
-                  required 
-                />
-
-                <button type="submit" className="app-btn" style={{ width: '100%', marginTop: '12px' }}>
-                  Confirmar Oferta
-                </button>
-              </form>
-            </>
-          )}
-
-          {mensajeFeedback.texto && (
-            <div className={`feedback-alert ${mensajeFeedback.tipo}`}>
-              {mensajeFeedback.texto}
+            <h1 className="detail-title">{subasta.titulo}</h1>
+            <p className="detail-description">{subasta.descripcion}</p>
+            <div className="detail-rules">
+              <span>Precio Base: ${subasta.precio_Base?.toLocaleString('es-AR')}</span>
+              <span>Incremento Mínimo: ${subasta.incremento_Minimo?.toLocaleString('es-AR')}</span>
             </div>
-          )}
+          </div>
+
+          <div className="bidding-console-card">
+            <h2>Sala de Puja en Vivo</h2>
+
+            {esProgramada ? (
+              /* Aviso visual cuando la subasta está programada/bloqueada */
+              <div style={{ textAlign: 'center', padding: '30px 10px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0', marginTop: '16px' }}>
+                <div style={{ fontSize: '36px', marginBottom: '10px' }}>⏰</div>
+                <h3 style={{ color: '#6b21a8', marginBottom: '8px', fontSize: '18px' }}>Subasta Programada</h3>
+                <p style={{ color: '#64748b', fontSize: '14px', marginBottom: '12px' }}>
+                  Este producto todavía no se encuentra habilitado para recibir ofertas.
+                </p>
+                <span style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#334155' }}>
+                  Inicio de puja:
+                </span>
+                <strong style={{ display: 'block', marginTop: '4px', fontSize: '15px', color: '#0f172a' }}>
+                  {formatearFecha(subasta.fecha_Inicio)}
+                </strong>
+              </div>
+            ) : (
+              /* Consola de pujas normal si ya está activa */
+              <>
+                <div className="current-bid-box">
+                  <span className="label-current">Oferta Actual más alta</span>
+                  <span className="value-current">${subasta.puja_Actual?.toLocaleString('es-AR') || subasta.precio_Base?.toLocaleString('es-AR')}</span>
+                </div>
+
+                <div className="timer-box">
+                  <span className="timer-title">⏳ Tiempo restante</span>
+                  <span className="timer-countdown text-danger">{tiempoRestante || "Calculando..."}</span>
+                </div>
+
+                <form onSubmit={realizarPuja} className="bidding-form">
+                  <label className="input-label">Tu oferta en pesos ($)</label>
+                  <input
+                    type="number"
+                    step={subasta.incremento_Minimo}
+                    min={(subasta.puja_Actual || subasta.precio_Base) + subasta.incremento_Minimo}
+                    value={montoPuja}
+                    onChange={(e) => setMontoPuja(e.target.value)}
+                    className="app-input"
+                    required
+                  />
+
+                  <button type="submit" className="app-btn" style={{ width: '100%', marginTop: '12px' }}>
+                    Confirmar Oferta
+                  </button>
+                </form>
+              </>
+            )}
+
+            {mensajeFeedback.texto && (
+              <div className={`feedback-alert ${mensajeFeedback.tipo}`}>
+                {mensajeFeedback.texto}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

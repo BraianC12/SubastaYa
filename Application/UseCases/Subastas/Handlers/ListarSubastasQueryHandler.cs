@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+using Application.DTOs;
 using Application.Interfaces;
 using Application.UseCases.Subastas.Queries;
 using Domain;
@@ -28,12 +28,17 @@ namespace Application.UseCases.Handlers
 
             if (!string.IsNullOrWhiteSpace(request.Estado))
             {
-                query = query.Where(s => s.Estado == request.Estado);
+                query = query.Where(s => s.Estado == request.Estado.ToUpper());
             }
 
             if (!string.IsNullOrWhiteSpace(request.Categoria))
             {
                 query = query.Where(s => s.Categoria.Nombre == request.Categoria);
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.Busqueda))
+            {
+                query = query.Where(s => s.Titulo.Contains(request.Busqueda, StringComparison.OrdinalIgnoreCase));
             }
 
             if (request.Ordenar.HasValue)
@@ -53,7 +58,7 @@ namespace Application.UseCases.Handlers
 
             int pagina = request.Pagina < 1 ? 1 : request.Pagina;
 
-            query = query.Skip((pagina - 1) * 2).Take(3).ToList(); 
+            query = query.Skip((pagina - 1) * 3).Take(3).ToList(); 
 
             var subastasDto = query.Select(s => new AuctionDto
             {
