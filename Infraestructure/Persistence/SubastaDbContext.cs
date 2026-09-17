@@ -89,7 +89,6 @@ namespace Infraestructure.Persistence
                 .OnDelete(DeleteBehavior.SetNull);
 
             
-            
             //optimistic lockinh
             modelBuilder.Entity<Billetera>()
                 .Property(b => b.Version)
@@ -98,6 +97,17 @@ namespace Infraestructure.Persistence
             modelBuilder.Entity<Subasta>()
                 .Property(s => s.Version)
                 .IsRowVersion();
+
+
+            // Índices para optimizar volumen de consultas
+            modelBuilder.Entity<Subasta>()
+                .HasIndex(s => new { s.Estado, s.Categoria_Id, s.Fecha_Fin })
+                .IncludeProperties(s => new { s.Titulo, s.Precio_Base });
+            modelBuilder.Entity<Subasta>()
+                .HasIndex(s => s.Fecha_Fin)
+                .HasFilter("[Estado] = 'ACTIVA'");
+            modelBuilder.Entity<Puja>()
+                .HasIndex(p => new { p.Subasta_Id, p.Monto });
 
             //configuración de tipo decimales
             modelBuilder.Entity<Subasta>().Property(s => s.Precio_Base).HasColumnType("decimal(18,2)");
@@ -109,7 +119,7 @@ namespace Infraestructure.Persistence
             modelBuilder.Entity<Transaccion_Ledger>().Property(t => t.Monto).HasColumnType("decimal(18,2)");
 
 
-            DateTime fechaBase = new DateTime(2026, 10, 1, 12, 0, 0, DateTimeKind.Utc);
+            DateTime fechaBase = DateTime.Now;
             string hash = "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK"; // Hash de "123456"
 
             // 1. Usuarios

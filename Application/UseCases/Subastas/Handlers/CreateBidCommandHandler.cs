@@ -106,7 +106,7 @@ namespace Application.UseCases.Subastas.Handlers
             }
 
             // extiende el tiempo si queda menos de 1 minuto (Regla Anti-Sniping)
-            var ahora = subasta.Fecha_Fin.Kind == DateTimeKind.Utc ? DateTime.UtcNow : DateTime.Now;
+            var ahora = DateTime.Now;
             var tiempoRestante = subasta.Fecha_Fin - ahora;
             bool antiSnipingAplicado = false;
 

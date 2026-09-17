@@ -15,9 +15,9 @@ namespace Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<List<Subasta>> Listar()
+        public IQueryable<Subasta> Listar()
         {
-            return await _context.Subastas.AsNoTracking().Include(s => s.Categoria).Include(s => s.Pujas).ToListAsync();
+            return  _context.Subastas.AsNoTracking().Include(s => s.Categoria).Include(s => s.Pujas);
         }
 
         public async Task<Subasta> Obtener(int id)
@@ -51,7 +51,7 @@ namespace Infrastructure.Persistence.Repositories
         {
             return await _context.Subastas
                 .Include(s => s.Pujas)
-                .Where(s => s.Estado == "ACTIVA" && s.Fecha_Fin <= DateTime.UtcNow)
+                .Where(s => s.Estado == "ACTIVA" && s.Fecha_Fin <= DateTime.Now)
                 .ToListAsync();
         }
 

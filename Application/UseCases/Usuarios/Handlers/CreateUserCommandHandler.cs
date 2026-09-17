@@ -31,7 +31,7 @@ namespace Application.UseCases.Usuarios.Handlers
                 Email = request.Email,
                 Nombre = request.Nombre,
                 Password_Hash = BCrypt.Net.BCrypt.HashPassword(request.Password),
-                Fecha_Registro = DateTime.UtcNow
+                Fecha_Registro = DateTime.Now
             };
 
             await _userRepository.Add(user);

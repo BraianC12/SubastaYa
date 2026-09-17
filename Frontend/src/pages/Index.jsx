@@ -8,8 +8,8 @@ import '../styles/Index.css';
 
 const CATEGORIAS = [
   { id: '', label: '🌐 Todas' },
-  { id: 'Tecnología', label: '💻 Tecnología' },
-  { id: 'Vehículos', label: '🚗 Vehículos' },
+  { id: 'Tecnologia', label: '💻 Tecnología' },
+  { id: 'Vehiculos', label: '🚗 Vehículos' },
   { id: 'Indumentaria', label: '👕 Indumentaria' },
   { id: 'Coleccionables', label: '🏺 Coleccionables' },
 ];

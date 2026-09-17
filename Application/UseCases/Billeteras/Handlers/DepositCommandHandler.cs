@@ -41,7 +41,7 @@ namespace Application.UseCases.Billeteras.Handlers
             {
                 Tipo = "DEPOSITO",
                 Monto = request.Monto,
-                Fecha = DateTime.UtcNow,
+                Fecha = DateTime.Now,
                 Billetera_Id = billetera.Id
             };
 
@@ -53,7 +53,7 @@ namespace Application.UseCases.Billeteras.Handlers
                 Entidad_Id = billetera.Id,
                 Accion = "DEPOSITO_SALDO",
                 Detalle = $"Depósito de ${request.Monto}. Saldo total: ${billetera.Saldo_Total}.",
-                Fecha = DateTime.UtcNow,
+                Fecha = DateTime.Now,
                 Usuario_Id = request.Usuario_Id
             };
 

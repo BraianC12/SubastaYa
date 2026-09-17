@@ -102,7 +102,7 @@ namespace Infrastructure.Persistence.Migrations
                     Incremento_Minimo = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Fecha_Inicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Fecha_Fin = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Estado = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Version = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     Vendedor_Id = table.Column<int>(type: "int", nullable: false),
                     Categoria_Id = table.Column<int>(type: "int", nullable: false)
@@ -197,10 +197,10 @@ namespace Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "Email", "Fecha_Registro", "Nombre", "Password_Hash" },
                 values: new object[,]
                 {
-                    { 1, "vendedor@test.com", new DateTime(2026, 8, 16, 14, 0, 0, 0, DateTimeKind.Utc), "Vendedor", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
-                    { 2, "comprador1@test.com", new DateTime(2026, 8, 26, 14, 0, 0, 0, DateTimeKind.Utc), "Comprador Lider", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
-                    { 3, "comprador2@test.com", new DateTime(2026, 8, 31, 14, 0, 0, 0, DateTimeKind.Utc), "Comprador Habilitado", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
-                    { 4, "sinfondos@test.com", new DateTime(2026, 9, 5, 14, 0, 0, 0, DateTimeKind.Utc), "Usuario Sin Fondos", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" }
+                    { 1, "vendedor@test.com", new DateTime(2026, 8, 18, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), "Vendedor", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
+                    { 2, "comprador1@test.com", new DateTime(2026, 8, 28, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), "Comprador Lider", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
+                    { 3, "comprador2@test.com", new DateTime(2026, 9, 2, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), "Comprador Habilitado", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
+                    { 4, "sinfondos@test.com", new DateTime(2026, 9, 7, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), "Usuario Sin Fondos", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" }
                 });
 
             migrationBuilder.InsertData(
@@ -219,13 +219,13 @@ namespace Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "Categoria_Id", "Descripcion", "Estado", "Fecha_Fin", "Fecha_Inicio", "Incremento_Minimo", "Precio_Base", "Titulo", "Url_Imagen", "Vendedor_Id" },
                 values: new object[,]
                 {
-                    { 1, 1, "Activa Estandar", "ACTIVA", new DateTime(2026, 9, 15, 14, 25, 0, 0, DateTimeKind.Utc), new DateTime(2026, 9, 15, 13, 0, 0, 0, DateTimeKind.Utc), 500m, 10000m, "MacBook Pro", "macbook.jpg", 1 },
-                    { 2, 2, "Activa Crítica", "ACTIVA", new DateTime(2026, 9, 15, 14, 1, 0, 0, DateTimeKind.Utc), new DateTime(2026, 9, 15, 12, 0, 0, 0, DateTimeKind.Utc), 100m, 5000m, "Reloj Antiguo", "reloj.jpg", 1 },
-                    { 3, 3, "Próxima", "PROGRAMADA", new DateTime(2026, 9, 17, 14, 0, 0, 0, DateTimeKind.Utc), new DateTime(2026, 9, 16, 14, 0, 0, 0, DateTimeKind.Utc), 1000m, 20000m, "Campera Cuero", "campera.jpg", 1 },
-                    { 4, 4, "Vencida con ganador", "FINALIZADA", new DateTime(2026, 9, 14, 14, 0, 0, 0, DateTimeKind.Utc), new DateTime(2026, 9, 10, 14, 0, 0, 0, DateTimeKind.Utc), 5000m, 100000m, "Moto Honda", "moto.jpg", 1 },
-                    { 5, 1, "Vencida desierta", "DESIERTA", new DateTime(2026, 9, 13, 14, 0, 0, 0, DateTimeKind.Utc), new DateTime(2026, 9, 11, 14, 0, 0, 0, DateTimeKind.Utc), 1000m, 30000m, "Monitor 4K", "monitor.jpg", 1 },
-                    { 6, 1, "Vence el Sábado para probar pujas", "ACTIVA", new DateTime(2026, 9, 19, 14, 0, 0, 0, DateTimeKind.Utc), new DateTime(2026, 9, 15, 14, 0, 0, 0, DateTimeKind.Utc), 2000m, 80000m, "Smart TV Samsung 55'", "tv.jpg", 1 },
-                    { 7, 1, "Vence el Domingo para probar pujas", "ACTIVA", new DateTime(2026, 9, 20, 14, 0, 0, 0, DateTimeKind.Utc), new DateTime(2026, 9, 15, 14, 0, 0, 0, DateTimeKind.Utc), 3000m, 120000m, "PlayStation 5", "ps5.jpg", 1 }
+                    { 1, 1, "Activa Estandar", "ACTIVA", new DateTime(2026, 9, 17, 16, 43, 17, 512, DateTimeKind.Local).AddTicks(8926), new DateTime(2026, 9, 17, 15, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 500m, 10000m, "MacBook Pro", "macbook.jpg", 1 },
+                    { 2, 2, "Activa Crítica", "ACTIVA", new DateTime(2026, 9, 17, 16, 19, 17, 512, DateTimeKind.Local).AddTicks(8926), new DateTime(2026, 9, 17, 14, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 100m, 5000m, "Reloj Antiguo", "reloj.jpg", 1 },
+                    { 3, 3, "Próxima", "PROGRAMADA", new DateTime(2026, 9, 19, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), new DateTime(2026, 9, 18, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 1000m, 20000m, "Campera Cuero", "campera.jpg", 1 },
+                    { 4, 4, "Vencida con ganador", "FINALIZADA", new DateTime(2026, 9, 16, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), new DateTime(2026, 9, 12, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 5000m, 100000m, "Moto Honda", "moto.jpg", 1 },
+                    { 5, 1, "Vencida desierta", "DESIERTA", new DateTime(2026, 9, 15, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), new DateTime(2026, 9, 13, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 1000m, 30000m, "Monitor 4K", "monitor.jpg", 1 },
+                    { 6, 1, "Vence el Sábado para probar pujas", "ACTIVA", new DateTime(2026, 9, 21, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), new DateTime(2026, 9, 17, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 2000m, 80000m, "Smart TV Samsung 55'", "tv.jpg", 1 },
+                    { 7, 1, "Vence el Domingo para probar pujas", "ACTIVA", new DateTime(2026, 9, 22, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), new DateTime(2026, 9, 17, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 3000m, 120000m, "PlayStation 5", "ps5.jpg", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -233,9 +233,9 @@ namespace Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "Comprador_Id", "Fecha_Puja", "Monto", "Subasta_Id" },
                 values: new object[,]
                 {
-                    { 1, 3, new DateTime(2026, 9, 15, 13, 20, 0, 0, DateTimeKind.Utc), 25000m, 1 },
-                    { 2, 2, new DateTime(2026, 9, 15, 13, 50, 0, 0, DateTimeKind.Utc), 45000m, 1 },
-                    { 3, 3, new DateTime(2026, 9, 13, 14, 0, 0, 0, DateTimeKind.Utc), 120000m, 4 }
+                    { 1, 3, new DateTime(2026, 9, 17, 15, 38, 17, 512, DateTimeKind.Local).AddTicks(8926), 25000m, 1 },
+                    { 2, 2, new DateTime(2026, 9, 17, 16, 8, 17, 512, DateTimeKind.Local).AddTicks(8926), 45000m, 1 },
+                    { 3, 3, new DateTime(2026, 9, 15, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 120000m, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -243,11 +243,11 @@ namespace Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "Billetera_Id", "Fecha", "Monto", "Subasta_Id", "Tipo" },
                 values: new object[,]
                 {
-                    { 1, 2, new DateTime(2026, 9, 10, 14, 0, 0, 0, DateTimeKind.Utc), 150000m, null, "DEPOSITO" },
-                    { 2, 3, new DateTime(2026, 9, 10, 14, 0, 0, 0, DateTimeKind.Utc), 200000m, null, "DEPOSITO" },
-                    { 3, 4, new DateTime(2026, 9, 10, 14, 0, 0, 0, DateTimeKind.Utc), 500m, null, "DEPOSITO" },
-                    { 4, 2, new DateTime(2026, 9, 15, 13, 50, 0, 0, DateTimeKind.Utc), 45000m, 1, "RETENCION" },
-                    { 5, 3, new DateTime(2026, 9, 14, 14, 0, 0, 0, DateTimeKind.Utc), 120000m, 4, "DEBITO" }
+                    { 1, 2, new DateTime(2026, 9, 12, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 150000m, null, "DEPOSITO" },
+                    { 2, 3, new DateTime(2026, 9, 12, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 200000m, null, "DEPOSITO" },
+                    { 3, 4, new DateTime(2026, 9, 12, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 500m, null, "DEPOSITO" },
+                    { 4, 2, new DateTime(2026, 9, 17, 16, 8, 17, 512, DateTimeKind.Local).AddTicks(8926), 45000m, 1, "RETENCION" },
+                    { 5, 3, new DateTime(2026, 9, 16, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 120000m, 4, "DEBITO" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -267,14 +267,26 @@ namespace Infrastructure.Persistence.Migrations
                 column: "Comprador_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pujas_Subasta_Id",
+                name: "IX_Pujas_Subasta_Id_Monto",
                 table: "Pujas",
-                column: "Subasta_Id");
+                columns: new[] { "Subasta_Id", "Monto" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Subastas_Categoria_Id",
                 table: "Subastas",
                 column: "Categoria_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subastas_Estado_Categoria_Id_Fecha_Fin",
+                table: "Subastas",
+                columns: new[] { "Estado", "Categoria_Id", "Fecha_Fin" })
+                .Annotation("SqlServer:Include", new[] { "Titulo", "Precio_Base" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subastas_Fecha_Fin",
+                table: "Subastas",
+                column: "Fecha_Fin",
+                filter: "[Estado] = 'ACTIVA'");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Subastas_Vendedor_Id",

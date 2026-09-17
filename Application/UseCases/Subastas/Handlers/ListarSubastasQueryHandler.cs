@@ -17,28 +17,21 @@ namespace Application.UseCases.Handlers
         
         public async Task<IEnumerable<AuctionDto>> Handle(ListarSubastasQuery request)
         {
-            var subastas = await _repository.Listar();
-
-            if(subastas == null || !subastas.Any())
-            {
-                throw new NotFoundException("Actualmente no hay subastas disponibles");
-            }
-
-            var query = subastas.AsEnumerable();
+            var subastas = _repository.Listar();
 
             if (!string.IsNullOrWhiteSpace(request.Estado))
             {
-                query = query.Where(s => s.Estado == request.Estado.ToUpper());
+                subastas = subastas.Where(s => s.Estado == request.Estado.ToUpper());
             }
 
             if (!string.IsNullOrWhiteSpace(request.Categoria))
             {
-                query = query.Where(s => s.Categoria.Nombre == request.Categoria);
+                subastas = subastas.Where(s => s.Categoria.Nombre == request.Categoria);
             }
 
             if (!string.IsNullOrWhiteSpace(request.Busqueda))
             {
-                query = query.Where(s => s.Titulo.Contains(request.Busqueda, StringComparison.OrdinalIgnoreCase));
+                subastas = subastas.Where(s => s.Titulo.Contains(request.Busqueda));
             }
 
             if (request.Ordenar.HasValue)
@@ -46,22 +39,23 @@ namespace Application.UseCases.Handlers
                 switch (request.Ordenar.Value)
                 {
                     case CriterioOrden.Fecha:
-                        query = query.OrderBy(s => s.Fecha_Fin);
+                        subastas = subastas.OrderBy(s => s.Fecha_Fin);
                         break;
                     case CriterioOrden.Precio:
-                        query = query.OrderByDescending(s => s.Pujas != null && s.Pujas.Any() ? s.Pujas.Max(p => p.Monto) : s.Precio_Base);
+                        subastas = subastas.OrderByDescending(s => s.Pujas.Max(p => (decimal?)p.Monto) ?? s.Precio_Base);
                         break;
                     default:
-                        throw new Exception();
+                        subastas = subastas.OrderBy(s => s.Id);
+                        break;
                 }
             }
 
             int pagina = request.Pagina < 1 ? 1 : request.Pagina;
             int tamaño = 3;
 
-            query = query.Skip((pagina - 1) * tamaño).Take(tamaño).ToList(); 
+            var subastasPaginadas = subastas.Skip((pagina - 1) * tamaño).Take(tamaño).ToList();
 
-            var subastasDto = query.Select(s => new AuctionDto
+            var subastasDto = subastasPaginadas.Select(s => new AuctionDto
             {
                 Id = s.Id,
                 Titulo = s.Titulo,

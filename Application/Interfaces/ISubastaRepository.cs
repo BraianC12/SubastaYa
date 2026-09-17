@@ -10,7 +10,7 @@ namespace Application.Interfaces
     public interface ISubastaRepository
     {
         Task<Subasta> Obtener(int id);
-        Task<List<Subasta>> Listar();
+        IQueryable<Subasta> Listar();
         Task AddAsync(Subasta subasta);
         Task<Subasta> GetByIdAsync(int id);
         Task<List<Subasta>> GetByBuyerIdAsync(int compradorId);
