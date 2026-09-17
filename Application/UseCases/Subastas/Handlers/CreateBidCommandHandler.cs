@@ -42,6 +42,11 @@ namespace Application.UseCases.Subastas.Handlers
             if (subasta.Vendedor_Id == request.Comprador_Id)
                 throw new DomainException("El vendedor no puede pujar en su propia subasta.");
 
+            if (subasta.Estado.ToUpper() == "PROGRAMADA" && DateTime.Now >= subasta.Fecha_Inicio)
+            {
+                subasta.Estado = "ACTIVA";
+            }
+
             if (subasta.Estado.ToUpper() != "ACTIVA")
                 throw new ConflictException("La subasta ya finalizó o no está activa.");
 

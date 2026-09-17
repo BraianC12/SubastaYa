@@ -197,10 +197,10 @@ namespace Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "Email", "Fecha_Registro", "Nombre", "Password_Hash" },
                 values: new object[,]
                 {
-                    { 1, "vendedor@test.com", new DateTime(2026, 8, 18, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), "Vendedor", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
-                    { 2, "comprador1@test.com", new DateTime(2026, 8, 28, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), "Comprador Lider", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
-                    { 3, "comprador2@test.com", new DateTime(2026, 9, 2, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), "Comprador Habilitado", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
-                    { 4, "sinfondos@test.com", new DateTime(2026, 9, 7, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), "Usuario Sin Fondos", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" }
+                    { 1, "vendedor@test.com", new DateTime(2026, 8, 18, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), "Vendedor", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
+                    { 2, "comprador1@test.com", new DateTime(2026, 8, 28, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), "Comprador Lider", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
+                    { 3, "comprador2@test.com", new DateTime(2026, 9, 2, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), "Comprador Habilitado", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
+                    { 4, "sinfondos@test.com", new DateTime(2026, 9, 7, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), "Usuario Sin Fondos", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" }
                 });
 
             migrationBuilder.InsertData(
@@ -219,13 +219,13 @@ namespace Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "Categoria_Id", "Descripcion", "Estado", "Fecha_Fin", "Fecha_Inicio", "Incremento_Minimo", "Precio_Base", "Titulo", "Url_Imagen", "Vendedor_Id" },
                 values: new object[,]
                 {
-                    { 1, 1, "Activa Estandar", "ACTIVA", new DateTime(2026, 9, 17, 16, 43, 17, 512, DateTimeKind.Local).AddTicks(8926), new DateTime(2026, 9, 17, 15, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 500m, 10000m, "MacBook Pro", "macbook.jpg", 1 },
-                    { 2, 2, "Activa Crítica", "ACTIVA", new DateTime(2026, 9, 17, 16, 19, 17, 512, DateTimeKind.Local).AddTicks(8926), new DateTime(2026, 9, 17, 14, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 100m, 5000m, "Reloj Antiguo", "reloj.jpg", 1 },
-                    { 3, 3, "Próxima", "PROGRAMADA", new DateTime(2026, 9, 19, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), new DateTime(2026, 9, 18, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 1000m, 20000m, "Campera Cuero", "campera.jpg", 1 },
-                    { 4, 4, "Vencida con ganador", "FINALIZADA", new DateTime(2026, 9, 16, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), new DateTime(2026, 9, 12, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 5000m, 100000m, "Moto Honda", "moto.jpg", 1 },
-                    { 5, 1, "Vencida desierta", "DESIERTA", new DateTime(2026, 9, 15, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), new DateTime(2026, 9, 13, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 1000m, 30000m, "Monitor 4K", "monitor.jpg", 1 },
-                    { 6, 1, "Vence el Sábado para probar pujas", "ACTIVA", new DateTime(2026, 9, 21, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), new DateTime(2026, 9, 17, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 2000m, 80000m, "Smart TV Samsung 55'", "tv.jpg", 1 },
-                    { 7, 1, "Vence el Domingo para probar pujas", "ACTIVA", new DateTime(2026, 9, 22, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), new DateTime(2026, 9, 17, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 3000m, 120000m, "PlayStation 5", "ps5.jpg", 1 }
+                    { 1, 1, "Activa Estandar", "ACTIVA", new DateTime(2026, 9, 17, 16, 54, 22, 266, DateTimeKind.Local).AddTicks(6847), new DateTime(2026, 9, 17, 15, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 500m, 10000m, "MacBook Pro", "macbook.jpg", 1 },
+                    { 2, 2, "Activa Crítica", "ACTIVA", new DateTime(2026, 9, 17, 16, 30, 22, 266, DateTimeKind.Local).AddTicks(6847), new DateTime(2026, 9, 17, 14, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 100m, 5000m, "Reloj Antiguo", "reloj.jpg", 1 },
+                    { 3, 3, "Próxima", "PROGRAMADA", new DateTime(2026, 9, 19, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), new DateTime(2026, 9, 18, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 1000m, 20000m, "Campera Cuero", "campera.jpg", 1 },
+                    { 4, 4, "Vencida con ganador", "FINALIZADA", new DateTime(2026, 9, 16, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), new DateTime(2026, 9, 12, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 5000m, 100000m, "Moto Honda", "moto.jpg", 1 },
+                    { 5, 1, "Vencida desierta", "DESIERTA", new DateTime(2026, 9, 15, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), new DateTime(2026, 9, 13, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 1000m, 30000m, "Monitor 4K", "monitor.jpg", 1 },
+                    { 6, 1, "Vence el Sábado para probar pujas", "ACTIVA", new DateTime(2026, 9, 21, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), new DateTime(2026, 9, 17, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 2000m, 80000m, "Smart TV Samsung 55'", "tv.jpg", 1 },
+                    { 7, 1, "Vence el Domingo para probar pujas", "ACTIVA", new DateTime(2026, 9, 22, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), new DateTime(2026, 9, 17, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 3000m, 120000m, "PlayStation 5", "ps5.jpg", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -233,9 +233,9 @@ namespace Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "Comprador_Id", "Fecha_Puja", "Monto", "Subasta_Id" },
                 values: new object[,]
                 {
-                    { 1, 3, new DateTime(2026, 9, 17, 15, 38, 17, 512, DateTimeKind.Local).AddTicks(8926), 25000m, 1 },
-                    { 2, 2, new DateTime(2026, 9, 17, 16, 8, 17, 512, DateTimeKind.Local).AddTicks(8926), 45000m, 1 },
-                    { 3, 3, new DateTime(2026, 9, 15, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 120000m, 4 }
+                    { 1, 3, new DateTime(2026, 9, 17, 15, 49, 22, 266, DateTimeKind.Local).AddTicks(6847), 25000m, 1 },
+                    { 2, 2, new DateTime(2026, 9, 17, 16, 19, 22, 266, DateTimeKind.Local).AddTicks(6847), 45000m, 1 },
+                    { 3, 3, new DateTime(2026, 9, 15, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 120000m, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -243,11 +243,11 @@ namespace Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "Billetera_Id", "Fecha", "Monto", "Subasta_Id", "Tipo" },
                 values: new object[,]
                 {
-                    { 1, 2, new DateTime(2026, 9, 12, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 150000m, null, "DEPOSITO" },
-                    { 2, 3, new DateTime(2026, 9, 12, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 200000m, null, "DEPOSITO" },
-                    { 3, 4, new DateTime(2026, 9, 12, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 500m, null, "DEPOSITO" },
-                    { 4, 2, new DateTime(2026, 9, 17, 16, 8, 17, 512, DateTimeKind.Local).AddTicks(8926), 45000m, 1, "RETENCION" },
-                    { 5, 3, new DateTime(2026, 9, 16, 16, 18, 17, 512, DateTimeKind.Local).AddTicks(8926), 120000m, 4, "DEBITO" }
+                    { 1, 2, new DateTime(2026, 9, 12, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 150000m, null, "DEPOSITO" },
+                    { 2, 3, new DateTime(2026, 9, 12, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 200000m, null, "DEPOSITO" },
+                    { 3, 4, new DateTime(2026, 9, 12, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 500m, null, "DEPOSITO" },
+                    { 4, 2, new DateTime(2026, 9, 17, 16, 19, 22, 266, DateTimeKind.Local).AddTicks(6847), 45000m, 1, "RETENCION" },
+                    { 5, 3, new DateTime(2026, 9, 16, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 120000m, 4, "DEBITO" }
                 });
 
             migrationBuilder.CreateIndex(

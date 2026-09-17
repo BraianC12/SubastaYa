@@ -83,5 +83,22 @@ namespace SubastaYa.Controllers
             var result = await _getBuyerBidsHandler.Handle(query);
             return Ok(result);
         }
+
+        [HttpGet("{id}/bids")]
+        public async Task<IActionResult> GetHistorialPujas(int id, [FromServices] IGetHistorialPujasQueryHandler handler)
+        {
+            try
+            {
+                var query = new GetHistorialPujasQuery { SubastaId = id };
+                var historial = await handler.Handle(query);
+
+                return Ok(historial);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error al obtener el historial de pujas.", error = ex.Message });
+            }
+        }
+
     }
 }

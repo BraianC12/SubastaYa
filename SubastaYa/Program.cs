@@ -44,6 +44,8 @@ builder.Services.AddScoped<IListarTransaccionesQueryHandler, ListarTransacciones
 builder.Services.AddScoped<IGetUserAuctionsQueryHandler, GetUserAuctionsQueryHandler>();
 builder.Services.AddScoped<IGetBuyerBidsQueryHandler, GetBuyerBidsQueryHandler>();
 builder.Services.AddHostedService<SubastaYa.Workers.AdjudicacionWorker>();
+builder.Services.AddScoped<IGetHistorialPujasQueryHandler, GetHistorialPujasQueryHandler>();
+
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
