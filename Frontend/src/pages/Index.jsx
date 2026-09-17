@@ -28,8 +28,8 @@ export default function Index() {
   const [hasMore, setHasMore] = useState(true);
   const [categoria, setCategoria] = useState('');
   const [estado, setEstado] = useState('ACTIVA');
-  const [ordenar, setOrdenar] = useState('Fecha'); // 'Fecha' o 'Precio'
-  const LIMITE_POR_PAGINA = 3;
+  const [ordenar, setOrdenar] = useState('Fecha'); 
+  const LIMITE_POR_PAGINA = 3; // Volvemos a mostrar varias por página en grid
 
   useEffect(() => {
     const userStorage = localStorage.getItem("usuario");
@@ -63,7 +63,6 @@ export default function Index() {
     const cargarSubastas = async () => {
       setLoading(true);
       try {
-        // Construcción dinámica de parámetros de búsqueda
         const params = new URLSearchParams();
         if (busqueda) params.append('busqueda', busqueda);
         if (estado) params.append('estado', estado);
@@ -89,7 +88,7 @@ export default function Index() {
     cargarSubastas();
   }, [pagina, categoria, estado, ordenar, busqueda]);
 
-  // Conexión WebSockets en tiempo real para actualizar cards en el catálogo
+  // Conexión WebSockets en tiempo real
   useEffect(() => {
     const connection = crearConexionSubastaHub();
 
@@ -120,21 +119,6 @@ export default function Index() {
     };
   }, []);
 
-  const handleCategoriaChange = (nuevaCategoria) => {
-    setCategoria(nuevaCategoria);
-    setPagina(1);
-  };
-
-  const handleEstadoChange = (e) => {
-    setEstado(e.target.value);
-    setPagina(1);
-  };
-
-  const handleOrdenarChange = (e) => {
-    setOrdenar(e.target.value);
-    setPagina(1);
-  };
-
   const handlePaginaAnterior = () => {
     if (pagina > 1) {
       setPagina(prev => prev - 1);
@@ -149,92 +133,109 @@ export default function Index() {
     }
   };
 
+  // Color dinámico según el estado seleccionado para el indicador visual
+  const getEstadoColorClass = () => {
+    if (estado === 'ACTIVA') return 'dot-activa';
+    if (estado === 'FINALIZADA') return 'dot-finalizada';
+    if (estado === 'CANCELADA') return 'dot-cancelada';
+    return 'dot-todos';
+  };
+
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container-dinamico">
       <Navbar billetera={billetera} usuario={usuario} />
 
-      <div className="filters-section">
-        {/* Filtro de Categorías */}
-        <div className="category-filters">
-          {CATEGORIAS.map((cat) => (
-            <button
-              key={cat.id}
-              className={`filter-pill ${categoria === cat.id ? 'active' : ''}`}
-              onClick={() => handleCategoriaChange(cat.id)}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
-        {/* Filtros desplegables: Estado y Criterio de Orden */}
-        <div className="select-filters">
-          <div className="filter-group">
-            <label htmlFor="select-estado">Estado:</label>
-            <select
-              id="select-estado"
-              className="filter-select"
-              value={estado}
-              onChange={handleEstadoChange}
-            >
-              <option value="">Todos los estados</option>
-              <option value="ACTIVA">🟢 Activas</option>
-              <option value="FINALIZADA">🔴 Finalizadas</option>
-              <option value="CANCELADA">⚪ Canceladas</option>
-            </select>
+      {/* CONTENEDOR DE CONTROLES FIJO Y DINÁMICO */}
+      <div className="sticky-filters-container">
+        <div className="filters-wrapper">
+          
+          {/* Categorías */}
+          <div className="category-filters">
+            {CATEGORIAS.map((cat) => (
+              <button
+                key={cat.id}
+                className={`filter-pill ${categoria === cat.id ? 'active' : ''}`}
+                onClick={() => { setCategoria(cat.id); setPagina(1); }}
+              >
+                {cat.label}
+              </button>
+            ))}
           </div>
-          <div className="filter-group">
-            <label htmlFor="select-orden">Ordenar por:</label>
-            <select
-              id="select-orden"
-              className="filter-select"
-              value={ordenar}
-              onChange={handleOrdenarChange}
-            >
-              <option value="Fecha">⏳ Próximas a finalizar</option>
-              <option value="Precio">💰 Mayor precio</option>
-            </select>
+
+          <div className="filter-divider"></div>
+
+          {/* Selectores con indicador de color dinámico */}
+          <div className="select-filters">
+            <div className={`select-wrapper indicator-${estado.toLowerCase() || 'todos'}`}>
+              <span className={`status-dot ${getEstadoColorClass()}`}></span>
+              <select
+                className="modern-select"
+                value={estado}
+                onChange={(e) => { setEstado(e.target.value); setPagina(1); }}
+              >
+                <option value="">🌐 Todos los estados</option>
+                <option value="ACTIVA">🟢 Activas</option>
+                <option value="FINALIZADA">🔴 Finalizadas</option>
+                <option value="CANCELADA">⚪ Canceladas</option>
+              </select>
+            </div>
+
+            <div className="select-wrapper">
+              <span className="select-icon">⏳</span>
+              <select
+                className="modern-select"
+                value={ordenar}
+                onChange={(e) => { setOrdenar(e.target.value); setPagina(1); }}
+              >
+                <option value="Fecha">Próximas a finalizar</option>
+                <option value="Precio">Mayor precio</option>
+              </select>
+            </div>
           </div>
+
         </div>
       </div>
+
       <main className="auctions-main">
-        <h2 className="section-title">
-          {busqueda ? `Resultados para "${busqueda}"` : (categoria ? `Subastas en ${categoria}` : 'Explorar Subastas')}
-        </h2>
+        <div className="header-section-top">
+          <h2 className="section-title">
+            {busqueda ? `Resultados para "${busqueda}"` : (categoria ? `Subastas en ${categoria}` : 'Explorar Subastas')}
+          </h2>
+
+          {/* PAGINACIÓN SUPERIOR VISIBLE Y CÓMODA */}
+          <div className="pagination-top-container">
+            <button
+              className="pagination-btn-top"
+              onClick={handlePaginaAnterior}
+              disabled={pagina === 1 || loading}
+            >
+              ← Anterior
+            </button>
+            <span className="pagination-info-top">
+              Página <strong>{pagina}</strong>
+            </span>
+            <button
+              className="pagination-btn-top"
+              onClick={handlePaginaSiguiente}
+              disabled={!hasMore || loading}
+            >
+              Siguiente →
+            </button>
+          </div>
+        </div>
 
         {loading ? (
           <div className="loading-spinner">Cargando subastas...</div>
         ) : (
-          <>
-            <div className="auctions-grid">
-              {subastas.length === 0 ? (
-                <p>No hay subastas activas en este momento.</p>
-              ) : (
-                subastas.map((subasta) => (
-                  <AuctionCard key={subasta.id} subasta={subasta} />
-                ))
-              )}
-            </div>
-
-            <div className="pagination-container">
-              <button
-                className="pagination-btn"
-                onClick={handlePaginaAnterior}
-                disabled={pagina === 1 || loading}
-              >
-                ← Anterior
-              </button>
-              <span className="pagination-info">
-                Página <strong>{pagina}</strong>
-              </span>
-              <button
-                className="pagination-btn"
-                onClick={handlePaginaSiguiente}
-                disabled={!hasMore || loading}
-              >
-                Siguiente →
-              </button>
-            </div>
-          </>
+          <div className="auctions-grid">
+            {subastas.length === 0 ? (
+              <p className="no-auctions-text">No hay subastas disponibles en este momento.</p>
+            ) : (
+              subastas.map((subasta) => (
+                <AuctionCard key={subasta.id} subasta={subasta} />
+              ))
+            )}
+          </div>
         )}
       </main>
     </div>

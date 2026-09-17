@@ -57,8 +57,9 @@ namespace Application.UseCases.Handlers
             }
 
             int pagina = request.Pagina < 1 ? 1 : request.Pagina;
+            int tamaño = 3;
 
-            query = query.Skip((pagina - 1) * 3).Take(3).ToList(); 
+            query = query.Skip((pagina - 1) * tamaño).Take(tamaño).ToList(); 
 
             var subastasDto = query.Select(s => new AuctionDto
             {
