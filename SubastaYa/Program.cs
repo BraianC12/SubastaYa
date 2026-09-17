@@ -75,12 +75,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapHub<SubastaHub>("/subastaHub");
-
-
 app.UseCors("AllowReactApp");
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
+
+app.MapHub<SubastaHub>("/subastaHub");
 app.MapControllers();
+
 app.Run();

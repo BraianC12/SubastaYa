@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { appsettings } from '../settings/appsettings';
+import { crearConexionSubastaHub } from '../services/signalrService';
 import Navbar from '../components/Navbar';
 import AuctionCard from '../components/AuctionCard';
 import '../styles/Index.css';
@@ -87,6 +88,37 @@ export default function Index() {
     };
     cargarSubastas();
   }, [pagina, categoria, estado, ordenar, busqueda]);
+
+  // Conexión WebSockets en tiempo real para actualizar cards en el catálogo
+  useEffect(() => {
+    const connection = crearConexionSubastaHub();
+
+    connection.on("EstadoSubastaCambiado", (data) => {
+      setSubastas((prev) =>
+        prev.map((s) => (s.id === data.subastaId ? { ...s, estado: data.estado } : s))
+      );
+    });
+
+    connection.on("PujaActualizada", (data) => {
+      setSubastas((prev) =>
+        prev.map((s) =>
+          s.id === data.subastaId
+            ? {
+                ...s,
+                puja_Actual: data.monto,
+                ...(data.fechaFin ? { fecha_Fin: data.fechaFin } : {})
+              }
+            : s
+        )
+      );
+    });
+
+    connection.start().catch((err) => console.error("[SignalR Index] Error:", err));
+
+    return () => {
+      connection.stop().catch(() => {});
+    };
+  }, []);
 
   const handleCategoriaChange = (nuevaCategoria) => {
     setCategoria(nuevaCategoria);

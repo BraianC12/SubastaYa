@@ -27,7 +27,7 @@ namespace Application.UseCases.Subastas.Handlers
             var subastasProgramadas = await _subastaRepository.GetByEstadoAsync("PROGRAMADA");
             var subastasVencidas = await _subastaRepository.ObtenerVencidasActivasAsync();
 
-            // 1. Procesar las programadas que deban activarse
+            //procesar las programadas que deban activarse
             foreach (var subasta in subastasProgramadas)
             {
                 if (DateTime.Now >= subasta.Fecha_Inicio)
@@ -44,10 +44,11 @@ namespace Application.UseCases.Subastas.Handlers
                         Usuario_Id = null
                     };
                     await _auditoriaRepository.AddAsync(logActivacion);
+                    await _notificador.NotificarSubastaIniciadaAsync(subasta.Id, "La subasta programada comenzó automáticamente");
                 }
             }
 
-            // 2. Procesar las activas que ya vencieron
+            //procesar las activas que ya vencieron
             foreach (var subasta in subastasVencidas)
             {
                 if (DateTime.Now > subasta.Fecha_Fin)
@@ -65,6 +66,7 @@ namespace Application.UseCases.Subastas.Handlers
                             Usuario_Id = subasta.Vendedor_Id
                         };
                         await _auditoriaRepository.AddAsync(logDesierta);
+                        await _notificador.NotificarSubastaFinalizadaAsync(subasta.Id, "La subasta venció sin recibir ninguna puja", "DESIERTA");
                     }
                     else
                     {
@@ -115,7 +117,7 @@ namespace Application.UseCases.Subastas.Handlers
                                 Usuario_Id = null
                             };
                             await _auditoriaRepository.AddAsync(logVenta);
-                            await _notificador.NotificarSubastaFinalizadaAsync(subasta.Id, "La subasta ha finalizado");
+                            await _notificador.NotificarSubastaFinalizadaAsync(subasta.Id, "La subasta ha finalizado", "FINALIZADA", pujaGanadora.Comprador_Id, pujaGanadora.Monto);
                         }
                     }
                 }

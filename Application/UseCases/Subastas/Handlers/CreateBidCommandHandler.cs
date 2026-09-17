@@ -14,19 +14,22 @@ namespace Application.UseCases.Subastas.Handlers
         private readonly IAuditorialLogRepository _auditoriaRepository;
         private ITransaccionLedgerRepository _transaccionLedgerRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly INotificadorSubastaService _notificador;
 
         public CreateBidCommandHandler(
             ISubastaRepository subastaRepository,
             IBilleteraRepository billeteraRepository,
             IAuditorialLogRepository auditoriaRepository,
             ITransaccionLedgerRepository transaccionLedgerRepository,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            INotificadorSubastaService notificador)
         {
             _subastaRepository = subastaRepository;
             _billeteraRepository = billeteraRepository;
             _auditoriaRepository = auditoriaRepository;
             _transaccionLedgerRepository = transaccionLedgerRepository;
             _unitOfWork = unitOfWork;
+            _notificador = notificador;
         }
 
         public async Task<CreateBidDto> Handle(CreateBidCommand request)
@@ -41,6 +44,9 @@ namespace Application.UseCases.Subastas.Handlers
 
             if (subasta.Estado.ToUpper() != "ACTIVA")
                 throw new ConflictException("La subasta ya finalizó o no está activa.");
+
+            if (DateTime.Now >= subasta.Fecha_Fin)
+                throw new ConflictException("La subasta ya finalizó.");
 
             if (DateTime.Now < subasta.Fecha_Inicio)
             {
@@ -99,11 +105,15 @@ namespace Application.UseCases.Subastas.Handlers
                 }
             }
 
-            // extiende el tiempo si quedan menos de 1 minuto
-            var tiempoRestante = subasta.Fecha_Fin - DateTime.UtcNow;
-            if (tiempoRestante <= TimeSpan.FromMinutes(1))
+            // extiende el tiempo si queda menos de 1 minuto (Regla Anti-Sniping)
+            var ahora = subasta.Fecha_Fin.Kind == DateTimeKind.Utc ? DateTime.UtcNow : DateTime.Now;
+            var tiempoRestante = subasta.Fecha_Fin - ahora;
+            bool antiSnipingAplicado = false;
+
+            if (tiempoRestante <= TimeSpan.FromMinutes(1) && tiempoRestante > TimeSpan.Zero)
             {
                 subasta.Fecha_Fin = subasta.Fecha_Fin.AddMinutes(2);
+                antiSnipingAplicado = true;
 
                 var logExtension = new Auditoria_Log
                 {
@@ -151,6 +161,15 @@ namespace Application.UseCases.Subastas.Handlers
 
                 throw new ConflictException("Otro usuario realizó una puja simultáneamente. Intente pujar con el nuevo valor.");
             }
+
+            // Notificar a todos los clientes de la sala en tiempo real mediante WebSockets
+            await _notificador.NotificarNuevaPujaAsync(
+                subasta.Id,
+                nuevaPuja.Monto,
+                nuevaPuja.Comprador_Id,
+                subasta.Fecha_Fin,
+                antiSnipingAplicado
+            );
 
             return new CreateBidDto
             {

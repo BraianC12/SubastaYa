@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { appsettings } from '../settings/appsettings';
+import { crearConexionSubastaHub, unirseASalaSubasta, salirDeSalaSubasta } from '../services/signalrService';
 import Navbar from '../components/Navbar';
 import '../styles/components.css';
 import '../styles/AuctionDetail.css';
@@ -74,39 +75,117 @@ export default function AuctionDetail() {
     };
   }, [id, navigate]);
 
+  // Conexión WebSockets (SignalR) en tiempo real para Subastas en Vivo
   useEffect(() => {
-    const verificarActualizaciones = async () => {
-      try {
-        const res = await fetch(`${appsettings.apiUrl}auctions/${id}`);
-        if (res.ok) {
-          const dataActualizada = await res.json();
-          setSubasta(prev => {
-            if (!prev) return dataActualizada;
-            // Detección de extensión de tiempo por Anti-Sniping
-            if (prev.fecha_Fin && dataActualizada.fecha_Fin) {
-              const finAnterior = new Date(prev.fecha_Fin).getTime();
-              const finNuevo = new Date(dataActualizada.fecha_Fin).getTime();
-              if (finNuevo > finAnterior) {
-                dispararAlertaAntiSniping();
-              }
-            }
-            if (
-              dataActualizada.estado !== prev.estado || 
-              dataActualizada.puja_Actual !== prev.puja_Actual ||
-              dataActualizada.fecha_Fin !== prev.fecha_Fin
-            ) {
-              return dataActualizada;
-            }
-            return prev;
-          });
-        }
-      } catch (err) {
-        console.error("Error al sincronizar en vivo:", err);
+    if (!id) return;
+
+    const connection = crearConexionSubastaHub();
+
+    // 1. Notificación cuando pasa de "PROGRAMADA" a "ACTIVA"
+    connection.on("SubastaIniciada", (data) => {
+      if (Number(data.subastaId) === Number(id)) {
+        setSubasta((prev) => {
+          if (!prev) return prev;
+          return {
+            ...prev,
+            estado: "ACTIVA"
+          };
+        });
+        setMensajeFeedback({
+          texto: "🎉 ¡La subasta ha comenzado! Ya podés ingresar tus ofertas.",
+          tipo: "success"
+        });
+      }
+    });
+
+    // 2. Notificación cuando pasa de "ACTIVA" a "FINALIZADA" o "DESIERTA"
+    const handleFinalizada = (data) => {
+      if (Number(data.subastaId) === Number(id)) {
+        setSubasta((prev) => {
+          if (!prev) return prev;
+          return {
+            ...prev,
+            estado: data.estado || "FINALIZADA",
+            ...(data.montoFinal ? { puja_Actual: data.montoFinal } : {})
+          };
+        });
+        setMensajeFeedback({
+          texto: data.mensaje || (data.estado === "DESIERTA" ? "La subasta finalizó sin recibir ofertas." : "La subasta ha finalizado."),
+          tipo: "info"
+        });
       }
     };
+    connection.on("SubastaFinalizada", handleFinalizada);
+    connection.on("SubastaFinaliza", handleFinalizada);
 
-    const intervaloSync = setInterval(verificarActualizaciones, 5000);
-    return () => clearInterval(intervaloSync);
+    // 3. Notificación de nueva oferta y aplicación de regla Anti-Sniping
+    connection.on("NuevaPuja", (data) => {
+      if (Number(data.subastaId) === Number(id)) {
+        setSubasta((prev) => {
+          if (!prev) return prev;
+
+          const nuevoEstado = {
+            ...prev,
+            puja_Actual: data.monto
+          };
+
+          // Actualizar fecha_Fin si vino extendida
+          if (data.fechaFin) {
+            nuevoEstado.fecha_Fin = data.fechaFin;
+          }
+
+          // Ajustar nuevo monto sugerido en el input
+          const incremento = prev.incremento_Minimo || 100;
+          setMontoPuja(data.monto + incremento);
+
+          return nuevoEstado;
+        });
+
+        // Disparar alerta Anti-Sniping si se extendió el tiempo
+        if (data.antiSniping) {
+          dispararAlertaAntiSniping();
+        }
+
+        // Si otro usuario ofertó, mostrar alerta informativa
+        const currentUser = JSON.parse(localStorage.getItem("usuario") || "null");
+        if (currentUser && Number(currentUser.id) !== Number(data.compradorId)) {
+          setMensajeFeedback({
+            texto: `🔔 ¡Nueva oferta de $${data.monto.toLocaleString('es-AR')} recibida!`,
+            tipo: "info"
+          });
+        }
+
+        // Si el usuario tenía saldo retenido y fue superado, sincronizar su billetera
+        if (currentUser) {
+          fetch(`${appsettings.apiUrl}wallets/${currentUser.id}/balance`)
+            .then((res) => (res.ok ? res.json() : null))
+            .then((billeteraData) => {
+              if (billeteraData) setBilletera(billeteraData);
+            })
+            .catch((err) => console.error("[SignalR] Error al sincronizar billetera:", err));
+        }
+      }
+    });
+
+    // Iniciar conexión y unirse a la sala de esta subasta
+    let estaMontado = true;
+    connection
+      .start()
+      .then(() => {
+        if (estaMontado) {
+          return unirseASalaSubasta(connection, id);
+        }
+      })
+      .catch((err) => console.error("[SignalR] Error al conectar con Hub de Subastas:", err));
+
+    return () => {
+      estaMontado = false;
+      salirDeSalaSubasta(connection, id)
+        .catch(() => {})
+        .finally(() => {
+          connection.stop().catch(() => {});
+        });
+    };
   }, [id]);
 
   //Cronómetro original de cierre
@@ -184,24 +263,13 @@ export default function AuctionDetail() {
       if (response.ok) {
         setMensajeFeedback({ texto: "¡Puja realizada con éxito! Tu saldo ha sido retenido como garantía.", tipo: "success" });
 
-        setSubasta(prev => ({ ...prev, puja_Actual: parseFloat(montoPuja) }));
-
-        // Actualizamos estado consultando la subasta actualizada para refrescar fecha_Fin en caso de extensión
-        const resActualizada = await fetch(`${appsettings.apiUrl}auctions/${id}`);
-        if (resActualizada.ok) {
-          const subastaActualizada = await resActualizada.json();
-          if (new Date(subastaActualizada.fecha_Fin).getTime() > new Date(subasta.fecha_Fin).getTime()) {
-            dispararAlertaAntiSniping();
-          }
-          setSubasta(subastaActualizada);
+        // Actualización inmediata del saldo de la billetera con el resultado de la puja
+        if (data.result && data.result.saldoDisponibleRestante !== undefined) {
+          setBilletera(prev => prev ? { ...prev, saldo_Disponible: data.result.saldoDisponibleRestante } : prev);
         } else {
-          setSubasta(prev => ({ ...prev, puja_Actual: parseFloat(montoPuja) }));
+          const resWallet = await fetch(`${appsettings.apiUrl}wallets/${usuario.id}/balance`);
+          if (resWallet.ok) setBilletera(await resWallet.json());
         }
-
-        const resWallet = await fetch(`${appsettings.apiUrl}wallets/${usuario.id}/balance`);
-        if (resWallet.ok) setBilletera(await resWallet.json());
-
-        setMontoPuja(parseFloat(montoPuja) + subasta.incremento_Minimo);
       } else {
         setMensajeFeedback({ texto: data.message || data.mensaje || "No se pudo procesar la oferta.", tipo: "error" });
       }
@@ -214,7 +282,7 @@ export default function AuctionDetail() {
   if (loading) return <div className="loading-spinner">Cargando sala de subasta...</div>;
   if (!subasta) return <div className="error-container">Subasta no encontrada.</div>;
 
-  const esProgramada = subasta.estado === 'PROGRAMADA' || new Date(subasta.fecha_Inicio) > new Date();
+  const esProgramada = subasta.estado === 'PROGRAMADA';
   const esFinalizada = subasta.estado === 'FINALIZADA' || subasta.estado === 'CANCELADA' || subasta.estado === 'DESIERTA' || (subasta.fecha_Fin && new Date(subasta.fecha_Fin) <= new Date());
   const esVendedor = usuario && subasta && Number(usuario.id) === Number(subasta.vendedor_Id);
   const montoMinimoPuja = subasta.puja_Actual ? subasta.puja_Actual + subasta.incremento_Minimo : subasta.precio_Base;
