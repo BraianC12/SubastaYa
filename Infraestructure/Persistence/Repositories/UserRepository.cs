@@ -21,14 +21,14 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<List<Usuario>> Listar()
         {
-            var users = await _context.Usuarios.ToListAsync();
+            var users = await _context.Usuarios.AsNoTracking().ToListAsync();
 
             return users;
         }
 
         public async Task<Usuario> GetUser(string email)
         {
-            var user = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == email);
+            var user = await _context.Usuarios.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
 
             return user;
         }

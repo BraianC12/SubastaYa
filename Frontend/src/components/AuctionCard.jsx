@@ -5,20 +5,57 @@ import '../styles/AuctionCard.css';
 export default function AuctionCard({ subasta }) {
   const navigate = useNavigate();
   const [tiempoRestante, setTiempoRestante] = useState('');
+  const [esCritico, setEsCritico] = useState(false);
 
   useEffect(() => {
     if (!subasta || !subasta.fecha_Fin) return;
 
     const actualizarContador = () => {
       const ahora = new Date().getTime();
+
+      if (subasta.estado === 'FINALIZADA' || subasta.estado === 'DESIERTA' || subasta.estado === 'CANCELADA') {
+        setTiempoRestante("Finalizada");
+        setEsCritico(false);
+        return;
+      }
+
+      if (subasta.estado === 'PROGRAMADA' && subasta.fecha_Inicio) {
+        const fechaInicio = new Date(subasta.fecha_Inicio).getTime();
+        const diferenciaInicio = fechaInicio - ahora;
+
+        if (diferenciaInicio > 0) {
+          setEsCritico(false);
+          const totalSegundos = Math.floor(diferenciaInicio / 1000);
+          const totalMinutos = Math.floor(totalSegundos / 60);
+          const totalHoras = Math.floor(totalMinutos / 60);
+          const dias = Math.floor(totalHoras / 24);
+          const horas = totalHoras % 24;
+          const minutos = totalMinutos % 60;
+          const segundos = totalSegundos % 60;
+
+          if (dias > 0) {
+            setTiempoRestante(`Inicia en: ${dias}d ${horas}h ${minutos}m ${segundos}s`);
+          } else if (horas > 0) {
+            setTiempoRestante(`Inicia en: ${horas}h ${minutos}m ${segundos}s`);
+          } else {
+            setTiempoRestante(`Inicia en: ${minutos}m ${segundos}s`);
+          }
+          return;
+        }
+      }
+
       const fechaFin = new Date(subasta.fecha_Fin).getTime();
       const diferencia = fechaFin - ahora;
 
       if (diferencia <= 0) {
         setTiempoRestante("Finalizada");
+        setEsCritico(false);
         return;
       }
       
+      // Si falta 1 minuto (60.000 ms) o menos, marcamos como crítico (rojo)
+      setEsCritico(diferencia <= 60000);
+
       const totalSegundos = Math.floor(diferencia / 1000);
       const totalMinutos = Math.floor(totalSegundos / 60);
       const totalHoras = Math.floor(totalMinutos / 60);
@@ -61,7 +98,9 @@ export default function AuctionCard({ subasta }) {
           <span className="card-price">
             ${subasta.puja_Actual?.toLocaleString('es-AR') || subasta.precio_Base.toLocaleString('es-AR')}
           </span>
-          <span className="card-time">⏳ Tiempo: {tiempoRestante || "Calculando..."}</span>
+          <span className={`card-time ${esCritico ? 'urgente' : ''} ${tiempoRestante === 'Finalizada' ? 'finalizada' : ''}`}>
+            ⏳ Tiempo: {tiempoRestante || "Calculando..."}
+          </span>
         </div>
       </div>
     </div>

@@ -17,14 +17,12 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<List<Subasta>> Listar()
         {
-            return await _context.Subastas.Include(s => s.Categoria).Include(s => s.Pujas).ToListAsync();
+            return await _context.Subastas.AsNoTracking().Include(s => s.Categoria).Include(s => s.Pujas).ToListAsync();
         }
 
         public async Task<Subasta> Obtener(int id)
         {
-            return await _context.Subastas
-                .Include(s => s.Pujas)
-                .FirstOrDefaultAsync(s => s.Id == id);
+            return await _context.Subastas.AsNoTracking().Include(s => s.Pujas).FirstOrDefaultAsync(s => s.Id == id);
         }
 
         public async Task AddAsync(Subasta subasta)
@@ -34,21 +32,18 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<Subasta> GetByIdAsync(int id)
         {
-            return await _context.Subastas
-                .Include(s => s.Pujas)
-                .Include(s => s.Transacciones)
-                .FirstOrDefaultAsync(s => s.Id == id);
+            return await _context.Subastas.Include(s => s.Pujas).FirstOrDefaultAsync(s => s.Id == id);
         }
 
         public async Task<List<Subasta>> GetByBuyerIdAsync(int compradorId)
         {
-            return await _context.Subastas.Include(s => s.Categoria).Include(s => s.Pujas).ThenInclude(p => p.Comprador)
+            return await _context.Subastas.AsNoTracking().Include(s => s.Categoria).Include(s => s.Pujas).ThenInclude(p => p.Comprador)
                 .Where(s => s.Pujas.Any(p => p.Comprador_Id == compradorId)).ToListAsync();
         }
 
         public async Task<List<Subasta>> GetBySellerIdAsync(int vendedorId)
         {
-            return await _context.Subastas.Include(s => s.Pujas).ThenInclude(p => p.Comprador).Include(s => s.Categoria)
+            return await _context.Subastas.AsNoTracking().Include(s => s.Pujas).ThenInclude(p => p.Comprador).Include(s => s.Categoria)
                 .Where(s => s.Vendedor_Id == vendedorId).ToListAsync();
         }
 
@@ -62,7 +57,7 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<List<Subasta>> GetByEstadoAsync(string estado)
         {
-            return await _context.Subastas
+            return await _context.Subastas.AsNoTracking()
                 .Include(s => s.Pujas)
                 .Where(s => s.Estado == estado)
                 .ToListAsync();

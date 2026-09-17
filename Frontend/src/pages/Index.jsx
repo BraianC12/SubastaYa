@@ -28,7 +28,7 @@ export default function Index() {
   const [hasMore, setHasMore] = useState(true);
   const [categoria, setCategoria] = useState('');
   const [estado, setEstado] = useState('ACTIVA');
-  const [ordenar, setOrdenar] = useState('Fecha'); 
+  const [ordenar, setOrdenar] = useState('Fecha');
   const LIMITE_POR_PAGINA = 3; // Volvemos a mostrar varias por página en grid
 
   useEffect(() => {
@@ -103,10 +103,10 @@ export default function Index() {
         prev.map((s) =>
           s.id === data.subastaId
             ? {
-                ...s,
-                puja_Actual: data.monto,
-                ...(data.fechaFin ? { fecha_Fin: data.fechaFin } : {})
-              }
+              ...s,
+              puja_Actual: data.monto,
+              ...(data.fechaFin ? { fecha_Fin: data.fechaFin } : {})
+            }
             : s
         )
       );
@@ -115,7 +115,7 @@ export default function Index() {
     connection.start().catch((err) => console.error("[SignalR Index] Error:", err));
 
     return () => {
-      connection.stop().catch(() => {});
+      connection.stop().catch(() => { });
     };
   }, []);
 
@@ -136,6 +136,7 @@ export default function Index() {
   // Color dinámico según el estado seleccionado para el indicador visual
   const getEstadoColorClass = () => {
     if (estado === 'ACTIVA') return 'dot-activa';
+    if (estado === 'PROGRAMADA') return 'dot-programada';
     if (estado === 'FINALIZADA') return 'dot-finalizada';
     if (estado === 'CANCELADA') return 'dot-cancelada';
     return 'dot-todos';
@@ -148,7 +149,7 @@ export default function Index() {
       {/* CONTENEDOR DE CONTROLES FIJO Y DINÁMICO */}
       <div className="sticky-filters-container">
         <div className="filters-wrapper">
-          
+
           {/* Categorías */}
           <div className="category-filters">
             {CATEGORIAS.map((cat) => (
@@ -175,8 +176,8 @@ export default function Index() {
               >
                 <option value="">🌐 Todos los estados</option>
                 <option value="ACTIVA">🟢 Activas</option>
+                <option value="PROGRAMADA">⏰ Programadas</option>
                 <option value="FINALIZADA">🔴 Finalizadas</option>
-                <option value="CANCELADA">⚪ Canceladas</option>
               </select>
             </div>
 

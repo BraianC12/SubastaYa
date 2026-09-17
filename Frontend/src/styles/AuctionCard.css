@@ -71,5 +71,16 @@
 .card-time {
   font-size: 13px;
   font-weight: 600;
-  color: #ef4444; 
+  color: #16a34a; /* Verde por defecto */
+  transition: color 0.3s ease;
+}
+
+.card-time.urgente {
+  color: #dc2626; /* Rojo cuando falta 1 minuto o menos */
+  font-weight: 700;
+}
+
+.card-time.finalizada {
+  color: #64748b; /* Gris tenue cuando ya está finalizada */
+  font-weight: 500;
 }

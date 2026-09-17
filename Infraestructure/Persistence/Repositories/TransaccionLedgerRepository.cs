@@ -26,7 +26,7 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<IEnumerable<Transaccion_Ledger>> GetByBilleteraIdAsync(int billeteraId)
         {
-            return await _context.Transacciones_Ledger.Include(t => t.Subasta).
+            return await _context.Transacciones_Ledger.AsNoTracking().Include(t => t.Subasta).
                 Where(t => t.Billetera_Id == billeteraId).OrderByDescending(t => t.Fecha).ToListAsync();
         }
     }

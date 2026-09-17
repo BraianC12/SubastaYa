@@ -22,7 +22,7 @@ namespace Infraestructure.Persistence.Repositories
 
         public async Task<List<Billetera>> Listar()
         {
-            return await _context.Billeteras
+            return await _context.Billeteras.AsNoTracking()
                 .Include(b => b.Usuario)
                 .ToListAsync();
         }
