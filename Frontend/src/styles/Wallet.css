@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--bg);
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 }
 
 .wallet-wrapper {
@@ -25,13 +25,13 @@
 .wallet-title {
   font-size: 32px;
   font-weight: 700;
-  color: var(--text-h);
+  color: #0f172a;
   margin: 0 0 6px 0;
 }
 
 .wallet-subtitle {
   font-size: 15px;
-  color: var(--text);
+  color: #64748b;
   margin: 0;
 }
 
@@ -44,16 +44,17 @@
 }
 
 .wallet-card {
-  background: var(--bg);
-  border: 1px solid var(--border);
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.8);
   border-radius: 14px;
   padding: 24px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .wallet-card:hover {
   transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
 }
 
 .card-disponible {
@@ -78,7 +79,7 @@
 .card-label {
   font-size: 14px;
   font-weight: 600;
-  color: var(--text);
+  color: #64748b;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -86,13 +87,13 @@
 .card-amount {
   font-size: 34px;
   font-weight: 800;
-  color: var(--text-h);
+  color: #0f172a;
   margin-bottom: 6px;
 }
 
 .card-hint {
   font-size: 13px;
-  color: var(--text);
+  color: #64748b;
 }
 
 /* PROGRESS BAR */
@@ -105,7 +106,7 @@
   height: 10px;
   border-radius: 6px;
   overflow: hidden;
-  background-color: var(--border);
+  background-color: #e2e8f0;
 }
 
 .segment-disponible {
@@ -120,18 +121,18 @@
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  color: var(--text);
+  color: #64748b;
   margin-top: 6px;
 }
 
 /* RECARGA SIMULADA */
 .wallet-deposit-section {
-  background: var(--bg);
-  border: 1px solid var(--border);
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.8);
   border-radius: 14px;
   padding: 28px;
   margin-bottom: 32px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
 .deposit-header {
@@ -143,7 +144,7 @@
 
 .deposit-icon {
   font-size: 32px;
-  background: var(--accent-bg);
+  background: #eff6ff;
   padding: 12px;
   border-radius: 12px;
 }
@@ -151,12 +152,12 @@
 .deposit-header h2 {
   font-size: 20px;
   margin: 0 0 4px 0;
-  color: var(--text-h);
+  color: #0f172a;
 }
 
 .deposit-header p {
   font-size: 14px;
-  color: var(--text);
+  color: #64748b;
   margin: 0;
 }
 
@@ -168,9 +169,9 @@
 }
 
 .quick-amount-btn {
-  background: var(--code-bg);
-  border: 1px solid var(--border);
-  color: var(--text-h);
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #334155;
   padding: 10px 18px;
   border-radius: 8px;
   font-weight: 600;
@@ -180,9 +181,9 @@
 
 .quick-amount-btn:hover,
 .quick-amount-btn.active {
-  background: var(--accent);
-  color: #fff;
-  border-color: var(--accent);
+  background: #0056b3;
+  color: #ffffff;
+  border-color: #0056b3;
 }
 
 .input-prefix-wrapper {
@@ -195,7 +196,7 @@
   position: absolute;
   left: 14px;
   font-weight: 700;
-  color: var(--text);
+  color: #64748b;
 }
 
 .deposit-input {
@@ -210,19 +211,27 @@
   font-size: 15px;
   font-weight: 600;
   border-radius: 8px;
-  background: var(--accent);
-  color: white;
+  background: linear-gradient(135deg, #0056b3 0%, #007bff 100%);
+  color: #ffffff;
   border: none;
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 86, 179, 0.25);
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.btn-deposit:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 86, 179, 0.35);
 }
 
 /* HISTORIAL / TABLA */
 .wallet-history-section {
-  background: var(--bg);
-  border: 1px solid var(--border);
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.8);
   border-radius: 14px;
   padding: 24px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
 .history-header {
@@ -241,19 +250,26 @@
 }
 
 .filter-chip {
-  background: var(--code-bg);
-  border: 1px solid var(--border);
-  color: var(--text);
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #475569;
   padding: 6px 14px;
   border-radius: 20px;
   font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-chip:hover {
+  background: #e2e8f0;
+  color: #0f172a;
 }
 
 .filter-chip.active {
-  background: var(--accent);
-  color: #fff;
-  border-color: var(--accent);
+  background: #0056b3;
+  color: #ffffff;
+  border-color: #0056b3;
 }
 
 .table-responsive {
@@ -269,15 +285,15 @@
 
 .transactions-table th {
   padding: 12px 14px;
-  border-bottom: 2px solid var(--border);
-  color: var(--text);
+  border-bottom: 2px solid #e2e8f0;
+  color: #475569;
   font-weight: 600;
 }
 
 .transactions-table td {
   padding: 14px;
-  border-bottom: 1px solid var(--border);
-  color: var(--text-h);
+  border-bottom: 1px solid #f1f5f9;
+  color: #0f172a;
 }
 
 .amount-positive {
@@ -324,7 +340,7 @@
 
 .status-neutral {
   background: rgba(156, 163, 175, 0.15);
-  color: var(--text);
+  color: #64748b;
 }
 
 .amount-debited {
@@ -368,19 +384,19 @@
 }
 
 .badge-neutral {
-  background: var(--code-bg);
-  color: var(--text);
+  background: #f1f5f9;
+  color: #475569;
 }
 
 .tx-desc {
   font-size: 13px;
-  color: var(--text);
+  color: #64748b;
 }
 
 .subasta-link-btn {
   background: none;
   border: none;
-  color: var(--accent);
+  color: #0056b3;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -397,7 +413,7 @@
 .empty-history-cell {
   text-align: center;
   padding: 32px 14px;
-  color: var(--text);
+  color: #64748b;
   font-style: italic;
 }
 
