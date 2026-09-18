@@ -170,10 +170,10 @@ namespace Infraestructure.Persistence
                 // 5. Vencida desierta
                 new Subasta { Id = 5, Titulo = "Monitor 4K", Descripcion = "Vencida desierta", Url_Imagen = "https://imgs.search.brave.com/GxxLh9QfgiHzyAdfGJdwmlCY3HDs81brY9Rr58XEfGI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NjFlWFdSeGd4Skwu/anBn", Categoria_Id = 1, Vendedor_Id = 1, Precio_Base = 30000, Incremento_Minimo = 1000, Fecha_Inicio = fechaBase.AddDays(-4), Fecha_Fin = fechaBase.AddDays(-2), Estado = "DESIERTA" },
 
-                // 6. Activa que vence el SÁBADO 19/09/2026 (A 4 días de hoy)
+                // 6. Activa que vence el SÁBADO 19/09/2026
                 new Subasta { Id = 6, Titulo = "Smart TV Samsung 55'", Descripcion = "Vence el Sábado para probar pujas", Url_Imagen = "https://imgs.search.brave.com/jJ3FtIEDfioe0Qx2YFJLbqkKmZJ_xxLZQjm6zW1P3b0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/OTFibFNpckVqT0wu/anBn", Categoria_Id = 1, Vendedor_Id = 1, Precio_Base = 80000, Incremento_Minimo = 2000, Fecha_Inicio = fechaBase, Fecha_Fin = fechaBase.AddDays(4), Estado = "ACTIVA" },
 
-                // 7. Activa que vence el DOMINGO 20/09/2026 (A 5 días de hoy)
+                // 7. Activa que vence el DOMINGO 20/09/2026
                 new Subasta { Id = 7, Titulo = "PlayStation 5", Descripcion = "Vence el Domingo para probar pujas", Url_Imagen = "https://imgs.search.brave.com/TZ19Apjni8mGzUZkWey-zYtFy4VZ6lDLhLxrWhSQesQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/ZW5nYWRnZXQuY29t/L2ltZy9nYWxsZXJ5/L2hvdy1sb25nLWNh/bi15b3UtZXhwZWN0/LWEtcGxheXN0YXRp/b24tNS10by1sYXN0/L2ludHJvLTE3ODUx/NTQ5MDUuanBn", Categoria_Id = 1, Vendedor_Id = 1, Precio_Base = 120000, Incremento_Minimo = 3000, Fecha_Inicio = fechaBase, Fecha_Fin = fechaBase.AddDays(5), Estado = "ACTIVA" }
             );
 
