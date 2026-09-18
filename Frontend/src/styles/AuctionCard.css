@@ -25,14 +25,14 @@
   border-bottom: 1px solid #f1f5f9;
 }
 
-.card-img {
+.card-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
 
-.auction-card:hover .card-img {
+.auction-card:hover .card-image {
   transform: scale(1.05);
 }
 
@@ -53,34 +53,77 @@
   font-weight: 500;
 }
 
-.card-footer {
+/* =========================================
+   NUEVO FOOTER MODERNO (PRECIO Y PASTILLA)
+   ========================================= */
+
+.card-footer-modern {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 14px;
-  padding-top: 12px;
+  padding-top: 14px;
   border-top: 1px solid #f1f5f9;
+  margin-top: 12px;
 }
 
-.card-price {
-  font-size: 17px;
+/* Estilo del Precio */
+.card-price-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-value {
+  font-size: 18px;
   font-weight: 800;
-  color: #0056b3;
+  color: #0f172a;
+  letter-spacing: -0.5px;
 }
 
-.card-time {
-  font-size: 13px;
+/* Estilo del Tiempo (Pastilla / Badge) */
+.card-time-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 12px;
   font-weight: 600;
-  color: #16a34a; /* Verde por defecto */
-  transition: color 0.3s ease;
+  transition: all 0.2s ease;
 }
 
-.card-time.urgente {
-  color: #dc2626; /* Rojo cuando falta 1 minuto o menos */
-  font-weight: 700;
+/* Estado Activo normal (Fondo sutil verde/azulado) */
+.card-time-badge.active {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
 }
 
-.card-time.finalizada {
-  color: #64748b; /* Gris tenue cuando ya está finalizada */
-  font-weight: 500;
+/* Estado Urgente (Último minuto/hora) */
+.card-time-badge.urgent {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  animation: softPulse 1.5s infinite;
+}
+
+/* Estado Finalizado (Gris apagado) */
+.card-time-badge.finished {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+}
+
+.time-icon {
+  font-size: 13px;
+}
+
+.time-text {
+  white-space: nowrap; /* Evita que el texto baje de línea */
+}
+
+/* Animación de latido para el último minuto */
+@keyframes softPulse {
+  0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.2); }
+  70% { box-shadow: 0 0 0 6px rgba(220, 38, 38, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
 }

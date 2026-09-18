@@ -129,7 +129,7 @@ export default function MyActivities() {
       <main className="activities-wrapper">
         <div className="activities-nav-back">
           <button className="btn-back" onClick={() => navigate('/index')}>
-            ← Volver a Subastas
+            ← Volver al catalogo principal
           </button>
         </div>
 

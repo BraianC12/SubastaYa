@@ -12,22 +12,25 @@
 }
 
 .back-link-btn {
-  background: transparent;
-  border: none;
-  color: #0056b3;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #475569;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   cursor: pointer;
-  padding: 0;
+  padding: 8px 16px;
+  border-radius: 20px; /* Forma de pastilla */
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  transition: color 0.2s ease;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 .back-link-btn:hover {
-  color: #003d82;
-  text-decoration: underline;
+  background: #f8fafc;
+  color: #0f172a;
+  border-color: #cbd5e1;
 }
 
 /* GRILLA PRINCIPAL: Alineada arriba para que la tarjeta izquierda no se estire */

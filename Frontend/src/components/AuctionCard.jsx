@@ -80,6 +80,10 @@ export default function AuctionCard({ subasta }) {
     return () => clearInterval(intervaloId);
   }, [subasta]);
 
+  // Determinamos qué clase CSS aplicar a la pastilla del tiempo
+  const badgeClass = esCritico ? 'urgent' : (tiempoRestante === 'Finalizada' ? 'finished' : 'active');
+  const icon = tiempoRestante === 'Finalizada' ? '🏁' : '⏳';
+
   return (
     <div className="auction-card" onClick={() => navigate(`/subasta/${subasta.id}`)}>
       <div className="card-image-container">
@@ -94,14 +98,20 @@ export default function AuctionCard({ subasta }) {
         <h3 className="card-title">{subasta.titulo}</h3>
         <span className="card-category">{subasta.categoria}</span>
         
-        <div className="card-footer">
-          <span className="card-price">
-            ${subasta.puja_Actual?.toLocaleString('es-AR') || subasta.precio_Base.toLocaleString('es-AR')}
-          </span>
-          <span className={`card-time ${esCritico ? 'urgente' : ''} ${tiempoRestante === 'Finalizada' ? 'finalizada' : ''}`}>
-            ⏳ Tiempo: {tiempoRestante || "Calculando..."}
-          </span>
+        {/* NUEVO FOOTER MODERNO */}
+        <div className="card-footer-modern">
+          <div className="card-price-wrapper">
+            <span className="price-value">
+              ${subasta.puja_Actual?.toLocaleString('es-AR') || subasta.precio_Base.toLocaleString('es-AR')}
+            </span>
+          </div>
+
+          <div className={`card-time-badge ${badgeClass}`}>
+            <span className="time-icon">{icon}</span>
+            <span className="time-text">{tiempoRestante || "Calculando..."}</span>
+          </div>
         </div>
+        
       </div>
     </div>
   );

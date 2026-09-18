@@ -30,8 +30,28 @@ export default function Navbar({ billetera }) {
 
   return (
     <nav className="navbar">
-      <div className="navbar-brand">SubastaYa</div>
+      <div className="navbar-brand brand-logo-container" onClick={() => navigate('/index')} title="Ir al Inicio">      
+        {/* Ícono SVG del Martillo */}
+        <svg 
+          className="logo-icon lightning-icon" 
+          xmlns="http://www.w3.org/2000/svg" 
+          width="28" 
+          height="28" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="#0284c7" 
+          strokeWidth="2.5" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+        >
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        </svg>
+        
+        <h1 className="brand-text">
+          subasta<span className="brand-accent">Ya</span>
+        </h1>
       
+      </div>
       <form className="navbar-search" onSubmit={handleBuscar}>
         <span className="search-icon">🔍</span>
         <input type="text" placeholder="Buscar subastas..." className="app-input search-input" value={termino} onChange={(e) => setTermino(e.target.value)} />

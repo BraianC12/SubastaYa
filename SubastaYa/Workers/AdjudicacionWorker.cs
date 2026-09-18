@@ -27,7 +27,7 @@ namespace SubastaYa.Workers
                         await adjudicarHandler.Handle();
                     }
 
-                    _logger.LogInformation($"[{DateTime.Now}] worker crequeo subastas exitosamente");
+                    _logger.LogInformation($"[{DateTime.Now}] worker chequeo subastas exitosamente");
                 }
                 catch (Exception ex)
                 {

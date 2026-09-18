@@ -352,6 +352,8 @@ export default function AuctionDetail() {
                     <span className="timer-countdown">{tiempoRestante || "Calculando..."}</span>
                   </div>
 
+                  
+
                   {esVendedor ? (
                     <div style={{ padding: '16px', background: '#f1f5f9', border: '1px solid #cbd5e1', borderRadius: '8px', color: '#334155', textAlign: 'center', marginTop: '16px' }}>
                       👑 <strong>Sos el creador de esta publicación</strong>
