@@ -51,7 +51,7 @@ namespace Application.UseCases.Handlers
             }
 
             int pagina = request.Pagina < 1 ? 1 : request.Pagina;
-            int tamaño = 3;
+            int tamaño = 6;
 
             var subastasPaginadas = subastas.Skip((pagina - 1) * tamaño).Take(tamaño).ToList();
 

@@ -29,7 +29,7 @@ export default function Index() {
   const [categoria, setCategoria] = useState('');
   const [estado, setEstado] = useState('ACTIVA');
   const [ordenar, setOrdenar] = useState('Fecha');
-  const LIMITE_POR_PAGINA = 3; // Volvemos a mostrar varias por página en grid
+  const LIMITE_POR_PAGINA = 6; // Volvemos a mostrar varias por página en grid
 
   useEffect(() => {
     const userStorage = localStorage.getItem("usuario");
