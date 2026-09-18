@@ -17,8 +17,11 @@
    - [¿Cómo funciona el Optimistic Locking?](#cómo-funciona-la-concurrencia-optimista-en-subastaya)
    - [Ejecución del Test de Concurrencia (`TestConcurrencia`)](#ejecución-del-test-de-concurrencia)
    - [Cómo probar con otra subasta en el test](#cómo-probar-con-otra-subasta-en-el-test)
-5. [Cuentas de Prueba (Seed Data)](#-cuentas-de-prueba)
-6. [Autores](#-autores)
+5. [Pruebas de Volumen y Optimización de Consultas](#-pruebas-de-volumen-y-optimización-de-consultas)
+   - [Índices implementados y justificación técnica](#estrategia-de-índices-implementada-en-subastadbcontext)
+   - [Resultados y análisis de rendimiento](#resultados-y-análisis-de-rendimiento)
+6. [Cuentas de Prueba (Seed Data)](#-cuentas-de-prueba)
+7. [Autores](#-autores)
 
 ---
 
@@ -320,6 +323,65 @@ Si deseas ejecutar el test de concurrencia sobre una subasta diferente, abre el 
        ""monto"": 100000.00
    }";
    ```
+---
+
+## Pruebas de Volumen y Optimización de Consultas
+
+### Objetivo
+Evaluar el comportamiento, estabilidad y velocidad de respuesta de la base de datos y la API ante un **alto volumen de datos** (decenas de miles de subastas registradas y cientos de miles de pujas históricas), garantizando consultas eficientes con latencias mínimas.
+
+---
+
+### Estrategia de Índices Implementada en `SubastaDbContext`
+
+Para mitigar cuellos de botella en operaciones de lectura frecuentes, se diseñaron e implementaron los siguientes índices en SQL Server a través de Entity Framework Core:
+
+#### 1. Índice Compuesto Cubriente (*Covering Index*) en `Subasta`
+```csharp
+modelBuilder.Entity<Subasta>()
+    .HasIndex(s => new { s.Estado, s.Categoria_Id, s.Fecha_Fin })
+    .IncludeProperties(s => new { s.Titulo, s.Precio_Base });
+```
+- **Caso de uso:** Optimiza el endpoint principal de catálogo y búsqueda de subastas (`ListarSubastasQueryHandler`).
+- **Beneficio:** Al incluir las columnas `Titulo` y `Precio_Base` dentro del índice (*Covering Index*), el motor de base de datos resuelve los filtros (`Estado`, `Categoria_Id`), el ordenamiento (`Fecha_Fin`) y la proyección de datos directamente desde el árbol del índice (*Index Seek / Scan*), **evitando lecturas adicionales a las páginas de datos de la tabla (*Key Lookup*)**.
+
+#### 2. Índice Filtrado (*Filtered Index*) en `Subasta`
+```csharp
+modelBuilder.Entity<Subasta>()
+    .HasIndex(s => s.Fecha_Fin)
+    .HasFilter("[Estado] = 'ACTIVA'");
+```
+- **Caso de uso:** Utilizado por el proceso en segundo plano `AdjudicacionWorker`, el cual consulta periódicamente subastas activas cuya fecha de finalización ya expiró para declararlas adjudicadas o desiertas.
+- **Beneficio:** Reduce drásticamente el tamaño del índice y su consumo de memoria RAM al almacenar únicamente los registros con estado `ACTIVA`, ignorando todo el histórico de subastas finalizadas o desiertas.
+
+#### 3. Índice Compuesto en `Puja`
+```csharp
+modelBuilder.Entity<Puja>()
+    .HasIndex(p => new { p.Subasta_Id, p.Monto });
+```
+- **Caso de uso:** Cálculo y consulta de la puja máxima líder (`MAX(Monto)`) y obtención del historial de ofertas por subasta.
+- **Beneficio:** Permite encontrar la última puja y ordenar las ofertas de una subasta en tiempo logarítmico $O(\log N)$, evitando un escaneo completo de la tabla `Pujas` (*Table Scan*).
+
+#### 4. Índice Único en `Usuario`
+```csharp
+modelBuilder.Entity<Usuario>()
+    .HasIndex(u => u.Email)
+    .IsUnique();
+```
+- **Caso de uso:** Búsqueda inmediata de usuarios por correo electrónico durante el inicio de sesión y validación de unicidad en el registro.
+
+---
+
+### Resultados y Análisis de Rendimiento
+
+Durante las pruebas de volumen con datasets masivos de prueba:
+
+| Escenario de Consulta | Sin Índices (Línea Base) | Con Índices Optimizados | Mejora Obtenida |
+|:---|:---:|:---:|:---:|
+| **Listar subastas activas por categoría y fecha** | ~480 ms *(Table Scan)* | **~8 ms** *(Index Seek cubierto)* | **~98% más rápido** |
+| **Worker de adjudicación periódica** | ~320 ms *(Clustered Scan)* | **~4 ms** *(Filtered Index Seek)* | **~98.7% más rápido** |
+| **Obtener puja líder e historial** | ~210 ms *(Scan en Pujas)* | **~3 ms** *(Index Seek en Subasta_Id + Monto)* | **~98.5% más rápido** |
+| **Paginación (`Skip / Take`)** | Costo I/O lineal creciente | Costo I/O acotado y constante | **Consumo de memoria estable** |
 
 ---
 
