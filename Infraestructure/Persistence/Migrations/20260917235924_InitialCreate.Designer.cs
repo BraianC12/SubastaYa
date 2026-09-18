@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(SubastaDbContext))]
-    [Migration("20260917192922_InitialCreate")]
+    [Migration("20260917235924_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -201,7 +201,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 1,
                             Comprador_Id = 3,
-                            Fecha_Puja = new DateTime(2026, 9, 17, 15, 49, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha_Puja = new DateTime(2026, 9, 17, 20, 19, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Monto = 25000m,
                             Subasta_Id = 1
                         },
@@ -209,7 +209,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 2,
                             Comprador_Id = 2,
-                            Fecha_Puja = new DateTime(2026, 9, 17, 16, 19, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha_Puja = new DateTime(2026, 9, 17, 20, 49, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Monto = 45000m,
                             Subasta_Id = 1
                         },
@@ -217,7 +217,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 3,
                             Comprador_Id = 3,
-                            Fecha_Puja = new DateTime(2026, 9, 15, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha_Puja = new DateTime(2026, 9, 15, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Monto = 120000m,
                             Subasta_Id = 4
                         });
@@ -293,12 +293,12 @@ namespace Infrastructure.Persistence.Migrations
                             Categoria_Id = 1,
                             Descripcion = "Activa Estandar",
                             Estado = "ACTIVA",
-                            Fecha_Fin = new DateTime(2026, 9, 17, 16, 54, 22, 266, DateTimeKind.Local).AddTicks(6847),
-                            Fecha_Inicio = new DateTime(2026, 9, 17, 15, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha_Fin = new DateTime(2026, 9, 17, 21, 24, 23, 850, DateTimeKind.Local).AddTicks(6429),
+                            Fecha_Inicio = new DateTime(2026, 9, 17, 19, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Incremento_Minimo = 500m,
                             Precio_Base = 10000m,
                             Titulo = "MacBook Pro",
-                            Url_Imagen = "macbook.jpg",
+                            Url_Imagen = "https://imgs.search.brave.com/J6-wF1GTePlaf-q8ScW9AG59Iiwp5IWXjXc42fJ1rqg/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/YXBwbGUuY29tL3Yv/bWFjYm9vay1wcm8v/YXgvaW1hZ2VzL292/ZXJ2aWV3L3dlbGNv/bWUvaGVyb19lbmRm/cmFtZV9fZndldjll/Ymg0Mm1xX3hsYXJn/ZS5qcGc",
                             Vendedor_Id = 1
                         },
                         new
@@ -307,12 +307,12 @@ namespace Infrastructure.Persistence.Migrations
                             Categoria_Id = 2,
                             Descripcion = "Activa Crítica",
                             Estado = "ACTIVA",
-                            Fecha_Fin = new DateTime(2026, 9, 17, 16, 30, 22, 266, DateTimeKind.Local).AddTicks(6847),
-                            Fecha_Inicio = new DateTime(2026, 9, 17, 14, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha_Fin = new DateTime(2026, 9, 17, 21, 1, 23, 850, DateTimeKind.Local).AddTicks(6429),
+                            Fecha_Inicio = new DateTime(2026, 9, 17, 19, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Incremento_Minimo = 100m,
                             Precio_Base = 5000m,
                             Titulo = "Reloj Antiguo",
-                            Url_Imagen = "reloj.jpg",
+                            Url_Imagen = "https://imgs.search.brave.com/wLx1K_lbAiBugpCVvNHXj4bv3w48P3iTTWjqGKbuNNg/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pLmVi/YXlpbWcuY29tL2lt/YWdlcy9nL3U0d0FB/T1N3YW5SWGcxYlEv/cy1sNDAwLndlYnA",
                             Vendedor_Id = 1
                         },
                         new
@@ -321,12 +321,12 @@ namespace Infrastructure.Persistence.Migrations
                             Categoria_Id = 3,
                             Descripcion = "Próxima",
                             Estado = "PROGRAMADA",
-                            Fecha_Fin = new DateTime(2026, 9, 19, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
-                            Fecha_Inicio = new DateTime(2026, 9, 18, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha_Fin = new DateTime(2026, 9, 19, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
+                            Fecha_Inicio = new DateTime(2026, 9, 18, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Incremento_Minimo = 1000m,
                             Precio_Base = 20000m,
                             Titulo = "Campera Cuero",
-                            Url_Imagen = "campera.jpg",
+                            Url_Imagen = "https://imgs.search.brave.com/78zXlb1RFASO9v8TmGTyEHbjuQV3Z4Pb2jr9Y1A6mlA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9OUV9OUF82/NDA3NTEtTUxBNTEz/NDY3MjgyMTZfMDgy/MDIyLVcud2VicA",
                             Vendedor_Id = 1
                         },
                         new
@@ -335,12 +335,12 @@ namespace Infrastructure.Persistence.Migrations
                             Categoria_Id = 4,
                             Descripcion = "Vencida con ganador",
                             Estado = "FINALIZADA",
-                            Fecha_Fin = new DateTime(2026, 9, 16, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
-                            Fecha_Inicio = new DateTime(2026, 9, 12, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha_Fin = new DateTime(2026, 9, 16, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
+                            Fecha_Inicio = new DateTime(2026, 9, 12, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Incremento_Minimo = 5000m,
                             Precio_Base = 100000m,
                             Titulo = "Moto Honda",
-                            Url_Imagen = "moto.jpg",
+                            Url_Imagen = "https://imgs.search.brave.com/OwjFjSvv0S8ohAmt395Fx2GCJChEk7U13LAuRYJt_lU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zY2Fs/ZXRodW1iLmxlcGFy/a2luZy5mci91bnNh/ZmUvMzAweDIyNS9o/dHRwczovL2Nsb3Vk/LmxlcGFya2luZy1t/b3RvLmZyLzIwMjUv/MTAvMTAvMDcvMTEv/aG9uZGEtbmVzLW1v/dG9ycmFkLWhvbmRh/LW5lcy0xMjVfMjUz/OTU0NDY4LmpwZw",
                             Vendedor_Id = 1
                         },
                         new
@@ -349,12 +349,12 @@ namespace Infrastructure.Persistence.Migrations
                             Categoria_Id = 1,
                             Descripcion = "Vencida desierta",
                             Estado = "DESIERTA",
-                            Fecha_Fin = new DateTime(2026, 9, 15, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
-                            Fecha_Inicio = new DateTime(2026, 9, 13, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha_Fin = new DateTime(2026, 9, 15, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
+                            Fecha_Inicio = new DateTime(2026, 9, 13, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Incremento_Minimo = 1000m,
                             Precio_Base = 30000m,
                             Titulo = "Monitor 4K",
-                            Url_Imagen = "monitor.jpg",
+                            Url_Imagen = "https://imgs.search.brave.com/GxxLh9QfgiHzyAdfGJdwmlCY3HDs81brY9Rr58XEfGI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NjFlWFdSeGd4Skwu/anBn",
                             Vendedor_Id = 1
                         },
                         new
@@ -363,12 +363,12 @@ namespace Infrastructure.Persistence.Migrations
                             Categoria_Id = 1,
                             Descripcion = "Vence el Sábado para probar pujas",
                             Estado = "ACTIVA",
-                            Fecha_Fin = new DateTime(2026, 9, 21, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
-                            Fecha_Inicio = new DateTime(2026, 9, 17, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha_Fin = new DateTime(2026, 9, 21, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
+                            Fecha_Inicio = new DateTime(2026, 9, 17, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Incremento_Minimo = 2000m,
                             Precio_Base = 80000m,
                             Titulo = "Smart TV Samsung 55'",
-                            Url_Imagen = "tv.jpg",
+                            Url_Imagen = "https://imgs.search.brave.com/jJ3FtIEDfioe0Qx2YFJLbqkKmZJ_xxLZQjm6zW1P3b0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/OTFibFNpckVqT0wu/anBn",
                             Vendedor_Id = 1
                         },
                         new
@@ -377,12 +377,12 @@ namespace Infrastructure.Persistence.Migrations
                             Categoria_Id = 1,
                             Descripcion = "Vence el Domingo para probar pujas",
                             Estado = "ACTIVA",
-                            Fecha_Fin = new DateTime(2026, 9, 22, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
-                            Fecha_Inicio = new DateTime(2026, 9, 17, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha_Fin = new DateTime(2026, 9, 22, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
+                            Fecha_Inicio = new DateTime(2026, 9, 17, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Incremento_Minimo = 3000m,
                             Precio_Base = 120000m,
                             Titulo = "PlayStation 5",
-                            Url_Imagen = "ps5.jpg",
+                            Url_Imagen = "https://imgs.search.brave.com/TZ19Apjni8mGzUZkWey-zYtFy4VZ6lDLhLxrWhSQesQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/ZW5nYWRnZXQuY29t/L2ltZy9nYWxsZXJ5/L2hvdy1sb25nLWNh/bi15b3UtZXhwZWN0/LWEtcGxheXN0YXRp/b24tNS10by1sYXN0/L2ludHJvLTE3ODUx/NTQ5MDUuanBn",
                             Vendedor_Id = 1
                         });
                 });
@@ -424,7 +424,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 1,
                             Billetera_Id = 2,
-                            Fecha = new DateTime(2026, 9, 12, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha = new DateTime(2026, 9, 12, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Monto = 150000m,
                             Tipo = "DEPOSITO"
                         },
@@ -432,7 +432,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 2,
                             Billetera_Id = 3,
-                            Fecha = new DateTime(2026, 9, 12, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha = new DateTime(2026, 9, 12, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Monto = 200000m,
                             Tipo = "DEPOSITO"
                         },
@@ -440,7 +440,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 3,
                             Billetera_Id = 4,
-                            Fecha = new DateTime(2026, 9, 12, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha = new DateTime(2026, 9, 12, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Monto = 500m,
                             Tipo = "DEPOSITO"
                         },
@@ -448,7 +448,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 4,
                             Billetera_Id = 2,
-                            Fecha = new DateTime(2026, 9, 17, 16, 19, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha = new DateTime(2026, 9, 17, 20, 49, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Monto = 45000m,
                             Subasta_Id = 1,
                             Tipo = "RETENCION"
@@ -457,7 +457,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 5,
                             Billetera_Id = 3,
-                            Fecha = new DateTime(2026, 9, 16, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha = new DateTime(2026, 9, 16, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Monto = 120000m,
                             Subasta_Id = 4,
                             Tipo = "DEBITO"
@@ -474,7 +474,7 @@ namespace Infrastructure.Persistence.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Fecha_Registro")
                         .HasColumnType("datetime2");
@@ -489,6 +489,9 @@ namespace Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("Usuarios");
 
                     b.HasData(
@@ -496,7 +499,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 1,
                             Email = "vendedor@test.com",
-                            Fecha_Registro = new DateTime(2026, 8, 18, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha_Registro = new DateTime(2026, 8, 18, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Nombre = "Vendedor",
                             Password_Hash = "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK"
                         },
@@ -504,7 +507,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 2,
                             Email = "comprador1@test.com",
-                            Fecha_Registro = new DateTime(2026, 8, 28, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha_Registro = new DateTime(2026, 8, 28, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Nombre = "Comprador Lider",
                             Password_Hash = "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK"
                         },
@@ -512,7 +515,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 3,
                             Email = "comprador2@test.com",
-                            Fecha_Registro = new DateTime(2026, 9, 2, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha_Registro = new DateTime(2026, 9, 2, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Nombre = "Comprador Habilitado",
                             Password_Hash = "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK"
                         },
@@ -520,7 +523,7 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             Id = 4,
                             Email = "sinfondos@test.com",
-                            Fecha_Registro = new DateTime(2026, 9, 7, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847),
+                            Fecha_Registro = new DateTime(2026, 9, 7, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429),
                             Nombre = "Usuario Sin Fondos",
                             Password_Hash = "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK"
                         });

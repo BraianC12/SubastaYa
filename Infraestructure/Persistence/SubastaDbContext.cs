@@ -103,11 +103,18 @@ namespace Infraestructure.Persistence
             modelBuilder.Entity<Subasta>()
                 .HasIndex(s => new { s.Estado, s.Categoria_Id, s.Fecha_Fin })
                 .IncludeProperties(s => new { s.Titulo, s.Precio_Base });
+
             modelBuilder.Entity<Subasta>()
                 .HasIndex(s => s.Fecha_Fin)
                 .HasFilter("[Estado] = 'ACTIVA'");
+
             modelBuilder.Entity<Puja>()
                 .HasIndex(p => new { p.Subasta_Id, p.Monto });
+
+            modelBuilder.Entity<Usuario>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
 
             //configuración de tipo decimales
             modelBuilder.Entity<Subasta>().Property(s => s.Precio_Base).HasColumnType("decimal(18,2)");
@@ -149,25 +156,25 @@ namespace Infraestructure.Persistence
             // 4. Subastas (Requisitos de cátedra + pruebas de fin de semana)
             modelBuilder.Entity<Subasta>().HasData(
                 // 1. Activa estándar: Cierra en 25 min (con 2 pujas previas)
-                new Subasta { Id = 1, Titulo = "MacBook Pro", Descripcion = "Activa Estandar", Url_Imagen = "macbook.jpg", Categoria_Id = 1, Vendedor_Id = 1, Precio_Base = 10000, Incremento_Minimo = 500, Fecha_Inicio = fechaBase.AddHours(-1), Fecha_Fin = fechaBase.AddMinutes(25), Estado = "ACTIVA" },
+                new Subasta { Id = 1, Titulo = "MacBook Pro", Descripcion = "Activa Estandar", Url_Imagen = "https://imgs.search.brave.com/J6-wF1GTePlaf-q8ScW9AG59Iiwp5IWXjXc42fJ1rqg/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/YXBwbGUuY29tL3Yv/bWFjYm9vay1wcm8v/YXgvaW1hZ2VzL292/ZXJ2aWV3L3dlbGNv/bWUvaGVyb19lbmRm/cmFtZV9fZndldjll/Ymg0Mm1xX3hsYXJn/ZS5qcGc", Categoria_Id = 1, Vendedor_Id = 1, Precio_Base = 10000, Incremento_Minimo = 500, Fecha_Inicio = fechaBase.AddHours(-1), Fecha_Fin = fechaBase.AddMinutes(25), Estado = "ACTIVA" },
 
                 // 2. Activa crítica: Cierra en 1 min (para probar anti-sniping)
-                new Subasta { Id = 2, Titulo = "Reloj Antiguo", Descripcion = "Activa Crítica", Url_Imagen = "reloj.jpg", Categoria_Id = 2, Vendedor_Id = 1, Precio_Base = 5000, Incremento_Minimo = 100, Fecha_Inicio = fechaBase.AddHours(-2), Fecha_Fin = fechaBase.AddMinutes(1), Estado = "ACTIVA" },
+                new Subasta { Id = 2, Titulo = "Reloj Antiguo", Descripcion = "Activa Crítica", Url_Imagen = "https://imgs.search.brave.com/wLx1K_lbAiBugpCVvNHXj4bv3w48P3iTTWjqGKbuNNg/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pLmVi/YXlpbWcuY29tL2lt/YWdlcy9nL3U0d0FB/T1N3YW5SWGcxYlEv/cy1sNDAwLndlYnA", Categoria_Id = 2, Vendedor_Id = 1, Precio_Base = 5000, Incremento_Minimo = 100, Fecha_Inicio = fechaBase.AddHours(-1), Fecha_Fin = fechaBase.AddMinutes(2), Estado = "ACTIVA" },
 
                 // 3. Próxima: Programada a +24 hs (pujas bloqueadas)
-                new Subasta { Id = 3, Titulo = "Campera Cuero", Descripcion = "Próxima", Url_Imagen = "campera.jpg", Categoria_Id = 3, Vendedor_Id = 1, Precio_Base = 20000, Incremento_Minimo = 1000, Fecha_Inicio = fechaBase.AddHours(24), Fecha_Fin = fechaBase.AddHours(48), Estado = "PROGRAMADA" },
+                new Subasta { Id = 3, Titulo = "Campera Cuero", Descripcion = "Próxima", Url_Imagen = "https://imgs.search.brave.com/78zXlb1RFASO9v8TmGTyEHbjuQV3Z4Pb2jr9Y1A6mlA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9OUV9OUF82/NDA3NTEtTUxBNTEz/NDY3MjgyMTZfMDgy/MDIyLVcud2VicA", Categoria_Id = 3, Vendedor_Id = 1, Precio_Base = 20000, Incremento_Minimo = 1000, Fecha_Inicio = fechaBase.AddHours(24), Fecha_Fin = fechaBase.AddHours(48), Estado = "PROGRAMADA" },
 
                 // 4. Vencida con ganador
-                new Subasta { Id = 4, Titulo = "Moto Honda", Descripcion = "Vencida con ganador", Url_Imagen = "moto.jpg", Categoria_Id = 4, Vendedor_Id = 1, Precio_Base = 100000, Incremento_Minimo = 5000, Fecha_Inicio = fechaBase.AddDays(-5), Fecha_Fin = fechaBase.AddDays(-1), Estado = "FINALIZADA" },
+                new Subasta { Id = 4, Titulo = "Moto Honda", Descripcion = "Vencida con ganador", Url_Imagen = "https://imgs.search.brave.com/OwjFjSvv0S8ohAmt395Fx2GCJChEk7U13LAuRYJt_lU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zY2Fs/ZXRodW1iLmxlcGFy/a2luZy5mci91bnNh/ZmUvMzAweDIyNS9o/dHRwczovL2Nsb3Vk/LmxlcGFya2luZy1t/b3RvLmZyLzIwMjUv/MTAvMTAvMDcvMTEv/aG9uZGEtbmVzLW1v/dG9ycmFkLWhvbmRh/LW5lcy0xMjVfMjUz/OTU0NDY4LmpwZw", Categoria_Id = 4, Vendedor_Id = 1, Precio_Base = 100000, Incremento_Minimo = 5000, Fecha_Inicio = fechaBase.AddDays(-5), Fecha_Fin = fechaBase.AddDays(-1), Estado = "FINALIZADA" },
 
                 // 5. Vencida desierta
-                new Subasta { Id = 5, Titulo = "Monitor 4K", Descripcion = "Vencida desierta", Url_Imagen = "monitor.jpg", Categoria_Id = 1, Vendedor_Id = 1, Precio_Base = 30000, Incremento_Minimo = 1000, Fecha_Inicio = fechaBase.AddDays(-4), Fecha_Fin = fechaBase.AddDays(-2), Estado = "DESIERTA" },
+                new Subasta { Id = 5, Titulo = "Monitor 4K", Descripcion = "Vencida desierta", Url_Imagen = "https://imgs.search.brave.com/GxxLh9QfgiHzyAdfGJdwmlCY3HDs81brY9Rr58XEfGI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NjFlWFdSeGd4Skwu/anBn", Categoria_Id = 1, Vendedor_Id = 1, Precio_Base = 30000, Incremento_Minimo = 1000, Fecha_Inicio = fechaBase.AddDays(-4), Fecha_Fin = fechaBase.AddDays(-2), Estado = "DESIERTA" },
 
-                // 6. Activa que vence el SÁBADO 19/09/2026 (A 4 días de hoy)
-                new Subasta { Id = 6, Titulo = "Smart TV Samsung 55'", Descripcion = "Vence el Sábado para probar pujas", Url_Imagen = "tv.jpg", Categoria_Id = 1, Vendedor_Id = 1, Precio_Base = 80000, Incremento_Minimo = 2000, Fecha_Inicio = fechaBase, Fecha_Fin = fechaBase.AddDays(4), Estado = "ACTIVA" },
+                // 6. Activa que vence el SÁBADO 19/09/2026
+                new Subasta { Id = 6, Titulo = "Smart TV Samsung 55'", Descripcion = "Vence el Sábado para probar pujas", Url_Imagen = "https://imgs.search.brave.com/jJ3FtIEDfioe0Qx2YFJLbqkKmZJ_xxLZQjm6zW1P3b0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/OTFibFNpckVqT0wu/anBn", Categoria_Id = 1, Vendedor_Id = 1, Precio_Base = 80000, Incremento_Minimo = 2000, Fecha_Inicio = fechaBase, Fecha_Fin = fechaBase.AddDays(4), Estado = "ACTIVA" },
 
-                // 7. Activa que vence el DOMINGO 20/09/2026 (A 5 días de hoy)
-                new Subasta { Id = 7, Titulo = "PlayStation 5", Descripcion = "Vence el Domingo para probar pujas", Url_Imagen = "ps5.jpg", Categoria_Id = 1, Vendedor_Id = 1, Precio_Base = 120000, Incremento_Minimo = 3000, Fecha_Inicio = fechaBase, Fecha_Fin = fechaBase.AddDays(5), Estado = "ACTIVA" }
+                // 7. Activa que vence el DOMINGO 20/09/2026
+                new Subasta { Id = 7, Titulo = "PlayStation 5", Descripcion = "Vence el Domingo para probar pujas", Url_Imagen = "https://imgs.search.brave.com/TZ19Apjni8mGzUZkWey-zYtFy4VZ6lDLhLxrWhSQesQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/ZW5nYWRnZXQuY29t/L2ltZy9nYWxsZXJ5/L2hvdy1sb25nLWNh/bi15b3UtZXhwZWN0/LWEtcGxheXN0YXRp/b24tNS10by1sYXN0/L2ludHJvLTE3ODUx/NTQ5MDUuanBn", Categoria_Id = 1, Vendedor_Id = 1, Precio_Base = 120000, Incremento_Minimo = 3000, Fecha_Inicio = fechaBase, Fecha_Fin = fechaBase.AddDays(5), Estado = "ACTIVA" }
             );
 
             // 5. Pujas previas

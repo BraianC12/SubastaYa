@@ -32,7 +32,7 @@ namespace Infrastructure.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password_Hash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Fecha_Registro = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -197,10 +197,10 @@ namespace Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "Email", "Fecha_Registro", "Nombre", "Password_Hash" },
                 values: new object[,]
                 {
-                    { 1, "vendedor@test.com", new DateTime(2026, 8, 18, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), "Vendedor", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
-                    { 2, "comprador1@test.com", new DateTime(2026, 8, 28, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), "Comprador Lider", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
-                    { 3, "comprador2@test.com", new DateTime(2026, 9, 2, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), "Comprador Habilitado", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
-                    { 4, "sinfondos@test.com", new DateTime(2026, 9, 7, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), "Usuario Sin Fondos", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" }
+                    { 1, "vendedor@test.com", new DateTime(2026, 8, 18, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), "Vendedor", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
+                    { 2, "comprador1@test.com", new DateTime(2026, 8, 28, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), "Comprador Lider", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
+                    { 3, "comprador2@test.com", new DateTime(2026, 9, 2, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), "Comprador Habilitado", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" },
+                    { 4, "sinfondos@test.com", new DateTime(2026, 9, 7, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), "Usuario Sin Fondos", "$2y$10$TodzyNai9KReU03EQu46Y.OG28bJbBSupc2PT8BXgeTbINfVWEJuK" }
                 });
 
             migrationBuilder.InsertData(
@@ -219,13 +219,13 @@ namespace Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "Categoria_Id", "Descripcion", "Estado", "Fecha_Fin", "Fecha_Inicio", "Incremento_Minimo", "Precio_Base", "Titulo", "Url_Imagen", "Vendedor_Id" },
                 values: new object[,]
                 {
-                    { 1, 1, "Activa Estandar", "ACTIVA", new DateTime(2026, 9, 17, 16, 54, 22, 266, DateTimeKind.Local).AddTicks(6847), new DateTime(2026, 9, 17, 15, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 500m, 10000m, "MacBook Pro", "macbook.jpg", 1 },
-                    { 2, 2, "Activa Crítica", "ACTIVA", new DateTime(2026, 9, 17, 16, 30, 22, 266, DateTimeKind.Local).AddTicks(6847), new DateTime(2026, 9, 17, 14, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 100m, 5000m, "Reloj Antiguo", "reloj.jpg", 1 },
-                    { 3, 3, "Próxima", "PROGRAMADA", new DateTime(2026, 9, 19, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), new DateTime(2026, 9, 18, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 1000m, 20000m, "Campera Cuero", "campera.jpg", 1 },
-                    { 4, 4, "Vencida con ganador", "FINALIZADA", new DateTime(2026, 9, 16, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), new DateTime(2026, 9, 12, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 5000m, 100000m, "Moto Honda", "moto.jpg", 1 },
-                    { 5, 1, "Vencida desierta", "DESIERTA", new DateTime(2026, 9, 15, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), new DateTime(2026, 9, 13, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 1000m, 30000m, "Monitor 4K", "monitor.jpg", 1 },
-                    { 6, 1, "Vence el Sábado para probar pujas", "ACTIVA", new DateTime(2026, 9, 21, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), new DateTime(2026, 9, 17, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 2000m, 80000m, "Smart TV Samsung 55'", "tv.jpg", 1 },
-                    { 7, 1, "Vence el Domingo para probar pujas", "ACTIVA", new DateTime(2026, 9, 22, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), new DateTime(2026, 9, 17, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 3000m, 120000m, "PlayStation 5", "ps5.jpg", 1 }
+                    { 1, 1, "Activa Estandar", "ACTIVA", new DateTime(2026, 9, 17, 21, 24, 23, 850, DateTimeKind.Local).AddTicks(6429), new DateTime(2026, 9, 17, 19, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), 500m, 10000m, "MacBook Pro", "https://imgs.search.brave.com/J6-wF1GTePlaf-q8ScW9AG59Iiwp5IWXjXc42fJ1rqg/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/YXBwbGUuY29tL3Yv/bWFjYm9vay1wcm8v/YXgvaW1hZ2VzL292/ZXJ2aWV3L3dlbGNv/bWUvaGVyb19lbmRm/cmFtZV9fZndldjll/Ymg0Mm1xX3hsYXJn/ZS5qcGc", 1 },
+                    { 2, 2, "Activa Crítica", "ACTIVA", new DateTime(2026, 9, 17, 21, 1, 23, 850, DateTimeKind.Local).AddTicks(6429), new DateTime(2026, 9, 17, 19, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), 100m, 5000m, "Reloj Antiguo", "https://imgs.search.brave.com/wLx1K_lbAiBugpCVvNHXj4bv3w48P3iTTWjqGKbuNNg/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pLmVi/YXlpbWcuY29tL2lt/YWdlcy9nL3U0d0FB/T1N3YW5SWGcxYlEv/cy1sNDAwLndlYnA", 1 },
+                    { 3, 3, "Próxima", "PROGRAMADA", new DateTime(2026, 9, 19, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), new DateTime(2026, 9, 18, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), 1000m, 20000m, "Campera Cuero", "https://imgs.search.brave.com/78zXlb1RFASO9v8TmGTyEHbjuQV3Z4Pb2jr9Y1A6mlA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9OUV9OUF82/NDA3NTEtTUxBNTEz/NDY3MjgyMTZfMDgy/MDIyLVcud2VicA", 1 },
+                    { 4, 4, "Vencida con ganador", "FINALIZADA", new DateTime(2026, 9, 16, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), new DateTime(2026, 9, 12, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), 5000m, 100000m, "Moto Honda", "https://imgs.search.brave.com/OwjFjSvv0S8ohAmt395Fx2GCJChEk7U13LAuRYJt_lU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zY2Fs/ZXRodW1iLmxlcGFy/a2luZy5mci91bnNh/ZmUvMzAweDIyNS9o/dHRwczovL2Nsb3Vk/LmxlcGFya2luZy1t/b3RvLmZyLzIwMjUv/MTAvMTAvMDcvMTEv/aG9uZGEtbmVzLW1v/dG9ycmFkLWhvbmRh/LW5lcy0xMjVfMjUz/OTU0NDY4LmpwZw", 1 },
+                    { 5, 1, "Vencida desierta", "DESIERTA", new DateTime(2026, 9, 15, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), new DateTime(2026, 9, 13, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), 1000m, 30000m, "Monitor 4K", "https://imgs.search.brave.com/GxxLh9QfgiHzyAdfGJdwmlCY3HDs81brY9Rr58XEfGI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NjFlWFdSeGd4Skwu/anBn", 1 },
+                    { 6, 1, "Vence el Sábado para probar pujas", "ACTIVA", new DateTime(2026, 9, 21, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), new DateTime(2026, 9, 17, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), 2000m, 80000m, "Smart TV Samsung 55'", "https://imgs.search.brave.com/jJ3FtIEDfioe0Qx2YFJLbqkKmZJ_xxLZQjm6zW1P3b0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/OTFibFNpckVqT0wu/anBn", 1 },
+                    { 7, 1, "Vence el Domingo para probar pujas", "ACTIVA", new DateTime(2026, 9, 22, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), new DateTime(2026, 9, 17, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), 3000m, 120000m, "PlayStation 5", "https://imgs.search.brave.com/TZ19Apjni8mGzUZkWey-zYtFy4VZ6lDLhLxrWhSQesQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/ZW5nYWRnZXQuY29t/L2ltZy9nYWxsZXJ5/L2hvdy1sb25nLWNh/bi15b3UtZXhwZWN0/LWEtcGxheXN0YXRp/b24tNS10by1sYXN0/L2ludHJvLTE3ODUx/NTQ5MDUuanBn", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -233,9 +233,9 @@ namespace Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "Comprador_Id", "Fecha_Puja", "Monto", "Subasta_Id" },
                 values: new object[,]
                 {
-                    { 1, 3, new DateTime(2026, 9, 17, 15, 49, 22, 266, DateTimeKind.Local).AddTicks(6847), 25000m, 1 },
-                    { 2, 2, new DateTime(2026, 9, 17, 16, 19, 22, 266, DateTimeKind.Local).AddTicks(6847), 45000m, 1 },
-                    { 3, 3, new DateTime(2026, 9, 15, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 120000m, 4 }
+                    { 1, 3, new DateTime(2026, 9, 17, 20, 19, 23, 850, DateTimeKind.Local).AddTicks(6429), 25000m, 1 },
+                    { 2, 2, new DateTime(2026, 9, 17, 20, 49, 23, 850, DateTimeKind.Local).AddTicks(6429), 45000m, 1 },
+                    { 3, 3, new DateTime(2026, 9, 15, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), 120000m, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -243,11 +243,11 @@ namespace Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "Billetera_Id", "Fecha", "Monto", "Subasta_Id", "Tipo" },
                 values: new object[,]
                 {
-                    { 1, 2, new DateTime(2026, 9, 12, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 150000m, null, "DEPOSITO" },
-                    { 2, 3, new DateTime(2026, 9, 12, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 200000m, null, "DEPOSITO" },
-                    { 3, 4, new DateTime(2026, 9, 12, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 500m, null, "DEPOSITO" },
-                    { 4, 2, new DateTime(2026, 9, 17, 16, 19, 22, 266, DateTimeKind.Local).AddTicks(6847), 45000m, 1, "RETENCION" },
-                    { 5, 3, new DateTime(2026, 9, 16, 16, 29, 22, 266, DateTimeKind.Local).AddTicks(6847), 120000m, 4, "DEBITO" }
+                    { 1, 2, new DateTime(2026, 9, 12, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), 150000m, null, "DEPOSITO" },
+                    { 2, 3, new DateTime(2026, 9, 12, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), 200000m, null, "DEPOSITO" },
+                    { 3, 4, new DateTime(2026, 9, 12, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), 500m, null, "DEPOSITO" },
+                    { 4, 2, new DateTime(2026, 9, 17, 20, 49, 23, 850, DateTimeKind.Local).AddTicks(6429), 45000m, 1, "RETENCION" },
+                    { 5, 3, new DateTime(2026, 9, 16, 20, 59, 23, 850, DateTimeKind.Local).AddTicks(6429), 120000m, 4, "DEBITO" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -302,6 +302,12 @@ namespace Infrastructure.Persistence.Migrations
                 name: "IX_Transacciones_Ledger_Subasta_Id",
                 table: "Transacciones_Ledger",
                 column: "Subasta_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_Email",
+                table: "Usuarios",
+                column: "Email",
+                unique: true);
         }
 
         /// <inheritdoc />

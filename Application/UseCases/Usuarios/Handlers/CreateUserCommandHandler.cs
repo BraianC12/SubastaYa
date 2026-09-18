@@ -3,6 +3,7 @@ using Application.Interfaces;
 using Application.UseCases.Usuarios.Commands;
 using BCrypt.Net;
 using Domain;
+using Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,13 @@ namespace Application.UseCases.Usuarios.Handlers
 
         public async Task<CreateUserDto> Handle(CreateUserCommand request)
         {
+            var existingUser = await _userRepository.GetUser(request.Email);
+
+            if (existingUser != null)
+            {
+                throw new ConflictException("El correo electrónico ya se encuentra registrado.");
+            }
+
             var user = new Usuario
             {
                 Email = request.Email,
